@@ -6,7 +6,7 @@ require('../app/js/client');
 
 describe('controller tests', ()=>{
 
-  let ctrlVar1
+  let ctrlVar1;
 
   it('should run a test', ()=>{
     expect(true).toBe(true);

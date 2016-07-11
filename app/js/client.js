@@ -9,36 +9,33 @@ require('./services')(app);
 
 app.config(function($routeProvider){
   $routeProvider.when('/',{
-
+    templateUrl: './views/partials/blog.html',
+    controller: 'BlogController',
+    controllerAS: 'bc'
   })
   .when('/blog-admin', {
     templateUrl: './views/partials/blog-admin.html',
-    controller: '',
-    controllerAS: ''
-  })
-  .when('/blog', {
-    templateUrl: './views/partials/blog.html',
-    controller: '',
-    controllerAS: ''
+    controller: 'BlogAdminController',
+    controllerAS: 'bac'
   })
   .when('/login', {
     templateUrl: './views/partials/login.html',
-    controller: '',
-    controllerAS: ''
+    controller: 'AuthController',
+    controllerAS: 'ac'
   })
   .when('/profile-admin', {
     templateUrl: './views/partials/profile-admin.html',
-    controller: '',
-    controllerAS: ''
+    controller: 'ProfileAdminController',
+    controllerAS: 'pac'
   })
   .when('/profile', {
     templateUrl: './views/partials/profile.html',
-    controller: '',
-    controllerAS: ''
+    controller: 'ProfileController',
+    controllerAS: 'pc'
   })
   .when('/signup', {
     templateUrl: './views/partials/signup.html',
-    controller: '',
-    controllerAS: ''
+    controller: 'AuthController',
+    controllerAS: 'ac'
   });
 });

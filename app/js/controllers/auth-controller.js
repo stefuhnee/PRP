@@ -6,7 +6,7 @@ module.exports = function(app) {
       $location.url('/');
     };
     this.signUp = function(user) {
-      AuthService.signUp(user);
+      AuthService.signUp(user)
       .then((res) => {
         console.log(res);
       }).then((err) => {

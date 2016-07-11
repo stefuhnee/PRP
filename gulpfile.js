@@ -14,7 +14,7 @@ const paths = {
 gulp.task('clean', ()=>{
   gulp.src('./build/**/*', {read:false})
     .pipe(clean());
-  return gulp.src('./app/stylesheets/style.css', {read:false})
+  return gulp.src('./app/stylesheets/**/*.css', {read:false})
     .pipe(clean());
 });
 

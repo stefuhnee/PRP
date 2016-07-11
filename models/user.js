@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const secret = process.env.SECRET || 'changeme';
 const jwt = require('jsonwebtoken');
 
-const User = new mongoose.schema({
+const User = new mongoose.Schema({
   username: {type: String, required: true},
   password: {type: String, required: true},
   posts: {type: String, required: false}

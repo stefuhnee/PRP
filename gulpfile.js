@@ -12,7 +12,9 @@ const paths = {
 };
 
 gulp.task('clean', ()=>{
-  return gulp.src('./build/**/*', {read:false})
+  gulp.src('./build/**/*', {read:false})
+    .pipe(clean());
+  return gulp.src('./app/stylesheets/style.css', {read:false})
     .pipe(clean());
 });
 
@@ -26,14 +28,14 @@ gulp.task('copy-css', ['clean'], ()=>{
     .pipe(gulp.dest('./build'));
 });
 
-gulp.task('sass', function () {
-  return gulp.src('./app/scss/*.scss')
+gulp.task('sass', ()=> {
+  return gulp.src('./app/stylesheets/scss/style.scss')
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./app/css'));
+    .pipe(gulp.dest('./app/stylesheets'));
 });
 
-gulp.task('sass:watch', function () {
-  gulp.watch('./app/**/*.scss', ['sass']);
+gulp.task('sass:watch', ()=> {
+  gulp.watch('./app/stylesheets/**/*.scss', ['sass']);
 });
 
 gulp.task('bundle', ['clean'], ()=>{
@@ -60,6 +62,6 @@ gulp.task('watch', ()=>{
   gulp.watch('./app/*', ['build', 'sass:watch']);
 });
 
-gulp.task('build', ['clean', 'copy-css', 'copy-html', 'bundle', 'sass']);
+gulp.task('build', ['clean', 'sass', 'copy-css', 'copy-html', 'bundle']);
 
 gulp.task('default', ['build']);

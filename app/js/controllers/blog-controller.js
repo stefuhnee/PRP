@@ -29,5 +29,26 @@ module.exports = function(app) {
       $location.url('/login');
       console.log(err);
     };
+
+    this.updateEntry = function(entry) {
+      $http({
+        method: 'PUT',
+        data: entry,
+        headers: {
+          token: AuthService.getToken()
+        },
+        url: 'http://localhost:3000/entry'
+      })
+        .then(() => {
+          EntryService.entries = EntryService.entries.map (e => {
+            return e._id === this.entry._id ? this.entry : e;
+          });
+          EntryService.getEntries(() => {
+            this.entries = EntryService.entries;
+          });
+        }, (err) => {
+          console.log(err);
+        });
+    };
   }]);
 };

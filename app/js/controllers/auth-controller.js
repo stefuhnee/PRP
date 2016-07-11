@@ -18,7 +18,9 @@ module.exports = function(app) {
       AuthService.logIn(user)
       .then((res) => {
         console.log(res, 'Sign in res');
-      });
-    };
-  });
-};
+      }, (err) => {
+        console.log(err, 'failed sign in');
+      $location.path('/signup');
+    });
+  }
+});

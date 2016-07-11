@@ -1,1 +1,6 @@
-require('express')().use(require('express').static('./build')).listen(3000);
+'use strict';
+const express = require('express');
+
+express().use(express.static(__dirname + '/build')).listen(8080, ()=> {
+  console.log('up on 8080');
+});

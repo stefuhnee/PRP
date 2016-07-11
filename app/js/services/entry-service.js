@@ -6,10 +6,13 @@ module.exports = function(app) {
     const service = {};
     service.entries = [];
 
-    service.getEntries = function() {
+    service.getEntries = function(cb) {
+      console.log('get entries');
       return $http.get('http://localhost:3000/blog')
       .then((res) => {
         service.entries = res.data;
+        console.log('service entries', service.entries);
+        cb();
       }, (err) => {
         console.log(err);
       });

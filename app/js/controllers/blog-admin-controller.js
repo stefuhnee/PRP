@@ -1,9 +1,10 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('BlogAdminController', ['$http', 'AuthService', 'EntryService', function($http, AuthService, EntryService) {
+  app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', function($http, $location, AuthService, EntryService) {
     this.entries = [];
     this.$http = $http;
+    this.$location = $location;
 
     function getDate() {
       let date = new Date();
@@ -11,6 +12,7 @@ module.exports = function(app) {
     }
 
     this.addEntry = function(entry) {
+      console.log('addEntry');
       let date = getDate();
       entry.dateCreated = date;
       $http({
@@ -19,11 +21,13 @@ module.exports = function(app) {
         headers: {
           token: AuthService.getToken()
         },
-        url: 'http://localhost:3000/entry'
+        url: 'http://localhost:3000/blog'
       })
       .then(EntryService.pushEntry(() => {
+        console.log('pushEntry');
         this.entries = EntryService.entries;
       })), (err) => {
+        $location.url('/login');
         console.log(err);
       };
     };

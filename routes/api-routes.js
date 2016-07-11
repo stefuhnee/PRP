@@ -1,20 +1,20 @@
 'use strict';
 const express = require('express');
-const Entry = require('./models/entry');
-const User = require('./models/user');
+const Entry = require('../models/entry');
+const User = require('../models/user');
 const bodyParser = require('body-parser');
-const jwt = require('./lib/auth-middleware');
+const jwt = require('../lib/auth-middleware');
 
 const blogRouter = module.exports = exports = express.Router();
 
-blogRouter.get('/blog', (req, res, next) => {
+blogRouter.get('/', (req, res, next) => {
   Entry.find({}, (err, entry) => {
     if(err) return next(err);
     res.json(entry);
   });
 });
 
-blogRouter.post('/blog', bodyParser, jwt, (req, res, next) => {
+blogRouter.post('/', bodyParser, jwt, (req, res, next) => {
   let newEntry = new Entry(req.body);
   User.findByIdAndUpdate(req.user._id,
     {$push: {'entries': newEntry}},
@@ -29,7 +29,7 @@ blogRouter.post('/blog', bodyParser, jwt, (req, res, next) => {
   });
 });
 
-blogRouter.put('/blog', bodyParser, jwt, (req, res, next) => {
+blogRouter.put('/', bodyParser, jwt, (req, res, next) => {
   let _id = req.body._id;
   Entry.findOneAndUpdate({_id}, req.body, (err, entry) => {
     if (err) return next(err);
@@ -37,10 +37,12 @@ blogRouter.put('/blog', bodyParser, jwt, (req, res, next) => {
   });
 });
 
-blogRouter.delete('/blog/:id', jwt, (req, res, next) => {
+blogRouter.delete('/:id', jwt, (req, res, next) => {
   let _id = req.params.id;
   Entry.findOneAndRemove({_id}, null, (err, entry) => {
     if (err) return next(err);
     res.json({message: 'successfully deleted', data: entry});
   });
 });
+
+module.exports = blogRouter;

@@ -1,6 +1,7 @@
 'use strict';
 const express = require('express');
 const Entry = require('./models/entry');
+const User = require('./models/user');
 const bodyParser = require('body-parser');
 const jwt = require('./lib/auth-middleware');
 
@@ -15,6 +16,13 @@ blogRouter.get('/blog', (req, res, next) => {
 
 blogRouter.post('/blog', bodyParser, jwt, (req, res, next) => {
   let newEntry = new Entry(req.body);
+  User.findByIdAndUpdate(req.user._id,
+    {$push: {'entries': newEntry}},
+    {safe: true, upsert: true},
+    function(err, model) {
+      console.log(err, model);
+    }
+  );
   newEntry.save((err, entry) => {
     if (err) return next(err);
     res.json(entry);
@@ -23,7 +31,7 @@ blogRouter.post('/blog', bodyParser, jwt, (req, res, next) => {
 
 blogRouter.put('/blog', bodyParser, jwt, (req, res, next) => {
   let _id = req.body._id;
-  Entry.findOneAndupdate({_id}, req.body, (err, entry) => {
+  Entry.findOneAndUpdate({_id}, req.body, (err, entry) => {
     if (err) return next(err);
     res.json({message: 'successfully updated', data: entry});
   });

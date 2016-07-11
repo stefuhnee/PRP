@@ -47,6 +47,7 @@ module.exports = function(app) {
             this.entries = EntryService.entries;
           });
         }, (err) => {
+          $location.url('/login');
           console.log(err);
         });
     };

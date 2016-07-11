@@ -28,13 +28,13 @@ gulp.task('copy-css', ['clean'], ()=>{
     .pipe(gulp.dest('./build'));
 });
 
-gulp.task('sass', ()=> {
+gulp.task('sass', ['clean'], ()=> {
   return gulp.src('./app/stylesheets/scss/style.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./app/stylesheets'));
 });
 
-gulp.task('sass:watch', ()=> {
+gulp.task('sass:watch', ['clean'], ()=> {
   gulp.watch('./app/stylesheets/**/*.scss', ['sass']);
 });
 

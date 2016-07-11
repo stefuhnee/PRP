@@ -1,10 +1,10 @@
 'use strict';
 
-const BlogEntry = new mongoose.Schema({
+const Entry = new mongoose.Schema({
   title: {type: String, required: true},
   content: {type: String, required: true},
   image: String,
-  cost: Number,
+  cost: String,
   timeline: String,
   author: String,
   comments: Array //Stretch for comments on blog posts

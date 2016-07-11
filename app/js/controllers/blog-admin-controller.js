@@ -5,7 +5,14 @@ module.exports = function(app) {
     this.entries = [];
     this.$http = $http;
 
+    function getDate() {
+      let date = new Date();
+      return (date.getMonth()+1) + ' ' + date.getDate() + ', ' + date.getFullYear();
+    }
+
     this.addEntry = function(entry) {
+      let date = getDate();
+      entry.dateCreated = date;
       $http({
         method: 'POST',
         data: entry,
@@ -20,6 +27,5 @@ module.exports = function(app) {
         console.log(err);
       };
     };
-
   }]);
 };

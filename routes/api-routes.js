@@ -6,14 +6,14 @@ const jwt = require('./lib/auth-middleware');
 
 const blogRouter = module.exports = exports = express.Router();
 
-blogRouter.get('/', (req, res, next) => {
+blogRouter.get('/blog', (req, res, next) => {
   Entry.find({}, (err, entry) => {
     if(err) return next(err);
     res.json(entry);
   });
 });
 
-blogRouter.post('/', bodyParser, jwt, (req, res, next) => {
+blogRouter.post('/blog', bodyParser, jwt, (req, res, next) => {
   let newEntry = new Entry(req.body);
   newEntry.save((err, entry) => {
     if (err) return next(err);
@@ -21,7 +21,7 @@ blogRouter.post('/', bodyParser, jwt, (req, res, next) => {
   });
 });
 
-blogRouter.put('/', bodyParser, jwt, (req, res, next) => {
+blogRouter.put('/blog', bodyParser, jwt, (req, res, next) => {
   let _id = req.body._id;
   Entry.findOneAndupdate({_id}, req.body, (err, entry) => {
     if (err) return next(err);
@@ -29,7 +29,7 @@ blogRouter.put('/', bodyParser, jwt, (req, res, next) => {
   });
 });
 
-blogRouter.delete('/:id', jwt, (req, res, next) => {
+blogRouter.delete('/blog/:id', jwt, (req, res, next) => {
   let _id = req.params.id;
   Entry.findOneAndRemove({_id}, null, (err, entry) => {
     if (err) return next(err);

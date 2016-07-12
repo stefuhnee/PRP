@@ -11,7 +11,6 @@ module.exports = function(app) {
     };
 
     service.getEntries = function(cb) {
-      console.log('getting entries');
       return $http.get('http://localhost:8080/blog')
       .then((res) => {
         service.entries = res.data;

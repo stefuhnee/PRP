@@ -8,11 +8,11 @@ module.exports = function(app) {
         method: 'PUT',
         data: user,
         headers: {
-          token: AuthService.getToken();
+          token: AuthService.getToken()
         },
-        url: 'http://localhost:3000/'
+        url: 'http://localhost:8080/signup'
       });
-    }
+    };
 
   }]);
 };

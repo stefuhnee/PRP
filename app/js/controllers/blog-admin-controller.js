@@ -5,6 +5,7 @@ module.exports = function(app) {
     this.entries = [];
     this.$http = $http;
     this.$location = $location;
+    let url = process.env.PORT || 'http://localhost8080';
 
     function getDate() {
       let date = new Date();
@@ -12,6 +13,8 @@ module.exports = function(app) {
     }
 
     this.addEntry = function(entry) {
+      console.log('addEntry');
+
       let date = getDate();
       entry.dateCreated = date;
 
@@ -21,9 +24,10 @@ module.exports = function(app) {
         headers: {
           token: AuthService.getToken()
         },
-        url: 'http://localhost:3000/blog/'
+        url: 'http://localhost:8080/blog/'
       })
       .then(EntryService.pushEntry(() => {
+        console.log('pushEntry');
         this.entries = EntryService.entries;
       })
       ), (err) => {

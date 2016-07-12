@@ -7,7 +7,7 @@ module.exports = function(app) {
     service.entries = [];
 
     service.getEntries = function(cb) {
-      return $http.get('http://localhost:3000/blog')
+      return $http.get('http://localhost:8080/blog')
       .then((res) => {
         service.entries = res.data;
         cb();

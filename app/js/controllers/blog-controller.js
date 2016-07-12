@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('BlogController', ['$scope', '$http', '$location', 'AuthService', 'EntryService', function($scope, $http, $location, AuthService, EntryService) {
+  app.controller('BlogController', ['$http', '$location', 'AuthService', 'EntryService', function($http, $location, AuthService, EntryService) {
     this.entries = [];
     this.$http = $http;
     this.$location = $location;

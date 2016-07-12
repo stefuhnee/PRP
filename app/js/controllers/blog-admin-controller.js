@@ -13,9 +13,12 @@ module.exports = function(app) {
 
     this.addEntry = function(entry) {
       console.log('addEntry');
+
       let date = getDate();
+
       entry.dateCreated = date;
-      $http({
+      console.log('token', AuthService.getToken());
+      return $http({
         method: 'POST',
         data: entry,
         headers: {
@@ -26,7 +29,8 @@ module.exports = function(app) {
       .then(EntryService.pushEntry(() => {
         console.log('pushEntry');
         this.entries = EntryService.entries;
-      })), (err) => {
+      })
+      ), (err) => {
         $location.url('/login');
         console.log(err);
       };

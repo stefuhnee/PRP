@@ -15,6 +15,7 @@ blogRouter.get('/', (req, res, next) => {
 });
 
 blogRouter.post('/', bodyParser, jwt, (req, res, next) => {
+  console.log('posting');
   let newEntry = new Entry(req.body);
   User.findByIdAndUpdate(req.user._id,
     {$push: {'entries': newEntry}},

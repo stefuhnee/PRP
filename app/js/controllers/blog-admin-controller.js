@@ -31,7 +31,7 @@ module.exports = function(app) {
       })
       ), (err) => {
         $location.url('/login');
-        console.log(err);
+        console.log('error inside addEntry', err);
       };
     };
   }]);

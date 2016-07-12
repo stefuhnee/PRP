@@ -7,11 +7,9 @@ module.exports = function(app) {
     service.entries = [];
 
     service.getEntries = function(cb) {
-      console.log('get entries');
-      return $http.get('http://localhost:3000/blog')
+      return $http.get('http://localhost:8080/blog')
       .then((res) => {
         service.entries = res.data;
-        console.log('service entries', service.entries);
         cb();
       }, (err) => {
         console.log(err);
@@ -20,10 +18,8 @@ module.exports = function(app) {
 
     service.pushEntry = function(cb) {
       return function(res) {
-        console.log('pushing entries');
         let entry = res.data;
         service.entries.push(entry);
-        console.log('entry', entry);
         cb();
       };
     };

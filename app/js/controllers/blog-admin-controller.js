@@ -5,6 +5,7 @@ module.exports = function(app) {
     this.entries = [];
     this.$http = $http;
     this.$location = $location;
+    
 
     function getDate() {
       let date = new Date();
@@ -23,7 +24,7 @@ module.exports = function(app) {
         headers: {
           token: AuthService.getToken()
         },
-        url: 'http://localhost:3000/blog/'
+        url: 'http://localhost:8080/blog/'
       })
       .then(EntryService.pushEntry(() => {
         console.log('pushEntry');
@@ -31,7 +32,7 @@ module.exports = function(app) {
       })
       ), (err) => {
         $location.url('/login');
-        console.log(err);
+        console.log('error inside addEntry', err);
       };
     };
   }]);

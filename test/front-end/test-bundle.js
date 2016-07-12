@@ -59,6 +59,7 @@
 
 	describe('AuthController Test', () => {
 	  let ac;
+	  let newUser;
 	  let $httpBackend;
 
 	  beforeEach(() => {
@@ -35903,6 +35904,7 @@
 	    this.entries = [];
 	    this.$http = $http;
 	    this.$location = $location;
+	    
 
 	    function getDate() {
 	      let date = new Date();
@@ -35921,7 +35923,7 @@
 	        headers: {
 	          token: AuthService.getToken()
 	        },
-	        url: 'http://localhost:3000/blog/'
+	        url: 'http://localhost:8080/blog/'
 	      })
 	      .then(EntryService.pushEntry(() => {
 	        console.log('pushEntry');
@@ -35929,7 +35931,7 @@
 	      })
 	      ), (err) => {
 	        $location.url('/login');
-	        console.log(err);
+	        console.log('error inside addEntry', err);
 	      };
 	    };
 	  }]);
@@ -35962,7 +35964,7 @@
 	        headers: {
 	          token: AuthService.getToken()
 	        },
-	        url: `http://localhost:3000/blog/${entry._id}`
+	        url: `http://localhost:8080/blog/${entry._id}`
 	      })
 	      .then(() => {
 	        EntryService.getEntries(() => {
@@ -35981,7 +35983,7 @@
 	        headers: {
 	          token: AuthService.getToken()
 	        },
-	        url: 'http://localhost:3000/blog'
+	        url: 'http://localhost:8080/blog'
 	      })
 	        .then(() => {
 	          EntryService.entries = EntryService.entries.map (e => {
@@ -36129,7 +36131,7 @@
 
 
 	    service.signUp = function(user) {
-	      return $http.post('http://localhost:3000/signup', user)
+	      return $http.post('http://localhost:8080/signup', user)
 	      .then((res)=> {
 	        token = res.data.token;
 	        $window.localStorage.token = token;
@@ -36141,7 +36143,7 @@
 	      let authString = 'Basic ' + base64Auth;
 
 	      return $http({
-	        url: 'http://localhost:3000/login',
+	        url: 'http://localhost:8080/login',
 	        method: 'GET',
 	        headers: {
 	          authorization: authString
@@ -36179,11 +36181,9 @@
 	    service.entries = [];
 
 	    service.getEntries = function(cb) {
-	      console.log('get entries');
-	      return $http.get('http://localhost:3000/blog')
+	      return $http.get('http://localhost:8080/blog')
 	      .then((res) => {
 	        service.entries = res.data;
-	        console.log('service entries', service.entries);
 	        cb();
 	      }, (err) => {
 	        console.log(err);
@@ -36192,10 +36192,8 @@
 
 	    service.pushEntry = function(cb) {
 	      return function(res) {
-	        console.log('pushing entries');
 	        let entry = res.data;
 	        service.entries.push(entry);
-	        console.log('entry', entry);
 	        cb();
 	      };
 	    };

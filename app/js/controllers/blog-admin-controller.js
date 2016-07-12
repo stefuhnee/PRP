@@ -17,14 +17,13 @@ module.exports = function(app) {
       let date = getDate();
 
       entry.dateCreated = date;
-      console.log('token', AuthService.getToken());
       return $http({
         method: 'POST',
         data: entry,
         headers: {
           token: AuthService.getToken()
         },
-        url: 'http://localhost:3000/blog'
+        url: 'http://localhost:3000/blog/'
       })
       .then(EntryService.pushEntry(() => {
         console.log('pushEntry');

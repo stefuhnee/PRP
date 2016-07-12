@@ -2,7 +2,7 @@
 const express = require('express');
 const Entry = require('../models/entry');
 const User = require('../models/user');
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser').json();
 const jwt = require('../lib/auth-middleware');
 
 const blogRouter = express.Router();

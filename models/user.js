@@ -20,6 +20,7 @@ User.methods.comparePassword = function(password) {
 };
 
 User.methods.generateToken = function() {
+  console.log('token returned', jwt.sign({_id: this._id}, secret));
   return jwt.sign({_id: this._id}, secret);
 };
 

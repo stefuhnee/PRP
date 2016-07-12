@@ -15,8 +15,8 @@ module.exports = function(app) {
       console.log('addEntry');
 
       let date = getDate();
-
       entry.dateCreated = date;
+
       return $http({
         method: 'POST',
         data: entry,

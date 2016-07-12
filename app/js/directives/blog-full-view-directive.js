@@ -1,12 +1,12 @@
 'use strict';
 
 module.exports = function(app) {
-  app.directive('blogViewDirective', function() {
+  app.directive('blogFullViewDirective', function() {
     return {
       scope: {
         entry: '='
       },
-      templateUrl: './views/templates/blog-view-template.html'
+      templateUrl: './views/templates/blog-full-view-template.html'
     };
   });
 };

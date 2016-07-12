@@ -1,0 +1,21 @@
+main.home {
+  font-family: 'Bariol';
+  text-align: center;
+
+  div {
+    margin: 0 auto;
+    display: table;
+  }
+
+  img {
+    display: table-cell;
+  }
+
+  h1 {
+    display: table-cell;
+    color: #9A031E;
+    font-weight: bold;
+    font-size: 7rem;
+    vertical-align: middle;
+  }
+}

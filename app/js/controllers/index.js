@@ -6,4 +6,5 @@ module.exports = function(app) {
   require('./blog-controller')(app);
   require('./profile-admin-controller')(app);
   require('./profile-controller')(app);
+  require('./error-controller')(app);
 };

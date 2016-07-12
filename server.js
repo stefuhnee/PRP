@@ -10,6 +10,15 @@ const authRouter = require('./routes/auth-routes');
 const dbPort = process.env.MONGODB_URI || 'mongodb://localhost/dev_db';
 mongoose.connect(dbPort);
 
+const port = process.env.PORT || 8080;
+
+app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/build'));
+
+app.get('/', function(req, res) {
+  res.render('index');
+});
+
 app.use(morgan('dev'));
 
 app.use(cors());
@@ -25,6 +34,6 @@ app.use((req, res)=>{
   res.status(404).json({message: 'not found'});
 });
 
-app.listen(3000, () => {
-  console.log('server is running on 3000');
+app.listen(port, () => {
+  console.log('server is running on ' + port);
 });

@@ -12,8 +12,6 @@ module.exports = function(app) {
     }
 
     this.addEntry = function(entry) {
-      console.log('addEntry');
-
       let date = getDate();
       entry.dateCreated = date;
 
@@ -26,7 +24,6 @@ module.exports = function(app) {
         url: 'http://localhost:3000/blog/'
       })
       .then(EntryService.pushEntry(() => {
-        console.log('pushEntry');
         this.entries = EntryService.entries;
       })
       ), (err) => {

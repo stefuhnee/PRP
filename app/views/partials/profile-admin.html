@@ -1,3 +1,16 @@
-<main>
-  <h1>Edit Profile</h1>
-</main>
+  <main>
+    <h1>Edit Profile</h1>
+    <img src="" alt="" /> <!--profile pic-->
+
+    <h1>Name</h1> <!--name-->
+
+    <p> <!--description-->
+      description
+    </p>
+
+    <form ng-submit="submit(user)">
+      <input type="text" ng-model="user.avatar" placeholder="user.avatar"/>
+      <input type="text" ng-model="user.name" placeholder="user.name"/>
+      <input type="text" ng-model="user.description" placeholder="user.description"/>
+    </form>
+  </main>

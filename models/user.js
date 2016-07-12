@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const secret = process.env.SECRET || 'changeme';
+const secret = process.env.SECRET || 'notredpanda';
 const jwt = require('jsonwebtoken');
 
 const User = new mongoose.Schema({
@@ -20,6 +20,7 @@ User.methods.comparePassword = function(password) {
 };
 
 User.methods.generateToken = function() {
+  console.log('token returned', jwt.sign({_id: this._id}, secret));
   return jwt.sign({_id: this._id}, secret);
 };
 

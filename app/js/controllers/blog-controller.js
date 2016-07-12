@@ -20,7 +20,7 @@ module.exports = function(app) {
         headers: {
           token: AuthService.getToken()
         },
-        url: `http://localhost:3000/entry/${entry._id}`
+        url: `http://localhost:3000/blog/${entry._id}`
       })
       .then(() => {
         EntryService.getEntries(() => {
@@ -39,7 +39,7 @@ module.exports = function(app) {
         headers: {
           token: AuthService.getToken()
         },
-        url: 'http://localhost:3000/entry'
+        url: 'http://localhost:3000/blog'
       })
         .then(() => {
           EntryService.entries = EntryService.entries.map (e => {

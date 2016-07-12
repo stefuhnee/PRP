@@ -20,7 +20,8 @@ module.exports = function(app) {
         console.log(res, 'Sign in res');
       }, (err) => {
         console.log(err, 'failed sign in');
-      $location.path('/signup');
-    });
-  }
-});
+        $location.path('/signup');
+      });
+    };
+  });
+};

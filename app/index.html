@@ -8,7 +8,7 @@
     <title>Red Panda</title>
   </head>
   <body ng-app="BucketListApp">
-    <header>
+    <header ng-controller="AuthController as ac">
       <nav>
         <ul>
           <li><button type="submit" ng-click="ac.signOut()">Log Out</button></li>

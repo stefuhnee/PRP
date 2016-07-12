@@ -13,20 +13,23 @@ module.exports = function(app) {
 
     this.addEntry = function(entry) {
       console.log('addEntry');
+
       let date = getDate();
       entry.dateCreated = date;
-      $http({
+
+      return $http({
         method: 'POST',
         data: entry,
         headers: {
           token: AuthService.getToken()
         },
-        url: 'http://localhost:3000/blog'
+        url: 'http://localhost:3000/blog/'
       })
       .then(EntryService.pushEntry(() => {
         console.log('pushEntry');
         this.entries = EntryService.entries;
-      })), (err) => {
+      })
+      ), (err) => {
         $location.url('/login');
         console.log(err);
       };

@@ -9,7 +9,7 @@ const blogRouter = express.Router();
 
 blogRouter.get('/', (req, res, next) => {
   Entry.find({}, (err, entry) => {
-    if(err) return next(err);
+    if (err) return next(err);
     res.json(entry);
   });
 });

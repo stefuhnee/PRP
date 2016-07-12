@@ -8,7 +8,9 @@ const jwt = require('jsonwebtoken');
 const User = new mongoose.Schema({
   username: {type: String, required: true},
   password: {type: String, required: true},
-  posts: {type: String, required: false}
+  posts: {type: String, required: false},
+  following: Array,
+  favorites: Array
 });
 
 User.methods.hashPassword = function() {

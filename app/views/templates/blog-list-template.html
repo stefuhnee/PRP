@@ -1,1 +1,11 @@
-<li>{{entry.title}}</li>
+<main ng-controller="BlogController as blogctrl" ng-init="blogctrl.populate()">
+  <ul>
+    <li ng-repeat="entry in blogctrl.entries">
+      <h2>{{entry.title}}</h2>
+      <p>
+        {{entry.content}}
+      </p>
+    </li>
+
+  </ul>
+</main>

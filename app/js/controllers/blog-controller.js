@@ -21,16 +21,17 @@ module.exports = function(app) {
         url: `http://localhost:8080/blog/${entry._id}`
       })
       .then(() => {
-        EntryService.getEntries(() => {
-          this.entries = EntryService.entries;
+        this.entries = this.entries.filter((e) => {
+          return e._id !== entry._id;
         });
+      }, (err) => {
+        $location.url('/login');
+        console.log(err);
       });
-    }, (err) => {
-      $location.url('/login');
-      console.log(err);
-    };
+    }.bind(this);
 
     this.updateEntry = function(entry) {
+      console.log('updating');
       $http({
         method: 'PUT',
         data: entry,
@@ -40,11 +41,8 @@ module.exports = function(app) {
         url: 'http://localhost:8080/blog'
       })
         .then(() => {
-          EntryService.entries = EntryService.entries.map (e => {
+          this.entries = this.entries.map (e => {
             return e._id === this.entry._id ? this.entry : e;
-          });
-          EntryService.getEntries(() => {
-            this.entries = EntryService.entries;
           });
         }, (err) => {
           $location.url('/login');

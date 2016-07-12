@@ -13,6 +13,7 @@ describe('Controller Tests', () => {
 
 describe('AuthController Test', () => {
   let ac;
+  let newUser;
   let $httpBackend;
 
   beforeEach(() => {

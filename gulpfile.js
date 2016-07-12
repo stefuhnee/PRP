@@ -8,7 +8,7 @@ const sass = require('gulp-sass');
 const paths = {
   js: __dirname + '/app/**/*.js',
   html: __dirname + '/app/**/*.html',
-  css: __dirname + '/app/stylesheets/**/*.css'
+  css: __dirname + '/app/**/*.css'
 };
 
 gulp.task('clean', () => {
@@ -19,27 +19,27 @@ gulp.task('clean-css', () => {
   return del('./app/stylesheets/*.css');
 });
 
-gulp.task('copy-html', ()=>{
+gulp.task('copy-html', () => {
   return gulp.src(paths.html)
     .pipe(gulp.dest('./build'));
 });
 
-gulp.task('copy-css', ()=>{
+gulp.task('copy-css', () => {
   return gulp.src(paths.css)
     .pipe(gulp.dest('./build'));
 });
 
-gulp.task('sass', ['clean-css'], ()=> {
+gulp.task('sass', ['clean-css'], () => {
   return gulp.src('./app/stylesheets/**/*/style.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./build'));
 });
 
-gulp.task('sass:watch', ()=> {
+gulp.task('sass:watch', () => {
   gulp.watch('./app/stylesheets/**/*.scss', ['sass']);
 });
 
-gulp.task('bundle', ()=>{
+gulp.task('bundle', () => {
   return gulp.src(paths.js)
     .pipe(webpack({
       output: {

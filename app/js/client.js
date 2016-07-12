@@ -8,34 +8,34 @@ require('./directives')(app);
 require('./services')(app);
 
 app.config(function($routeProvider){
-  $routeProvider.when('/',{
+  $routeProvider.when('/blog',{
     templateUrl: './views/partials/blog.html',
     controller: 'BlogController',
-    controllerAS: 'bc'
+    controllerAs: 'bc'
   })
   .when('/blog-admin', {
     templateUrl: './views/partials/blog-admin.html',
     controller: 'BlogAdminController',
-    controllerAS: 'bac'
+    controllerAs: 'bac'
   })
   .when('/login', {
     templateUrl: './views/partials/login.html',
     controller: 'AuthController',
-    controllerAS: 'ac'
+    controllerAs: 'ac'
   })
   .when('/profile-admin', {
     templateUrl: './views/partials/profile-admin.html',
     controller: 'ProfileAdminController',
-    controllerAS: 'pac'
+    controllerAs: 'pac'
   })
   .when('/profile', {
     templateUrl: './views/partials/profile.html',
     controller: 'ProfileController',
-    controllerAS: 'pc'
+    controllerAs: 'pc'
   })
   .when('/signup', {
     templateUrl: './views/partials/signup.html',
     controller: 'AuthController',
-    controllerAS: 'ac'
+    controllerAs: 'ac'
   });
 });

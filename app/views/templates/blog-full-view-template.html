@@ -5,6 +5,6 @@
     <h2>{{entry.dateCreated}}</h2>
     <p>{{entry.content}}</p>
   </div>
-  <h2>{{entry.projectedCost}}</h2>
-  <h2>{{entry.completionDate}}</h2>
+  <h2 ng-if="entry.timeline">{{entry.cost}}</h2>
+  <h2 ng-if="entry.timeline">{{entry.timeline}}</h2>
 </article>

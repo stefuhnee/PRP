@@ -2,7 +2,7 @@
 const express = require('express');
 const Entry = require('../models/entry');
 const User = require('../models/user');
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser').json();
 const jwt = require('../lib/auth-middleware');
 
 const blogRouter = express.Router();
@@ -15,6 +15,7 @@ blogRouter.get('/', (req, res, next) => {
 });
 
 blogRouter.post('/', bodyParser, jwt, (req, res, next) => {
+  console.log('posting');
   let newEntry = new Entry(req.body);
   User.findByIdAndUpdate(req.user._id,
     {$push: {'entries': newEntry}},

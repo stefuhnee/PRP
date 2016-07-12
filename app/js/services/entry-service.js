@@ -20,8 +20,10 @@ module.exports = function(app) {
 
     service.pushEntry = function(cb) {
       return function(res) {
+        console.log('pushing entries');
         let entry = res.data;
         service.entries.push(entry);
+        console.log('entry', entry);
         cb();
       };
     };

@@ -8,11 +8,15 @@ const sass = require('gulp-sass');
 const paths = {
   js: __dirname + '/app/**/*.js',
   html: __dirname + '/app/**/*.html',
-  css: __dirname + '/app/stylesheets/vendor/*.css'
+  css: __dirname + '/app/stylesheets/**/*.css'
 };
 
 gulp.task('clean', () => {
   return del('./build/**/*');
+});
+
+gulp.task('clean-css', () => {
+  return del('./app/stylesheets/*.css');
 });
 
 gulp.task('copy-html', ()=>{
@@ -25,8 +29,8 @@ gulp.task('copy-css', ()=>{
     .pipe(gulp.dest('./build'));
 });
 
-gulp.task('sass', ()=> {
-  return gulp.src('./app/stylesheets/**/*.scss')
+gulp.task('sass', ['clean-css'], ()=> {
+  return gulp.src('./app/stylesheets/**/*/style.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./build'));
 });
@@ -55,7 +59,7 @@ gulp.task('bundle:test', () => {
     .pipe(gulp.dest(__dirname + '/test'));
 });
 
-gulp.task('watch', ()=>{
+gulp.task('watch', () => {
   gulp.watch('./app/*', ['build', 'sass:watch']);
 });
 

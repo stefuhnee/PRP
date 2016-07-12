@@ -1,7 +1,9 @@
 'use strict';
 
+const mocha = require('gulp-mocha');
 const gulp = require('gulp');
 const webpack = require('webpack-stream');
+const lint = require('gulp-eslint');
 const del = require('del');
 const sass = require('gulp-sass');
 
@@ -13,6 +15,18 @@ const paths = {
   img: __dirname + '/public/**/*.png',
   fonts: __dirname + '/public/**/*.{eot,ttf,woff,svg}'
 };
+
+gulp.task('linter', () => {
+  return gulp.src(['./*.js', './models/*.js', './routes/*.js', './tests/*.js', './lib/*.js',
+  './app/**/*.js'])
+    .pipe(lint())
+    .pipe(lint.format());
+});
+
+gulp.task('tests', () => {
+  return gulp.src(['./test/back-end/*.js'], {read: false})
+    .pipe(mocha({reporter: 'nyan'}));
+});
 
 gulp.task('clean', () => {
   return del('./build/**/*');
@@ -65,7 +79,7 @@ gulp.task('bundle', () => {
 });
 
 gulp.task('bundle:test', () => {
-  return gulp.src(__dirname + '/test/*-test.js')
+  return gulp.src(__dirname + '/test/front-end/*-test.js')
     .pipe(webpack({
       output: {
         filename: 'test-bundle.js'
@@ -78,6 +92,6 @@ gulp.task('watch', () => {
   gulp.watch('./app/*', ['build', 'sass:watch']);
 });
 
-gulp.task('build', ['clean', 'sass', 'copy-html', 'copy-css', 'copy-img', 'copy-fonts', 'bundle']);
+gulp.task('build', ['linter', 'clean', 'sass', 'copy-html', 'copy-css', 'copy-img', 'copy-fonts', 'bundle']);
 
 gulp.task('default', ['build']);

@@ -67,7 +67,7 @@ describe('unit tests', () => {
     };
 
     jwtAuth(req, null, (err) => {
-      expect(err.message).to.eql('Invalid token');
+      expect(err.message).to.eql('invalid token');
       done();
     });
 
@@ -118,7 +118,7 @@ describe('catch all test', () => {
     .end((err, res) => {
       expect(err).to.not.eql(null);
       expect(res).to.have.status(404);
-      expect(res.body).to.eql({message: 'Not found'});
+      expect(res.body).to.eql({message: 'not found'});
       done();
     });
   });

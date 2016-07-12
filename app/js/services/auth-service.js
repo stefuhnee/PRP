@@ -7,10 +7,9 @@ module.exports = function(app) {
     const service = {};
 
     service.signUp = function(user) {
-      return $http.post('http://localhost:8080/signup', user)
+      return $http.post('http://localhost:3000/signup', user)
       .then((res)=> {
         token = res.data.token;
-        return res;
       });
     };
 
@@ -19,7 +18,7 @@ module.exports = function(app) {
       let authString = 'Basic ' + base64Auth;
 
       return $http({
-        url: 'http://localhost:8080/login',
+        url: 'http://localhost:3000/login',
         method: 'GET',
         headers: {
           authorization: authString

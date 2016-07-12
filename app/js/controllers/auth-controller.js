@@ -5,11 +5,12 @@ module.exports = function(app) {
     this.goHome = function() {
       $location.url('/');
     };
+
     this.signUp = function(user) {
       AuthService.signUp(user)
       .then((res) => {
         console.log(res);
-      }).then((err) => {
+      }, (err) => {
         console.log(err);
       });
     };

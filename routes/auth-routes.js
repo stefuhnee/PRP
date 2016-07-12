@@ -5,45 +5,37 @@ const bodyParser = require('body-parser').json();
 const User = require('../models/user.js');
 const basicHttp = require('../lib/basic-http.js');
 
-const authRouter = module.exports = exports = express.Router();
+const authRouter = express.Router();
 
-authRouter.post('/signup', bodyParser, (req,res,next)=> {
+authRouter.post('/signup', bodyParser, (req, res, next) => {
   let newUser = new User(req.body);
-  let hashedPassword = newUser.hashedPassword();
 
-  newUser.password = hashedPassword;
+  newUser.password = newUser.hashPassword();
 
   req.body.password = null;
 
-  User.findOne({username:req.body.username}, (err,user)=> {
-    if (user) return next(new Error('User already exists'));
+  User.findOne({username: req.body.username}, (err, user) => {
+    if (err || !user) return next(new Error('Cannot create user'));
 
-    if (err) return next(new Error(err));
-
-    newUser.save((err,user)=> {
+    newUser.save((err,user) => {
       if (err) return next(new Error(err));
 
-      let object = {};
-
-      object.token = user.generateToken();
-      object.userID = user._id;
-
-      res.json(object);
-
+      return res.json({token: user.generateToken()});
     });
   });
 });
 
-authRouter.get('/login', basicHttp, (req,res,next)=> {
-  User.findOne({username:req.auth.username}, (err,user)=> {
+authRouter.get('/login', basicHttp, (req, res, next) => {
+  User.findOne({username: req.auth.username}, (err, user) => {
 
     if (err || !user) return next(new Error('Authentication error'));
 
-    let object = {};
+    if (!user.comparePassword(req.auth.password)) {
+      return next(new Error('Invalid password'));
+    }
 
-    object.token = user.generateToken();
-    object.userID = user._id;
-
-    res.json(object);
+    return res.json({token: user.generateToken()});
   });
 });
+
+module.exports = authRouter;

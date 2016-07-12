@@ -7,9 +7,7 @@ module.exports = function(app) {
     this.$location = $location;
 
     this.populate = function() {
-      console.log('populate');
       EntryService.getEntries(() => {
-        console.log('getting entries');
         this.entries = EntryService.entries;
       });
     };

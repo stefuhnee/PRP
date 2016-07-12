@@ -5,7 +5,7 @@ module.exports = function(app) {
     this.entries = [];
     this.$http = $http;
     this.$location = $location;
-    let url = process.env.PORT || 'http://localhost8080';
+    
 
     function getDate() {
       let date = new Date();

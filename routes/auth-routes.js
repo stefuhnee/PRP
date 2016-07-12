@@ -9,11 +9,7 @@ const authRouter = express.Router();
 
 authRouter.post('/signup', bodyParser, (req, res, next) => {
   let newUser = new User(req.body);
-
-  console.log('req body', req.body);
-
   newUser.password = newUser.hashPassword();
-
   req.body.password = null;
 
   User.findOne({username: req.body.username}, (err, user) => {

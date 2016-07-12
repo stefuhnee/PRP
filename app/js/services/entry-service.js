@@ -6,10 +6,6 @@ module.exports = function(app) {
     const service = {};
     service.entries = [];
 
-    service.returnEntries = function() {
-      return service.entries;
-    };
-
     service.getEntries = function(cb) {
       return $http.get('http://localhost:8080/blog')
       .then((res) => {

@@ -9,7 +9,11 @@
   </head>
   <body ng-app="BucketListApp">
     <header>
-      <nav></nav>
+      <nav>
+        <ul>
+          <li><button type="submit" ng-click="ac.sginOut()">Log Out</button></li>
+        </ul>
+      </nav>
     </header>
     <ng-view></ng-view>
     <footer>

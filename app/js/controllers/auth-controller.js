@@ -6,6 +6,16 @@ module.exports = function(app) {
       $location.url('/');
     };
 
+    this.signOut = function() {
+      AuthService.signOut()
+      .then((res) => {
+        console.log(res);
+        $location.url('/');
+      }), (err) => {
+        console.log(err);
+      };
+    };
+
     this.signUp = function(user) {
       AuthService.signUp(user)
       .then((res) => {

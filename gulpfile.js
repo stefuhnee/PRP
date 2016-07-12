@@ -65,7 +65,7 @@ gulp.task('bundle', () => {
 });
 
 gulp.task('bundle:test', () => {
-  return gulp.src(__dirname + '/test/*-test.js')
+  return gulp.src(__dirname + '/test/front-end/*-test.js')
     .pipe(webpack({
       output: {
         filename: 'test-bundle.js'

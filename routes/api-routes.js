@@ -5,7 +5,7 @@ const User = require('../models/user');
 const bodyParser = require('body-parser');
 const jwt = require('../lib/auth-middleware');
 
-const blogRouter = module.exports = exports = express.Router();
+const blogRouter = express.Router();
 
 blogRouter.get('/', (req, res, next) => {
   Entry.find({}, (err, entry) => {

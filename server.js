@@ -10,8 +10,6 @@ const authRouter = require('./routes/auth-routes');
 const dbPort = process.env.MONGODB_URI || 'mongodb://localhost/dev_db';
 mongoose.connect(dbPort);
 
-// app.use(express.static(__dirname + '/build'));
-
 app.use(morgan('dev'));
 
 app.use(cors());

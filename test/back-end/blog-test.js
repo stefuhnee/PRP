@@ -13,6 +13,7 @@ const dbPort = process.env.MONGLAB_URI;
 require('../../server');
 
 describe('Blog router tests', () => {
+  let token;
 
   after((done) => {
     process.env.MONGOLAB_URI = dbPort;
@@ -35,9 +36,20 @@ describe('Blog router tests', () => {
   });
 
   describe('tests that don\'t need data', () => {
+
+    before((done) => {
+      request('localhost:3000')
+      .post('/signup')
+      .send({username:'test', password:'test'})
+      .end((err, res) => {
+        token = res.body.token;
+        done();
+      });
+    });
+
     it('should get a list of blog entries', (done) => {
       request('localhost:3000')
-      .get('/blog')
+      .get('/blog/')
       .end((err, res) => {
         expect(err).to.eql(null);
         expect(res).to.have.status(200);
@@ -48,7 +60,8 @@ describe('Blog router tests', () => {
 
     it('should post a blog', (done) => {
       request('localhost:3000')
-      .post('/blog')
+      .post('/blog/')
+      .set('token', token)
       .send(
         {
           title:'test title',
@@ -65,17 +78,6 @@ describe('Blog router tests', () => {
 
     describe('tests that need data', () => {
       let testEntry;
-      let token;
-
-      before((done) => {
-        request('localhost:3000')
-        .post('/signup')
-        .send({username:'test', password:'test'})
-        .end((err, res) => {
-          token = res.body.token;
-          done();
-        });
-      });
 
       beforeEach((done) => {
         testEntry = new Entry({
@@ -98,19 +100,19 @@ describe('Blog router tests', () => {
           .end((err, res) => {
             expect(err).to.eql(null);
             expect(res).to.have.status(200);
-            expect(res.body).to.eql({message:'successfully updated'});
+            expect(typeof res.body.data).to.eql('object');
             done();
           });
       });
 
-      it('should delete a plant', (done) => {
+      it('should delete an entry', (done) => {
         request('localhost:3000')
         .delete(`/blog/${testEntry._id}`)
         .set('token', token)
         .end((err, res) => {
           expect(err).to.eql(null);
           expect(res).to.have.status(200);
-          expect(res.body).to.eql({message: 'successfully deleted'});
+          expect(typeof res.body.data).to.eql('object');
           done();
         });
       });

@@ -32,33 +32,33 @@ gulp.task('clean', () => {
   return del('./build/**/*');
 });
 
-gulp.task('clean-css', () => {
+gulp.task('clean-css', ['clean'], () => {
   return del('./app/stylesheets/*.css');
 });
 
-gulp.task('copy-img', () => {
+gulp.task('copy-img', ['clean'], () => {
   return gulp.src(paths.img)
     .pipe(gulp.dest('./build'));
 });
 
-gulp.task('copy-html', () => {
+gulp.task('copy-html', ['clean'], () => {
   return gulp.src(paths.html)
     .pipe(gulp.dest('./build'));
 });
 
-gulp.task('copy-css', () => {
+gulp.task('copy-css', ['clean'], () => {
   gulp.src(paths.vendor)
     .pipe(gulp.dest('./build'));
   return gulp.src(paths.css)
     .pipe(gulp.dest('./build'));
 });
 
-gulp.task('copy-fonts', () => {
+gulp.task('copy-fonts', ['clean'], () => {
   return gulp.src(paths.fonts)
     .pipe(gulp.dest('./build'));
 });
 
-gulp.task('sass', ['clean-css'], () => {
+gulp.task('sass', ['clean-css', 'clean'], () => {
   return gulp.src('./app/**/*/style.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./build'));
@@ -68,7 +68,7 @@ gulp.task('sass:watch', () => {
   gulp.watch('./app/stylesheets/**/*.scss', ['sass']);
 });
 
-gulp.task('bundle', () => {
+gulp.task('bundle', ['clean'], () => {
   return gulp.src(paths.js)
     .pipe(webpack({
       output: {

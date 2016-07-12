@@ -6,7 +6,12 @@ module.exports = function(app) {
       scope: {
         entry: '='
       },
-      templateUrl: './views/templates/blog-full-view-template.html'
+      templateUrl: './views/templates/blog-full-view-template.html',
+      require: '^^ngController',
+      link: function($scope, elem, attr, controller) {
+        $scope.delete = controller.deleteEntry;
+        $scope.update = controller.updateEntry;
+      }
     };
   });
 };

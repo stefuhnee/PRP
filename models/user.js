@@ -10,7 +10,10 @@ const User = new mongoose.Schema({
   password: {type: String, required: true},
   posts: {type: String, required: false},
   following: Array,
-  favorites: Array
+  favorites: Array,
+  avatar: String,
+  name: String,
+  description: String
 });
 
 User.methods.hashPassword = function() {

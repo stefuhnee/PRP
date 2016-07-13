@@ -56,8 +56,6 @@
 	__webpack_require__(15);
 	__webpack_require__(16);
 	__webpack_require__(13);
-	__webpack_require__(22);
-	__webpack_require__(21);
 	__webpack_require__(18);
 	__webpack_require__(19);
 	__webpack_require__(20);
@@ -32725,6 +32723,7 @@
 	    this.logIn = function(user) {
 	      AuthService.logIn(user)
 	      .then((res) => {
+	        console.log(req.auth, 'auth req');
 	        console.log(res, 'Sign in res');
 	      }, (err) => {
 	        console.log(err);
@@ -32786,7 +32785,6 @@
 	module.exports = function(app) {
 	  app.controller('BlogController', ['$http', '$location', 'AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
 	    this.entries = [];
-	    this.editing = false;
 	    this.$http = $http;
 	    this.$location = $location;
 
@@ -32815,7 +32813,6 @@
 
 	    this.updateEntry = function(entry) {
 	      console.log('updating');
-	      console.log('editing: ', this.editing);
 	      $http({
 	        method: 'PUT',
 	        data: entry,
@@ -32825,8 +32822,8 @@
 	        url: 'http://localhost:8080/blog'
 	      })
 	        .then(() => {
-	          this.entries = this.entries.map ((e) => {
-	            return e._id === entry._id ? entry : e;
+	          this.entries = this.entries.map (e => {
+	            return e._id === this.entry._id ? this.entry : e;
 	          });
 	        }, ErrorService.logError('Error on Sign Up', () => {
 	          $location.url('/signup');
@@ -32843,19 +32840,11 @@
 	'use strict';
 
 	module.exports = function(app) {
-	  app.controller('ProfileAdminController', ['$http', '$location', 'AuthService', 'AdminService', 'ErrorService', function($http, $location, AuthService, AdminService, ErrorService) {
+	  app.controller('ProfileAdminController', ['$http', '$location', 'AuthService', 'ErrorService', function($http, $location, AuthService, ErrorService) {
 	    this.$http = $http;
 	    this.$location = $location;
 
-	    this.user = {};
-	    this.test = 'test';
 
-	    this.getAdmin = function(user) {
-	      AdminService.getAdmin(() => {
-	        this.user = AdminService.user;
-	        console.log(this.user);
-	      });
-	    };
 
 	    this.updateProfile = function(user) {
 	      return $http({
@@ -32980,7 +32969,6 @@
 	  __webpack_require__(18)(app);
 	  __webpack_require__(19)(app);
 	  __webpack_require__(20)(app);
-	  __webpack_require__(21)(app);
 	};
 
 
@@ -32994,7 +32982,6 @@
 
 	  app.factory('AuthService', function($http, $window) {
 	    let token = $window.localStorage.token;
-	    let username = $window.localStorage.username;
 	    const service = {};
 
 
@@ -33003,7 +32990,6 @@
 	      .then((res)=> {
 	        token = res.data.token;
 	        $window.localStorage.token = token;
-	        $window.localStorage.username = user.username;
 	      });
 	    };
 
@@ -33020,15 +33006,12 @@
 	      }).then((res)=> {
 	        token = res.data.token;
 	        $window.localStorage.token = token;
-	        $window.localStorage.username = user.username;
-
 	        return res;
 	      });
 	    };
 
 	    service.signOut = function() {
 	      token = $window.localStorage.token = null;
-	      user = $window.localStorage.username = null;
 	    };
 
 	    service.getToken = function() {
@@ -33098,48 +33081,6 @@
 
 	    return service;
 	  });
-	};
-
-
-/***/ },
-/* 21 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	module.exports = function(app) {
-
-	  app.factory('AdminService', function($http, ErrorService) {
-	    const service = {};
-	    
-	    service.getAdmin = function(cb) {
-	      return $http.get('http://localhost:8080/admin')
-	      .then((res) => {
-	        service.user = res.data;
-	        cb();
-	      }, ErrorService.logError('Error on admin'));
-	    };
-
-	    return service;
-	  });
-	};
-
-
-/***/ },
-/* 22 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	module.exports = function(app) {
-	  app.directive('profileAdminDirective', function() {
-	    return {
-	      scope: {
-	        user: '='
-	      },
-	      templateUrl: './views/'
-	    }
-	  })
 	};
 
 

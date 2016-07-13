@@ -1,10 +1,5 @@
-  <main ng-init="pac.getAdmin()">
+  <main>
     <h1>Edit Profile</h1>
-    <p>
-      Username
-      {{pac.user[0].username}}
-      {{pac.test}}
-    </p>
 
     <form ng-submit="pac.updateProfile(user)">
       <input type="text" ng-model="user.avatar" placeholder="Avatar"/>

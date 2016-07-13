@@ -1,0 +1,12 @@
+<article>
+  <h1>{{entry.title}}</h1>
+  <img src=""/>
+  <div>
+    <h2>{{entry.dateCreated}}</h2>
+    <p>{{entry.content}}</p>
+  </div>
+  <h2 ng-if="entry.timeline">{{entry.cost}}</h2>
+  <h2 ng-if="entry.timeline">{{entry.timeline}}</h2>
+  <button ng-click="update(entry)">Edit</button>
+  <button ng-click="delete(entry)">Delete</button>
+</article>

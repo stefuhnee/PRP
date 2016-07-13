@@ -45,6 +45,10 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
+	__webpack_require__(14);
+	__webpack_require__(15);
+	__webpack_require__(16);
+	__webpack_require__(13);
 	__webpack_require__(7);
 	__webpack_require__(8);
 	__webpack_require__(9);
@@ -52,10 +56,6 @@
 	__webpack_require__(6);
 	__webpack_require__(10);
 	__webpack_require__(11);
-	__webpack_require__(14);
-	__webpack_require__(15);
-	__webpack_require__(16);
-	__webpack_require__(13);
 	__webpack_require__(18);
 	__webpack_require__(19);
 	__webpack_require__(20);
@@ -69,7 +69,8 @@
 	'use strict';
 	const angular = __webpack_require__(2);
 	const ngRoute = __webpack_require__(4);
-	const app = angular.module('BucketListApp', [ngRoute]);
+
+	const app = angular.module('BucketListApp', [ngRoute, 'angularModalService']);
 
 	__webpack_require__(6)(app);
 	__webpack_require__(13)(app);
@@ -32742,11 +32743,10 @@
 	'use strict';
 
 	module.exports = function(app) {
-	  app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
+	  app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', function($http, $location, AuthService, EntryService) {
 	    this.entries = [];
 	    this.$http = $http;
 	    this.$location = $location;
-
 
 	    function getDate() {
 	      let date = new Date();
@@ -32754,7 +32754,6 @@
 	    }
 
 	    this.addEntry = function(entry) {
-
 	      let date = getDate();
 	      entry.dateCreated = date;
 
@@ -32764,14 +32763,15 @@
 	        headers: {
 	          token: AuthService.getToken()
 	        },
-	        url: 'http://localhost:8080/blog/'
+	        url: 'http://localhost:3000/blog/'
 	      })
 	      .then(EntryService.pushEntry(() => {
 	        this.entries = EntryService.entries;
 	      })
-	    ), ErrorService.logError('Error on Sign Up', () => {
-	      $location.url('/login');
-	    });
+	      ), (err) => {
+	        $location.url('/login');
+	        console.log(err);
+	      };
 	    };
 	  }]);
 	};

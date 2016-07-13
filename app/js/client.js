@@ -1,7 +1,8 @@
 'use strict';
 const angular = require('angular');
 const ngRoute = require('angular-route');
-const app = angular.module('BucketListApp', [ngRoute]);
+
+const app = angular.module('BucketListApp', [ngRoute, 'angularModalService']);
 
 require('./controllers')(app);
 require('./directives')(app);

@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('ProfileAdminController', ['$http', '$location', 'AuthService', function($http, $location, AuthService) {
+  app.controller('ProfileAdminController', ['$http', '$location', 'AuthService', 'ErrorService', function($http, $location, AuthService) {
 
     this.updateProfile = function(user) {
       return $http({
@@ -10,9 +10,12 @@ module.exports = function(app) {
         headers: {
           token: AuthService.getToken()
         },
-        url: 'http://localhost:8080/signup'
-      });
+        url: 'http://localhost:8080/admin'
+      })
+      .then(() => {
+        console.log('got here');
+      }),
+        ErrorService.logError('Error in updating profile');
     };
-
   }]);
 };

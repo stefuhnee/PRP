@@ -5,12 +5,14 @@
     <link type="text/css" rel="stylesheet" href="./stylesheets/vendor/normalize.css">
     <link type="text/css" rel="stylesheet" href="./stylesheets/vendor/skeleton.css">
     <link type="text/css" rel="stylesheet" href="./stylesheets/scss/style.css" charset="utf-8">
+    <link href="img/panda.png" rel="icon" type="image/x-icon"/>
     <title>Red Panda</title>
   </head>
   <body ng-app="BucketListApp">
     <header ng-controller="AuthController as ac">
       <nav>
         <ul>
+          <li><a href="#/"><button type="submit">Home</button></a></li>
           <li><a href="#/blog"><button type="submit">Blog</button></a></li>
           <li><a href="#/profile"><button type="submit">Profile</button></a></li>
           <li><a href="#/login"><button type="submit">Log In</button></a></li>
@@ -22,6 +24,7 @@
     </header>
     <ng-view></ng-view>
     <footer>
+      &copy;Project Red Panda | 2016 | Code Fellows
     </footer>
     <script src="./bundle.js"></script>
   </body>

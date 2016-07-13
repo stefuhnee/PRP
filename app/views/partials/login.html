@@ -1,9 +1,8 @@
 <main>
   <h1>Log in</h1>
-  <button ng-click="ac.goHome()">Home</button>
-  <form ng-submit="ac.logIn(ac.newUser)">
-    <input type="text" ng-model="ac.newUser.username" placeholder="username"></input>
-    <input type="password" ng-model="ac.newUser.password" placeholder="password"></input>
+  <form ng-submit="ac.logIn(user)">
+    <input type="text" ng-model="user.username" placeholder="username"></input>
+    <input type="password" ng-model="user.password" placeholder="password"></input>
     <button type="submit">Submit</button>
   </form>
 </main>

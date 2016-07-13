@@ -25,9 +25,10 @@ module.exports = function(app) {
       AuthService.logIn(user)
       .then((res) => {
         console.log(res, 'Sign in res');
-      }, ErrorService.logError('Error on Sign OUt', () => {
+      }, (err) => {
+        console.log(err);
         $location.url('/signup');
-      }));
+      });
     };
   }]);
 };

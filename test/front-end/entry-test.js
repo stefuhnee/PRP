@@ -17,7 +17,7 @@ describe('entry service tests', function() {
   it('should test pushEntry', () => {
     expect(typeof entryService.pushEntry).toBe('function');
   });
-  it('should test errors', () => {
-    expect(Array.isArray(entryService.getEntries())).toBe(true);
+  it('should test entries', () => {
+    expect(Array.isArray(entryService.getEntries())).toBe(false);
   });
 });

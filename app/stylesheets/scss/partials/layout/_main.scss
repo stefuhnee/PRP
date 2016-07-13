@@ -1,3 +1,7 @@
+main {
+  height: 100vh;
+}
+
 main.home {
   font-family: 'Bariol';
   text-align: center;
@@ -9,6 +13,8 @@ main.home {
 
   img {
     display: table-cell;
+    width: 75%;
+    float: left;
   }
 
   h1 {
@@ -17,5 +23,15 @@ main.home {
     font-weight: bold;
     font-size: 7rem;
     vertical-align: middle;
+  }
+
+  form {
+    float: right;
+    width: 100%;
+  }
+
+  p {
+    width: 50%;
+    float: right;
   }
 }

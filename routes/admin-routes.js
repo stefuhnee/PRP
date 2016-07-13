@@ -9,6 +9,7 @@ const findUser = require('../lib/find-user');
 const adminRouter = express.Router();
 
 adminRouter.get('/', bodyParser, (req,res,next) => {
+  console.log($window.localStorage.username, 'local storage username');
   User.findOne({username:$window.localStorage.username}, (err, user) => {
     if(err) return next(err);
     res.json(user)

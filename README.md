@@ -19,31 +19,31 @@ The beta stages of development allow users to create new bucket list items. User
 Future updates of Red Panda will allow users to view other user's profiles and bucket list items. You will also be able to use customized templates which will allow you uniquely customize your own profile page. Including images of items and a completion options are planed for future releases.    
 
 ##Dependancies  
-"body-parser": "^1.15.2",
-"express": "^4.13.4"
+"body-parser": "^1.15.2",  
+"express": "^4.13.4"  
 
 ##Dev Dependancies  
-"angular": "^1.5.6",
-"angular-mocks": "^1.5.7",
-"angular-route": "^1.5.7",
-"bcryptjs": "^2.3.0",
-"body-parser": "^1.15.2",
-"chai": "^3.5.0",
-"chai-http": "^3.0.0",
-"cors": "^2.7.1",
-"del": "^2.2.1",
-"gulp": "^3.9.1",
-"gulp-eslint": "^3.0.1",
-"gulp-mocha": "^2.2.0",
-"gulp-sass": "^2.3.2",
-"jasmine-core": "^2.4.1",
-"jsonwebtoken": "^7.0.1",
-"karma": "^0.13.22",
-"karma-chrome-launcher": "^1.0.1",
-"mocha": "^2.5.3",
-"mongoose": "^4.5.3",
-"morgan": "^1.7.0",
-"webpack-stream": "^3.2.0"
+"angular": "^1.5.6",  
+"angular-mocks": "^1.5.7",  
+"angular-route": "^1.5.7",  
+"bcryptjs": "^2.3.0",  
+"body-parser": "^1.15.2",  
+"chai": "^3.5.0",  
+"chai-http": "^3.0.0",  
+"cors": "^2.7.1",  
+"del": "^2.2.1",  
+"gulp": "^3.9.1",  
+"gulp-eslint": "^3.0.1",  
+"gulp-mocha": "^2.2.0",  
+"gulp-sass": "^2.3.2",  
+"jasmine-core": "^2.4.1",  
+"jsonwebtoken": "^7.0.1",  
+"karma": "^0.13.22",  
+"karma-chrome-launcher": "^1.0.1",  
+"mocha": "^2.5.3",  
+"mongoose": "^4.5.3",  
+"morgan": "^1.7.0",  
+"webpack-stream": "^3.2.0"  
 
 #Development Team  
 *Stefanie Hansen* <https://github.com/stefuhnee>  

@@ -13,7 +13,6 @@ describe('Controller Tests', () => {
 
 describe('AuthController Test', () => {
   let ac;
-  let newUser;
   let $httpBackend;
 
   beforeEach(() => {
@@ -30,7 +29,7 @@ describe('AuthController Test', () => {
   });
 
   it('should allow a user to sign up', () => {
-    $httpBackend.expectPOST('http://localhost:3000/signup')
+    $httpBackend.expectPOST('http://localhost:8080/signup')
       .respond(200, {data: [{body: 'test user'}]});
 
     ac.signUp();
@@ -42,6 +41,11 @@ describe('AuthController Test', () => {
 
   // it('should allow a user to log in', () => {
   //   $httpBackend.expectGET('http://localhost:8080/login')
-  //     .respond(200, {data: })
-  // })
+  //     .respond(200, {data: [{body: 'test user'}]});
+  //
+  //   ac.logIn();
+  //   $httpBackend.flush();
+  //
+  //   expect()
+  // });
 });

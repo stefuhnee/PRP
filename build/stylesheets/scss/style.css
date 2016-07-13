@@ -1,0 +1,73 @@
+body {
+  background-color: #fffffc; }
+
+footer {
+  text-align: center;
+  background-color: #E24301;
+  color: black;
+  border: solid;
+  border-width: thin;
+  border-color: black; }
+
+@font-face {
+  font-family: 'Bariol';
+  src: url("../../fonts/bariol_regular-webfont.eot");
+  src: url("../../fonts/bariol_regular-webfont.eot?#iefix") format("embedded-opentype"), url("../../fonts/bariol_regular-webfont.woff") format("woff"), url("../../fonts/bariol_regular-webfont.ttf") format("truetype"), url("../../fonts/bariol_regular-webfont.svg#webfont") format("svg"); }
+
+main {
+  height: 100vh;
+  padding-left: 2em; }
+
+main.home {
+  font-family: 'Bariol';
+  text-align: center; }
+  main.home div {
+    margin: 0 auto;
+    display: table; }
+  main.home img {
+    display: table-cell;
+    width: 75%;
+    float: left; }
+  main.home h1 {
+    display: table-cell;
+    color: #640D14;
+    font-weight: bold;
+    font-size: 7rem;
+    vertical-align: middle; }
+  main.home form {
+    float: right;
+    width: 100%; }
+  main.home p {
+    width: 50%;
+    float: right;
+    padding-right: 2em; }
+
+main.profile ul {
+  list-style-type: none; }
+
+main.admin {
+  text-align: center; }
+
+main.blog article {
+  border: 1px solid black; }
+
+header {
+  background-color: #000000;
+  height: 10vh;
+  margin-bottom: 5vh;
+  display: table;
+  width: 100%; }
+  header ul {
+    margin-bottom: 0;
+    text-align: center; }
+
+nav {
+  display: table-cell;
+  vertical-align: middle; }
+  nav li {
+    display: inline; }
+    nav li button {
+      background-color: #FF6600; }
+
+.blog-form h3 {
+  margin-bottom: 0; }

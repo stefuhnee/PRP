@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="./stylesheets/vendor/normalize.css">
+    <link type="text/css" rel="stylesheet" href="./stylesheets/vendor/skeleton.css">
+    <link type="text/css" rel="stylesheet" href="./stylesheets/scss/style.css" charset="utf-8">
+    <title>Red Panda</title>
+  </head>
+  <body ng-app="BucketListApp">
+    <header ng-controller="AuthController as ac">
+      <nav>
+        <ul>
+          <li><a href="#/blog"><button type="submit">Blog</button></a></li>
+          <li><a href="#/profile"><button type="submit">Profile</button></a></li>
+          <li><a href="#/login"><button type="submit">Log In</button></a></li>
+          <li><a href="#/signup"><button type="submit" ng-click="">Sign Up</button></a></li>
+          <li><button type="submit" ng-click="ac.signOut()">Log Out</button></li>
+          <li><a href="#/blog-admin"><button type="submit" ng-click="">Admin</button></a></li>
+        </ul>
+      </nav>
+    </header>
+    <ng-view></ng-view>
+    <footer>
+    </footer>
+    <script src="./bundle.js"></script>
+  </body>
+</html>

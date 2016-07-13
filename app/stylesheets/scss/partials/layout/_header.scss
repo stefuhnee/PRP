@@ -1,5 +1,12 @@
 header {
   background-color: #000000;
-  height: 15vh;
+  height: 10vh;
   margin-bottom: 5vh;
+  display: table;
+  width: 100%;
+
+  ul {
+    margin-bottom: 0;
+    text-align: center;
+  }
 }

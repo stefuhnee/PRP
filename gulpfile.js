@@ -11,9 +11,8 @@ const paths = {
   js: __dirname + '/app/**/*.js',
   html: __dirname + '/app/**/*.html',
   css: __dirname + '/app/**/*.css',
-  vendor: __dirname + '/public/**/*.css',
-  img: __dirname + '/public/**/*.png',
-  fonts: __dirname + '/public/**/*.{eot,ttf,woff,svg}'
+  img: __dirname + '/**/*.{png, jpg, gif}',
+  fonts: __dirname + '/**/*.{eot,ttf,woff,svg}'
 };
 
 gulp.task('linter', () => {
@@ -47,8 +46,6 @@ gulp.task('copy-html', ['clean'], () => {
 });
 
 gulp.task('copy-css', ['clean'], () => {
-  gulp.src(paths.vendor)
-    .pipe(gulp.dest('./build'));
   return gulp.src(paths.css)
     .pipe(gulp.dest('./build'));
 });
@@ -85,7 +82,7 @@ gulp.task('bundle:test', () => {
         filename: 'test-bundle.js'
       }
     }))
-    .pipe(gulp.dest(__dirname + '/test'));
+    .pipe(gulp.dest(__dirname + '/test/front-end'));
 });
 
 gulp.task('watch', () => {

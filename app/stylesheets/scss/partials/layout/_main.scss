@@ -1,5 +1,6 @@
 main {
   height: 100vh;
+  padding-left: 2em;
 }
 
 main.home {
@@ -19,7 +20,7 @@ main.home {
 
   h1 {
     display: table-cell;
-    color: #9A031E;
+    color: #640D14;
     font-weight: bold;
     font-size: 7rem;
     vertical-align: middle;
@@ -33,5 +34,23 @@ main.home {
   p {
     width: 50%;
     float: right;
+    padding-right: 2em;
+  }
+}
+
+main.profile {
+
+  ul {
+    list-style-type: none;
+  }
+}
+
+main.admin {
+  text-align: center;
+}
+
+main.blog {
+  article {
+    border: 1px solid black;
   }
 }

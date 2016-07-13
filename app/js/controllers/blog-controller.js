@@ -6,6 +6,7 @@ module.exports = function(app) {
     this.editing = false;
     this.$http = $http;
     this.$location = $location;
+    this.modalShown = false;
 
     this.populate = function() {
       EntryService.getEntries(() => {
@@ -26,13 +27,11 @@ module.exports = function(app) {
           return e._id !== entry._id;
         });
       }, ErrorService.logError('Error on Sign Up', () => {
-        $location.url('/login');
+        this.modalShown = true;
       }));
     }.bind(this);
 
     this.updateEntry = function(entry) {
-      console.log('updating');
-      console.log('editing: ', this.editing);
       $http({
         method: 'PUT',
         data: entry,
@@ -45,9 +44,9 @@ module.exports = function(app) {
           this.entries = this.entries.map ((e) => {
             return e._id === entry._id ? entry : e;
           });
-        }, ErrorService.logError('Error on Sign Up', () => {
-          $location.url('/signup');
-        }));
+        }), ErrorService.logError('Error on Sign Up', () => {
+          this.modalShown = true;
+        });
     }.bind(this);
   }]);
 };

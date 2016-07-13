@@ -45,10 +45,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	__webpack_require__(14);
-	__webpack_require__(15);
-	__webpack_require__(16);
-	__webpack_require__(13);
 	__webpack_require__(7);
 	__webpack_require__(8);
 	__webpack_require__(9);
@@ -56,10 +52,15 @@
 	__webpack_require__(6);
 	__webpack_require__(10);
 	__webpack_require__(11);
-	__webpack_require__(18);
+	__webpack_require__(14);
+	__webpack_require__(15);
+	__webpack_require__(16);
+	__webpack_require__(13);
+	__webpack_require__(17);
 	__webpack_require__(19);
 	__webpack_require__(20);
-	module.exports = __webpack_require__(17);
+	__webpack_require__(21);
+	module.exports = __webpack_require__(18);
 
 
 /***/ },
@@ -70,14 +71,25 @@
 	const angular = __webpack_require__(2);
 	const ngRoute = __webpack_require__(4);
 
-	const app = angular.module('BucketListApp', [ngRoute, 'angularModalService']);
+	const app = angular.module('BucketListApp', [ngRoute]);
 
 	__webpack_require__(6)(app);
 	__webpack_require__(13)(app);
-	__webpack_require__(17)(app);
+	__webpack_require__(18)(app);
 
-	app.config(function($routeProvider){
-	  $routeProvider  .when('/', {
+	app.config(function($provide, $httpProvider, $routeProvider){
+	  $provide.factory('ErrorInterceptor', function ($q) {
+	    return {
+	      responseError: function(rejection) {
+	        console.log('reject', rejection);
+	        return $q.reject(rejection);
+	      }
+	    };
+	  });
+
+	  $httpProvider.interceptors.push('ErrorInterceptor');
+	  $routeProvider
+	  .when('/', {
 	    templateUrl: './views/partials/home.html'
 	  })
 	  .when('/blog',{
@@ -32704,6 +32716,8 @@
 	  app.controller('AuthController', ['$location','AuthService','ErrorService', function($location, AuthService, ErrorService) {
 	    this.$location = $location;
 
+	    this.modalShown = false;
+
 	    this.goHome = function() {
 	      $location.url('/');
 	    };
@@ -32743,10 +32757,11 @@
 	'use strict';
 
 	module.exports = function(app) {
-	  app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', function($http, $location, AuthService, EntryService) {
+	  app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
 	    this.entries = [];
 	    this.$http = $http;
 	    this.$location = $location;
+	    this.modalShown = false;
 
 	    function getDate() {
 	      let date = new Date();
@@ -32763,16 +32778,15 @@
 	        headers: {
 	          token: AuthService.getToken()
 	        },
-	        url: 'http://localhost:3000/blog/'
+	        url: 'http://localhost:8080/blog/'
 	      })
 	      .then(EntryService.pushEntry(() => {
 	        this.entries = EntryService.entries;
 	      })
-	      ), (err) => {
-	        $location.url('/login');
-	        console.log(err);
-	      };
-	    };
+	      ), ErrorService.logError('Error on Sign Up', () => {
+	        this.modalShown = true;
+	      });
+	    }.bind(this);
 	  }]);
 	};
 
@@ -32789,6 +32803,7 @@
 	    this.editing = false;
 	    this.$http = $http;
 	    this.$location = $location;
+	    this.modalShown = false;
 
 	    this.populate = function() {
 	      EntryService.getEntries(() => {
@@ -32809,13 +32824,11 @@
 	          return e._id !== entry._id;
 	        });
 	      }, ErrorService.logError('Error on Sign Up', () => {
-	        $location.url('/login');
+	        this.modalShown = true;
 	      }));
 	    }.bind(this);
 
 	    this.updateEntry = function(entry) {
-	      console.log('updating');
-	      console.log('editing: ', this.editing);
 	      $http({
 	        method: 'PUT',
 	        data: entry,
@@ -32828,9 +32841,9 @@
 	          this.entries = this.entries.map ((e) => {
 	            return e._id === entry._id ? entry : e;
 	          });
-	        }, ErrorService.logError('Error on Sign Up', () => {
-	          $location.url('/signup');
-	        }));
+	        }), ErrorService.logError('Error on Sign Up', () => {
+	          this.modalShown = true;
+	        });
 	    }.bind(this);
 	  }]);
 	};
@@ -32885,6 +32898,7 @@
 	  __webpack_require__(14)(app);
 	  __webpack_require__(15)(app);
 	  __webpack_require__(16)(app);
+	  __webpack_require__(17)(app);
 	};
 
 
@@ -32946,19 +32960,49 @@
 
 /***/ },
 /* 17 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 
 	module.exports = function(app) {
-	  __webpack_require__(18)(app);
-	  __webpack_require__(19)(app);
-	  __webpack_require__(20)(app);
+	  app.directive('modalDirective', function() {
+	    return {
+	      scope: {
+	        show: '='
+	      },
+	      replace: true, // Replace with the template below
+	      transclude: true, // we want to insert custom content inside the directive
+	      link: function(scope, element, attrs) {
+	        scope.directiveStyle = {};
+	        if (attrs.width)
+	          scope.directiveStyle.width = attrs.width;
+	        if (attrs.height)
+	          scope.directiveStyle.height = attrs.height;
+	        scope.hideModal = function() {
+	          scope.show = false;
+	        };
+	      },
+	      templateUrl: './views/templates/modal-template.html'
+	    };
+	  });
 	};
 
 
 /***/ },
 /* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = function(app) {
+	  __webpack_require__(19)(app);
+	  __webpack_require__(20)(app);
+	  __webpack_require__(21)(app);
+	};
+
+
+/***/ },
+/* 19 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33009,7 +33053,7 @@
 
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33042,7 +33086,7 @@
 
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33052,11 +33096,12 @@
 	    const service = {};
 	    const errors = [];
 
-	    service.logError = function(message) {
+	    service.logError = function(message, cb) {
 	      return function(err) {
 	        errors.push(message);
 	        console.log(err);
-	        $location.url('/login');
+	        cb();
+	        // $location.url('/login');
 	      };
 	    };
 

@@ -1,10 +1,11 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', function($http, $location, AuthService, EntryService) {
+  app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
     this.entries = [];
     this.$http = $http;
     this.$location = $location;
+    this.modalShown = false;
 
     function getDate() {
       let date = new Date();
@@ -21,15 +22,14 @@ module.exports = function(app) {
         headers: {
           token: AuthService.getToken()
         },
-        url: 'http://localhost:3000/blog/'
+        url: 'http://localhost:8080/blog/'
       })
       .then(EntryService.pushEntry(() => {
         this.entries = EntryService.entries;
       })
-      ), (err) => {
-        $location.url('/login');
-        console.log(err);
-      };
-    };
+      ), ErrorService.logError('Error on Sign Up', () => {
+        this.modalShown = true;
+      });
+    }.bind(this);
   }]);
 };

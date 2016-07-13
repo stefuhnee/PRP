@@ -19,8 +19,8 @@ blogRouter.post('/', bodyParser, jwt, (req, res, next) => {
   User.findByIdAndUpdate(req.user._id,
     {$push: {'entries': newEntry}},
     {safe: true, upsert: true},
-    function(err, model) {
-      console.log(err, model);
+    function(err) {
+      if (err) return next(err);
     }
   );
   newEntry.save((err, entry) => {

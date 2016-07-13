@@ -18,7 +18,7 @@ module.exports = function(app) {
           scope.show = false;
         };
       },
-      template: '...' // See below
+      templateUrl: './views/templates/modal-template.html'
     };
   });
 };

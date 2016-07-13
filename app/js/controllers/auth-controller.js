@@ -4,6 +4,8 @@ module.exports = function(app) {
   app.controller('AuthController', ['$location','AuthService','ErrorService', function($location, AuthService, ErrorService) {
     this.$location = $location;
 
+    this.modalShown = false;
+
     this.goHome = function() {
       $location.url('/');
     };

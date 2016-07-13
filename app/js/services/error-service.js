@@ -5,11 +5,12 @@ module.exports = function(app) {
     const service = {};
     const errors = [];
 
-    service.logError = function(message) {
+    service.logError = function(message, cb) {
       return function(err) {
         errors.push(message);
         console.log(err);
-        $location.url('/login');
+        cb();
+        // $location.url('/login');
       };
     };
 

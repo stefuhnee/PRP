@@ -14,7 +14,7 @@
   "env": {
     "SECRET": {
       "description": "For auth purposes",
-      "generator": "redpanda"
+      "generator": "redpanda",
     }
   }
 }

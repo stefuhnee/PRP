@@ -1,0 +1,20 @@
+{
+  "name": "Red Panda",
+  "description": "Create a bucket list and track your goals.",
+  "keywords": [
+    "bucket list",
+    "full stack",
+    "angular",
+    "cms"
+  ],
+  "website": "",
+  "repository": "https://github.com/project-red-panda/PRP",
+  "logo": "",
+  "success_url": "/",
+  "env": {
+    "SECRET": {
+      "description": "For auth purposes",
+      "generator": "redpanda"
+    }
+  }
+}

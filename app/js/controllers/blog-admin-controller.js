@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', function($http, $location, AuthService, EntryService) {
+  app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
     this.entries = [];
     this.$http = $http;
     this.$location = $location;
@@ -28,10 +28,9 @@ module.exports = function(app) {
       .then(EntryService.pushEntry(() => {
         this.entries = EntryService.entries;
       })
-      ), (err) => {
-        $location.url('/login');
-        console.log('error inside addEntry', err);
-      };
+    ), ErrorService.logError('Error on Sign Up', () => {
+      $location.url('/login');
+    });
     };
   }]);
 };

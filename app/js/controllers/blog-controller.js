@@ -44,9 +44,9 @@ module.exports = function(app) {
           this.entries = this.entries.map ((e) => {
             return e._id === entry._id ? entry : e;
           });
-        }), ErrorService.logError('Error on Sign Up', () => {
+        }, ErrorService.logError('Error on Sign Up', () => {
           this.modalShown = true;
-        });
+        }));
     }.bind(this);
   }]);
 };

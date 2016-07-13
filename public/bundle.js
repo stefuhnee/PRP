@@ -32758,7 +32758,6 @@
 
 	module.exports = function(app) {
 	  app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
-	    this.entries = [];
 	    this.$http = $http;
 	    this.$location = $location;
 	    this.modalShown = false;
@@ -32780,12 +32779,10 @@
 	        },
 	        url: 'http://localhost:8080/blog/'
 	      })
-	      .then(EntryService.pushEntry(() => {
-	        this.entries = EntryService.entries;
-	      })
-	      ), ErrorService.logError('Error on Sign Up', () => {
+	      .then(() => {},
+	      ErrorService.logError('Error on Sign Up', () => {
 	        this.modalShown = true;
-	      });
+	      }));
 	    }.bind(this);
 	  }]);
 	};
@@ -32841,9 +32838,9 @@
 	          this.entries = this.entries.map ((e) => {
 	            return e._id === entry._id ? entry : e;
 	          });
-	        }), ErrorService.logError('Error on Sign Up', () => {
+	        }, ErrorService.logError('Error on Sign Up', () => {
 	          this.modalShown = true;
-	        });
+	        }));
 	    }.bind(this);
 	  }]);
 	};
@@ -32952,7 +32949,11 @@
 	module.exports = function(app) {
 	  app.directive('blogTemplateDirective', function() {
 	    return {
-	      templateUrl: './views/templates/blog-template.html'
+	      templateUrl: './views/templates/blog-template.html',
+	      require: '^^ngController',
+	      link: function($scope, elem, attr, controller) {
+	        $scope.add = controller.addEntry;
+	      }
 	    };
 	  });
 	};

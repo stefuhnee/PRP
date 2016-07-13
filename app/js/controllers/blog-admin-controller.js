@@ -2,7 +2,6 @@
 
 module.exports = function(app) {
   app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
-    this.entries = [];
     this.$http = $http;
     this.$location = $location;
     this.modalShown = false;
@@ -24,12 +23,10 @@ module.exports = function(app) {
         },
         url: 'http://localhost:8080/blog/'
       })
-      .then(EntryService.pushEntry(() => {
-        this.entries = EntryService.entries;
-      })
-      ), ErrorService.logError('Error on Sign Up', () => {
+      .then(() => {},
+      ErrorService.logError('Error on Sign Up', () => {
         this.modalShown = true;
-      });
+      }));
     }.bind(this);
   }]);
 };

@@ -85,7 +85,7 @@ gulp.task('bundle:test', () => {
         filename: 'test-bundle.js'
       }
     }))
-    .pipe(gulp.dest(__dirname + '/test'));
+    .pipe(gulp.dest(__dirname + '/test/front-end'));
 });
 
 gulp.task('watch', () => {

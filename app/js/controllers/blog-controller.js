@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('BlogController', ['$http', '$location', 'AuthService', 'EntryService', function($http, $location, AuthService, EntryService) {
+  app.controller('BlogController', ['$http', '$location', 'AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
     this.entries = [];
     this.$http = $http;
     this.$location = $location;
@@ -24,10 +24,9 @@ module.exports = function(app) {
         this.entries = this.entries.filter((e) => {
           return e._id !== entry._id;
         });
-      }, (err) => {
+      }, ErrorService.logError('Error on Sign Up', () => {
         $location.url('/login');
-        console.log(err);
-      });
+      }));
     }.bind(this);
 
     this.updateEntry = function(entry) {
@@ -44,10 +43,9 @@ module.exports = function(app) {
           this.entries = this.entries.map (e => {
             return e._id === this.entry._id ? this.entry : e;
           });
-        }, (err) => {
-          $location.url('/login');
-          console.log(err);
-        });
-    };
+        }, ErrorService.logError('Error on Sign Up', () => {
+          $location.url('/signup');
+        }));
+    }.bind(this);
   }]);
 };

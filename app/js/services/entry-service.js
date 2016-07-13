@@ -2,7 +2,7 @@
 
 module.exports = function(app) {
 
-  app.factory('EntryService', function($http) {
+  app.factory('EntryService', function($http, ErrorService) {
     const service = {};
     service.entries = [];
 
@@ -11,9 +11,7 @@ module.exports = function(app) {
       .then((res) => {
         service.entries = res.data;
         cb();
-      }, (err) => {
-        console.log(err);
-      });
+      }, ErrorService.logError('Error on Sign Up'));
     };
 
     service.pushEntry = function(cb) {

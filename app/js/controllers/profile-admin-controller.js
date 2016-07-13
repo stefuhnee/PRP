@@ -1,17 +1,17 @@
 'use strict';
 
+
 module.exports = function(app) {
-  app.controller('ProfileAdminController', ['$http', '$location', 'AuthService', 'AdminService', 'ErrorService', function($http, $location, AuthService, AdminService, ErrorService) {
+  app.controller('ProfileAdminController', ['$http', '$location', '$window', 'AuthService', 'AdminService', 'ErrorService', function($http, $location, $window, AuthService, AdminService, ErrorService) {
     this.$http = $http;
     this.$location = $location;
 
-    this.user = {};
-    this.test = 'test';
+    this.admin = {};
 
-    this.getAdmin = function(user) {
+    this.getAdmin = function(admin) {
       AdminService.getAdmin(() => {
-        this.user = AdminService.user;
-        console.log(this.user);
+        this.admin = AdminService.admin;
+        console.log('controller admin', this.admin);
       });
     };
 

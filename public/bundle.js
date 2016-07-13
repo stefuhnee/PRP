@@ -45,11 +45,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	__webpack_require__(14);
-	__webpack_require__(15);
-	__webpack_require__(16);
-	__webpack_require__(13);
-	__webpack_require__(22);
 	__webpack_require__(7);
 	__webpack_require__(8);
 	__webpack_require__(9);
@@ -57,6 +52,11 @@
 	__webpack_require__(6);
 	__webpack_require__(10);
 	__webpack_require__(11);
+	__webpack_require__(14);
+	__webpack_require__(15);
+	__webpack_require__(16);
+	__webpack_require__(13);
+	__webpack_require__(22);
 	__webpack_require__(21);
 	__webpack_require__(18);
 	__webpack_require__(19);
@@ -32842,18 +32842,18 @@
 
 	'use strict';
 
+
 	module.exports = function(app) {
-	  app.controller('ProfileAdminController', ['$http', '$location', 'AuthService', 'AdminService', 'ErrorService', function($http, $location, AuthService, AdminService, ErrorService) {
+	  app.controller('ProfileAdminController', ['$http', '$location', '$window', 'AuthService', 'AdminService', 'ErrorService', function($http, $location, $window, AuthService, AdminService, ErrorService) {
 	    this.$http = $http;
 	    this.$location = $location;
 
-	    this.user = {};
-	    this.test = 'test';
+	    this.admin = {};
 
-	    this.getAdmin = function(user) {
+	    this.getAdmin = function(admin) {
 	      AdminService.getAdmin(() => {
-	        this.user = AdminService.user;
-	        console.log(this.user);
+	        this.admin = AdminService.admin;
+	        console.log('controller admin', this.admin);
 	      });
 	    };
 
@@ -33109,17 +33109,25 @@
 
 	module.exports = function(app) {
 
-	  app.factory('AdminService', function($http, ErrorService) {
+	  app.factory('AdminService', function($http, $window, AuthService, ErrorService) {
 	    const service = {};
-	    
+	    service.admin = {};
+
 	    service.getAdmin = function(cb) {
-	      return $http.get('http://localhost:8080/admin')
+	      return $http({
+	        method: 'GET',
+	        headers: {
+	          admin: $window.localStorage.username,
+	          token: AuthService.getToken()
+	        },
+	        url: 'http://localhost:8080/admin'
+	      })
 	      .then((res) => {
-	        service.user = res.data;
+	        service.admin = res.data;
+	        console.log(service.admin, 'admin in service');
 	        cb();
 	      }, ErrorService.logError('Error on admin'));
 	    };
-
 	    return service;
 	  });
 	};

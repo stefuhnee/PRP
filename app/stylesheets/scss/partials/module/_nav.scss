@@ -1,8 +1,11 @@
 nav {
+  display: table-cell;
+  vertical-align: middle;
+
   li {
     display: inline;
     button {
-      background-color: #E24301;
+      background-color: #FF6600;
     }
   }
 }

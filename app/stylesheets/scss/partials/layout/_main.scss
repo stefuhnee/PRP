@@ -1,3 +1,8 @@
+main {
+  height: 100vh;
+  padding-left: 2em;
+}
+
 main.home {
   font-family: 'Bariol';
   text-align: center;
@@ -9,13 +14,43 @@ main.home {
 
   img {
     display: table-cell;
+    width: 75%;
+    float: left;
   }
 
   h1 {
     display: table-cell;
-    color: #9A031E;
+    color: #640D14;
     font-weight: bold;
     font-size: 7rem;
     vertical-align: middle;
+  }
+
+  form {
+    float: right;
+    width: 100%;
+  }
+
+  p {
+    width: 50%;
+    float: right;
+    padding-right: 2em;
+  }
+}
+
+main.profile {
+
+  ul {
+    list-style-type: none;
+  }
+}
+
+main.admin {
+  text-align: center;
+}
+
+main.blog {
+  article {
+    border: 1px solid black;
   }
 }

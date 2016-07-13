@@ -24,7 +24,7 @@ module.exports = function(app) {
         this.entries = this.entries.filter((e) => {
           return e._id !== entry._id;
         });
-      },ErrorService.logError('Error on Sign Up', () => {
+      }, ErrorService.logError('Error on Sign Up', () => {
         $location.url('/login');
       }));
     }.bind(this);
@@ -46,6 +46,6 @@ module.exports = function(app) {
         }, ErrorService.logError('Error on Sign Up', () => {
           $location.url('/signup');
         }));
-    };
+    }.bind(this);
   }]);
 };

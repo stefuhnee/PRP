@@ -15,14 +15,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.15.2",
-    "jsonwebtoken": "^7.0.1",
-    "express": "^4.13.4",
-    "mongoose": "^4.5.3",
-    "morgan": "^1.7.0",
-    "bcryptjs": "^2.3.0",
     "angular-route": "^1.5.7",
-    "cors": "^2.7.1"
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.15.2",
+    "cors": "^2.7.1",
+    "express": "^4.13.4",
+    "jsonwebtoken": "^7.0.1",
+    "mongoose": "^4.5.3",
+    "morgan": "^1.7.0"
   },
   "devDependencies": {
     "angular": "^1.5.6",

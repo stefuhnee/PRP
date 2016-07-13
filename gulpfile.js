@@ -28,7 +28,7 @@ gulp.task('tests', () => {
 });
 
 gulp.task('clean', () => {
-  return del('./build/**/*');
+  return del('./public/**/*');
 });
 
 gulp.task('clean-css', ['clean'], () => {
@@ -37,28 +37,28 @@ gulp.task('clean-css', ['clean'], () => {
 
 gulp.task('copy-img', ['clean'], () => {
   return gulp.src(paths.img)
-    .pipe(gulp.dest('./build'));
+    .pipe(gulp.dest('./public'));
 });
 
 gulp.task('copy-html', ['clean'], () => {
   return gulp.src(paths.html)
-    .pipe(gulp.dest('./build'));
+    .pipe(gulp.dest('./public'));
 });
 
 gulp.task('copy-css', ['clean'], () => {
   return gulp.src(paths.css)
-    .pipe(gulp.dest('./build'));
+    .pipe(gulp.dest('./public'));
 });
 
 gulp.task('copy-fonts', ['clean'], () => {
   return gulp.src(paths.fonts)
-    .pipe(gulp.dest('./build'));
+    .pipe(gulp.dest('./public'));
 });
 
 gulp.task('sass', ['clean-css', 'clean'], () => {
   return gulp.src('./app/**/*/style.scss')
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./build'));
+    .pipe(gulp.dest('./public'));
 });
 
 gulp.task('sass:watch', () => {
@@ -72,7 +72,7 @@ gulp.task('bundle', ['clean'], () => {
         filename: 'bundle.js'
       }
     }))
-    .pipe(gulp.dest('./build'));
+    .pipe(gulp.dest('./public'));
 });
 
 gulp.task('bundle:test', () => {
@@ -86,7 +86,7 @@ gulp.task('bundle:test', () => {
 });
 
 gulp.task('watch', () => {
-  gulp.watch('./app/*', ['build', 'sass:watch']);
+  gulp.watch('./app/*', ['public', 'sass:watch']);
 });
 
 gulp.task('build', ['linter', 'clean', 'sass', 'copy-html', 'copy-css', 'copy-img', 'copy-fonts', 'bundle']);

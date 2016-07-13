@@ -56,6 +56,8 @@
 	__webpack_require__(15);
 	__webpack_require__(16);
 	__webpack_require__(13);
+	__webpack_require__(22);
+	__webpack_require__(21);
 	__webpack_require__(18);
 	__webpack_require__(19);
 	__webpack_require__(20);
@@ -32701,8 +32703,6 @@
 
 	module.exports = function(app) {
 	  app.controller('AuthController', ['$location','AuthService','ErrorService', function($location, AuthService, ErrorService) {
-	    this.$location = $location;
-
 	    this.goHome = function() {
 	      $location.url('/');
 	    };
@@ -32842,10 +32842,36 @@
 
 	'use strict';
 
-	module.exports = function(app) {
-	  app.controller('ProfileAdminController', function() {
 
-	  });
+	module.exports = function(app) {
+	  app.controller('ProfileAdminController', ['$http', '$location', '$window', 'AuthService', 'AdminService', 'ErrorService', function($http, $location, $window, AuthService, AdminService, ErrorService) {
+	    this.$http = $http;
+	    this.$location = $location;
+
+	    this.admin = {};
+
+	    this.getAdmin = function(admin) {
+	      AdminService.getAdmin(() => {
+	        this.admin = AdminService.admin;
+	        console.log('controller admin', this.admin);
+	      });
+	    };
+
+	    this.updateProfile = function(user) {
+	      return $http({
+	        method: 'PUT',
+	        data: user,
+	        headers: {
+	          token: AuthService.getToken()
+	        },
+	        url: 'http://localhost:8080/admin'
+	      })
+	      .then(() => {
+	        console.log('got here');
+	      }),
+	        ErrorService.logError('Error in updating profile');
+	    };
+	  }]);
 	};
 
 
@@ -32954,6 +32980,7 @@
 	  __webpack_require__(18)(app);
 	  __webpack_require__(19)(app);
 	  __webpack_require__(20)(app);
+	  __webpack_require__(21)(app);
 	};
 
 
@@ -32967,6 +32994,7 @@
 
 	  app.factory('AuthService', function($http, $window) {
 	    let token = $window.localStorage.token;
+	    let username = $window.localStorage.username;
 	    const service = {};
 
 
@@ -32975,6 +33003,7 @@
 	      .then((res)=> {
 	        token = res.data.token;
 	        $window.localStorage.token = token;
+	        $window.localStorage.username = user.username;
 	      });
 	    };
 
@@ -32991,12 +33020,15 @@
 	      }).then((res)=> {
 	        token = res.data.token;
 	        $window.localStorage.token = token;
+	        $window.localStorage.username = user.username;
+
 	        return res;
 	      });
 	    };
 
 	    service.signOut = function() {
 	      token = $window.localStorage.token = null;
+	      user = $window.localStorage.username = null;
 	    };
 
 	    service.getToken = function() {
@@ -33066,6 +33098,56 @@
 
 	    return service;
 	  });
+	};
+
+
+/***/ },
+/* 21 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = function(app) {
+
+	  app.factory('AdminService', function($http, $window, AuthService, ErrorService) {
+	    const service = {};
+	    service.admin = {};
+
+	    service.getAdmin = function(cb) {
+	      return $http({
+	        method: 'GET',
+	        headers: {
+	          admin: $window.localStorage.username,
+	          token: AuthService.getToken()
+	        },
+	        url: 'http://localhost:8080/admin'
+	      })
+	      .then((res) => {
+	        service.admin = res.data;
+	        console.log(service.admin, 'admin in service');
+	        cb();
+	      }, ErrorService.logError('Error on admin'));
+	    };
+	    return service;
+	  });
+	};
+
+
+/***/ },
+/* 22 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = function(app) {
+	  app.directive('profileAdminDirective', function() {
+	    return {
+	      scope: {
+	        user: '='
+	      },
+	      templateUrl: './views/'
+	    }
+	  })
 	};
 
 

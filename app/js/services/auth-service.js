@@ -4,6 +4,7 @@ module.exports = function(app) {
 
   app.factory('AuthService', function($http, $window) {
     let token = $window.localStorage.token;
+    let username = $window.localStorage.username;
     const service = {};
 
 
@@ -12,6 +13,7 @@ module.exports = function(app) {
       .then((res)=> {
         token = res.data.token;
         $window.localStorage.token = token;
+        $window.localStorage.username = user.username;
       });
     };
 
@@ -28,12 +30,15 @@ module.exports = function(app) {
       }).then((res)=> {
         token = res.data.token;
         $window.localStorage.token = token;
+        $window.localStorage.username = user.username;
+
         return res;
       });
     };
 
     service.signOut = function() {
       token = $window.localStorage.token = null;
+      user = $window.localStorage.username = null;
     };
 
     service.getToken = function() {

@@ -1,7 +1,11 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('ProfileAdminController', ['$http', '$location', 'AuthService', 'ErrorService', function($http, $location, AuthService) {
+  app.controller('ProfileAdminController', ['$http', '$location', 'AuthService', 'ErrorService', function($http, $location, AuthService, ErrorService) {
+    this.$http = $http;
+    this.$location = $location;
+
+
 
     this.updateProfile = function(user) {
       return $http({

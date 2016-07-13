@@ -24,6 +24,7 @@ module.exports = function(app) {
     this.logIn = function(user) {
       AuthService.logIn(user)
       .then((res) => {
+        console.log(req.auth, 'auth req');
         console.log(res, 'Sign in res');
       }, (err) => {
         console.log(err);

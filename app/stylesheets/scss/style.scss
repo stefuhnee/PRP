@@ -3,6 +3,7 @@
 
 // Partials
 @import "partials/base/web-fonts";
+@import "partials/state/a.scss";
 @import "partials/base/a.scss";
 @import "partials/base/body.scss";
 @import "partials/base/fonts.scss";
@@ -11,5 +12,4 @@
 @import "partials/layout/form.scss";
 @import "partials/module/nav.scss";
 @import "partials/module/directive.scss";
-@import "partials/state/a.scss";
 @import "partials/state/media-query.scss";

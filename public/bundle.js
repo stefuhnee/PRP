@@ -52,16 +52,17 @@
 	__webpack_require__(6);
 	__webpack_require__(10);
 	__webpack_require__(11);
-	__webpack_require__(22);
-	__webpack_require__(19);
-	__webpack_require__(20);
-	__webpack_require__(21);
-	__webpack_require__(18);
 	__webpack_require__(14);
 	__webpack_require__(15);
 	__webpack_require__(16);
 	__webpack_require__(13);
 	__webpack_require__(17);
+	__webpack_require__(24);
+	__webpack_require__(22);
+	__webpack_require__(19);
+	__webpack_require__(20);
+	__webpack_require__(21);
+	__webpack_require__(18);
 	module.exports = __webpack_require__(23);
 
 
@@ -32834,9 +32835,8 @@
 
 
 	module.exports = function(app) {
-	  app.controller('ProfileAdminController', ['$http', '$location', '$window', 'AuthService', 'AdminService', 'ErrorService', function($http, $location, $window, AuthService, AdminService, ErrorService) {
+	  app.controller('ProfileAdminController', ['$http', 'AuthService', 'AdminService', 'ErrorService', function($http, AuthService, AdminService, ErrorService) {
 	    this.$http = $http;
-	    this.$location = $location;
 
 	    this.admin = {};
 
@@ -32874,9 +32874,20 @@
 	'use strict';
 
 	module.exports = function(app) {
-	  app.controller('ProfileController', function() {
+	  app.controller('ProfileController', ['$http', '$location', 'ProfileService', 'ErrorService', function($http, $location, ProfileService, ErrorService) {
+	    this.$http = $http;
+	    this.$location = $location;
 
-	  });
+	    this.profile = {};
+
+	    this.getProfile = function(url) {
+	      ProfileService.getProfile(url, () => {
+	        this.profile = ProfileService.profile;
+	        console.log(this.profile, 'this.profile');
+	      });
+	    };
+
+	  }]);
 	};
 
 
@@ -32987,6 +32998,7 @@
 	  __webpack_require__(20)(app);
 	  __webpack_require__(21)(app);
 	  __webpack_require__(22)(app);
+	  __webpack_require__(23)(app);
 	};
 
 
@@ -33139,6 +33151,38 @@
 
 /***/ },
 /* 23 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = function(app) {
+
+	  app.factory('ProfileService', function($http, ErrorService) {
+	    const service = {};
+	    service.profile = {};
+
+	    service.getProfile = function(profileUrl,cb) {
+	      return $http({
+	        method: 'GET',
+	        headers: {
+	          profile: profileUrl
+	        },
+	        url: '/profile'
+	      })
+	      .then((res) => {
+	        console.log(profileUrl, 'profileUrl');
+	        service.profile = res.data;
+	        console.log('profile in service', service.profile);
+	        cb();
+	      }, ErrorService.logError('Error on profile'));
+	    };
+	    return service;
+	  });
+	};
+
+
+/***/ },
+/* 24 */
 /***/ function(module, exports) {
 
 	'use strict';

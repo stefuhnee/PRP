@@ -32784,8 +32784,7 @@
 	    this.editing = false;
 	    this.$http = $http;
 	    this.$location = $location;
-	    this.currententry;
-	    this.list = 'true';
+	    this.list = true;
 
 
 	    this.populate = function() {

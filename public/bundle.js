@@ -32786,6 +32786,8 @@
 	    this.editing = false;
 	    this.$http = $http;
 	    this.$location = $location;
+	    this.list = true;
+
 
 	    this.populate = function() {
 	      EntryService.getEntries(() => {

@@ -1,30 +1,54 @@
 main {
   height: 100vh;
   padding: 2%;
+  font-family: 'Fira Sans';
 }
 
 main.home {
   text-align: center;
 
+  .flex-container {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    align-items: center;
+
+    .logo {
+      flex-grow: 1;
+      flex-shrink: 0;
+      flex-basis: 0;
+      padding: 2vh;
+    }
+
+    form {
+      flex-grow: 1;
+      flex-shrink: 0;
+      flex-basis: 0;
+      padding: 2vh;
+
+      input {
+        width: 100%;
+      }
+    }
+  }
+
   img {
-    width: 30%;
+    width: 30vh;
     margin: 0 auto;
   }
 
   h1 {
     font-family: 'Caveat';
-    color: #640D14;
+    color: $red;
     font-weight: bold;
-    font-size: 12vh;
-  }
-
-  form {
-    float: right;
-    width: 100%;
+    font-size: 10vh;
   }
 
   p {
-    width: 50%;
+    width: 100%;
     margin: 0 auto;
   }
 }
@@ -45,5 +69,8 @@ main.blog {
 
   article {
     border: 1px solid black;
+    padding: 2vh;
+    text-align: center;
+    margin-bottom: 2vh;
   }
 }

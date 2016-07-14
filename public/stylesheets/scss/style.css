@@ -10,11 +10,10 @@
 @import url("//fonts.googleapis.com/css?family=Caveat");
 a {
   text-decoration: none;
-  color: #b80c09; }
+  color: #fbfffe; }
 
 body {
-  background-color: #fbfffe;
-  font-family: 'Fira Sans'; }
+  background-color: #fbfffe; }
 
 @font-face {
   font-family: 'icomoon';
@@ -49,23 +48,41 @@ body {
 
 main {
   height: 100vh;
-  padding: 2%; }
+  padding: 2%;
+  font-family: 'Fira Sans'; }
 
 main.home {
   text-align: center; }
+  main.home .flex-container {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    align-items: center; }
+    main.home .flex-container .logo {
+      flex-grow: 1;
+      flex-shrink: 0;
+      flex-basis: 0;
+      padding: 2vh; }
+    main.home .flex-container form {
+      flex-grow: 1;
+      flex-shrink: 0;
+      flex-basis: 0;
+      padding: 2vh; }
+      main.home .flex-container form input {
+        width: 100%; }
   main.home img {
-    width: 30%;
+    width: 30vh;
     margin: 0 auto; }
   main.home h1 {
     font-family: 'Caveat';
     color: #640D14;
     font-weight: bold;
-    font-size: 12vh; }
-  main.home form {
-    float: right;
-    width: 100%; }
+    font-size: 10vh; }
   main.home p {
-    width: 50%;
+    width: 100%;
     margin: 0 auto; }
 
 main.profile ul {
@@ -77,11 +94,14 @@ main.admin {
 main.blog {
   height: 200vh; }
   main.blog article {
-    border: 1px solid black; }
+    border: 1px solid black;
+    padding: 2vh;
+    text-align: center;
+    margin-bottom: 2vh; }
 
 header {
   position: relative;
-  background-color: #000000;
+  background-color: #6d676e;
   height: 10vh;
   padding: 0 2%;
   margin-bottom: 5vh;
@@ -97,6 +117,7 @@ header {
 nav.full-nav {
   display: none; }
   nav.full-nav ul {
+    list-style: none;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -109,7 +130,7 @@ nav.full-nav {
       flex-basis: 0;
       padding: 2vh; }
       nav.full-nav ul li button {
-        background-color: #FF6600; }
+        background-color: #ff6600; }
 
 .mobile-nav {
   font-size: 5vh;
@@ -142,6 +163,8 @@ a:hover {
   color: #fbfffe; }
 
 @media only screen and (min-width: 640px) {
+  main.home input {
+    width: 66%; }
   blog-list-directive {
     display: none; }
   blog-full-view-directive {

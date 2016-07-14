@@ -7,7 +7,7 @@ module.exports = function(app) {
         entry: '='
       },
       templateUrl: './views/templates/blog-full-view-template.html',
-      require: '^^ngController',
+      require: '^ngController',
       link: function($scope, elem, attr, controller) {
         $scope.delete = controller.deleteEntry;
         $scope.update = controller.updateEntry;

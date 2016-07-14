@@ -15,12 +15,5 @@ module.exports = function(app) {
         this.profile = ProfileService.profile;
       });
     };
-
-    this.test = function() {
-      console.log(this.login);
-      console.log(this);
-      console.log(typeof this.login);
-    };
-
   }]);
 };

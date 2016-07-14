@@ -4,6 +4,10 @@ main {
   font-family: 'Fira Sans';
 }
 
+main.profile {
+  text-align: center;
+}
+
 main.home {
   text-align: center;
 
@@ -40,11 +44,18 @@ main.home {
     margin: 0 auto;
   }
 
-  h1 {
+  .title {
     font-family: 'Caveat';
     color: $red;
     font-weight: bold;
-    font-size: 10vh;
+    font-size: 60px;
+  }
+
+  h1 {
+    font-size: 5vh;
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
   }
 
   p {
@@ -62,10 +73,26 @@ main.profile {
 
 main.admin {
   text-align: center;
+
+  h1 {
+    font-weight: bold;
+  }
 }
 
 main.blog {
   height: 200vh;
+
+  h1 {
+    font-weight: bold;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 32px;
+  }
 
   article {
     border: 1px solid black;

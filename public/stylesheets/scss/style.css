@@ -8,6 +8,9 @@
 @import url("//fonts.googleapis.com/css?family=Secular%20One");
 @import url("//fonts.googleapis.com/css?family=Amatica%20SC");
 @import url("//fonts.googleapis.com/css?family=Caveat");
+a:hover {
+  color: #fbfffe; }
+
 a {
   text-decoration: none;
   color: #fbfffe; }
@@ -159,11 +162,8 @@ blog-list-directive {
 blog-full-view-directive {
   display: none; }
 
-a:hover {
-  color: #fbfffe; }
-
 @media only screen and (min-width: 640px) {
-  main.home input {
+  main.home .flex-container form input {
     width: 66%; }
   blog-list-directive {
     display: none; }

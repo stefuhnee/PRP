@@ -2,7 +2,7 @@
 
 module.exports = function(app) {
 
-  const URL = process.env.URL || 'http://localhost:8080';
+  // const URL = process.env.URL || 'http://localhost:8080';
 
   app.factory('AuthService', function($http, $window) {
     let token = $window.localStorage.token;
@@ -24,7 +24,7 @@ module.exports = function(app) {
       let authString = 'Basic ' + base64Auth;
 
       return $http({
-        url: `${URL}/login`,
+        url: '/login',
         method: 'GET',
         headers: {
           authorization: authString

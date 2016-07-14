@@ -13,12 +13,7 @@ mongoose.connect(dbPort);
 
 const port = process.env.PORT || 8080;
 
-app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
-
-app.get('/', function(req, res) {
-  res.render('index');
-});
 
 app.use(morgan('dev'));
 
@@ -26,7 +21,7 @@ app.use(cors());
 
 app.use('/blog', blogRouter);
 app.use('/', authRouter);
-app.use('/admin', adminRouter)
+app.use('/admin', adminRouter);
 
 app.use((err, req, res, next) =>{
   res.status(500).json({message: err.message});

@@ -55,14 +55,17 @@ gulp.task('copy-fonts', ['clean'], () => {
     .pipe(gulp.dest('./public'));
 });
 
-gulp.task('sass', ['clean-css'], () => {
+gulp.task('sass', ['clean-css', 'clean'], () => {
   return gulp.src('./app/**/*/style.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./public'));
 });
 
-gulp.task('sass:watch', () => {
-  gulp.watch('./app/stylesheets/**/*.scss', ['sass']);
+gulp.task('sass:watch', ['clean-css'], () => {
+  gulp.src('./app/**/*/style.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./public'));
+  gulp.watch('./app/stylesheets/**/*.scss');
 });
 
 gulp.task('bundle', ['clean'], () => {

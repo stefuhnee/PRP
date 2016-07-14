@@ -9,7 +9,7 @@ module.exports = function(app) {
       return function(err) {
         errors.push(message);
         console.log(err);
-        $location.url('/login');
+        $location.url('/');
       };
     };
 

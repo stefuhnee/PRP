@@ -10,9 +10,10 @@
         cost. If your plans change you can update and delete any entry with a click of a button.
     </p>
   </div>
-    <form ng-submit="ac.signUp(user)">
+    <form>
       <input type="text" ng-model="user.username" placeholder="username"></input><br>
       <input type="password" ng-model="user.password" placeholder="password"></input><br>
-      <button type="submit">Submit</button>
+      <button ng-click="ac.signUp(user)">Sign Up</button>
+      <button ng-click="ac.logIn(user)">Log In</button>
     </form>
 </main>

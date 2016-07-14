@@ -5,8 +5,8 @@
     <h2>{{entry.dateCreated}}</h2>
     <p>{{entry.content}}</p>
   </div>
-  <h2 ng-if="entry.cost">Projected Cost: {{entry.cost}}</h2>
-  <h2 ng-if="entry.timeline">Completion Goal Date: {{entry.timeline}}</h2>
+  <h2 ng-if="entry.cost"><strong>Projected Cost:</strong> {{entry.cost}}</h2>
+  <h2 ng-if="entry.timeline"><strong>Completion Goal Date:</strong> {{entry.timeline}}</h2>
   <button ng-click="bc.editing = !bc.editing">Edit</button>
   <button ng-click="delete(entry)">Delete</button>
 </article>
@@ -16,11 +16,9 @@
   <input type="text" ng-model="entry.title"></input>
   <h1>Content</h1>
   <textarea ng-model="entry.content"></textarea>
-  <h1>Upload an Image</h1>
-  <input type="file" accept="image/*"></input>
   <h1>Projected Cost</h1>
   <input type="text" ng-model="entry.cost"></input>
   <h1>Goal Completion Date</h1>
-  <input type="date" ng-model="entry.timeline"></input>
+  <input type="date" ng-model="entry.timeline"></input><br />
   <button type="submit" ng-click="bc.editing = !bc.editing">Update Entry</button>
 </form>

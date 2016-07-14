@@ -15,9 +15,13 @@ nav.full-nav {
       flex-shrink: 0;
       flex-basis: 0;
       padding: 2vh;
+      margin: 0;
 
       button {
         background-color: $orange;
+        color: $white;
+        font-weight: bold;
+        margin: 0;
       }
     }
   }

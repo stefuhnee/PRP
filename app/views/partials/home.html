@@ -2,11 +2,13 @@
   <div class="flex-container">
     <div class="logo">
       <img src="../img/panda.png" />
-      <h1>Red Panda</h1>
+      <h1 class="title">Red Panda</h1>
     </div>
     <form>
-      <input type="text" ng-model="user.username" placeholder="username"></input><br>
-      <input type="password" ng-model="user.password" placeholder="password"></input><br>
+      <h1>Username</h1>
+      <input type="text" ng-model="user.username"></input><br>
+      <h1>Password</h1>
+      <input type="password" ng-model="user.password"></input><br>
       <button ng-click="ac.signUp(user)">Sign Up</button>
       <button ng-click="ac.logIn(user)">Log In</button>
     </form>

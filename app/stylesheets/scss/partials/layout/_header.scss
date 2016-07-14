@@ -1,11 +1,9 @@
 header {
-  position: relative;
   background-color: $grey;
   height: 10vh;
-  padding: 0 2%;
-  margin-bottom: 5vh;
   display: table;
   width: 100%;
+  border: 1px solid black;
 
   ul {
     margin-bottom: 0;

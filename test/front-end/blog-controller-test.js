@@ -27,6 +27,6 @@ describe('Controller Tests', () => {
       expect(Array.isArray(bc.entries)).toBe(true);
     });
 
-    
+
   });
 });

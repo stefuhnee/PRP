@@ -27,14 +27,6 @@ describe('Controller Tests', () => {
       expect(Array.isArray(bc.entries)).toBe(true);
     });
 
-    // it('should allow a user to sign up', () => {
-    //   $httpBackend.expectGET('http://localhost:8080/signup')
-    //     .respond(200, {data: [{body: 'test user'}]});
-    //
-    //   bc.signUp();
-    //   console.log('tag', ac.newUser);
-    //   $httpBackend.flush();
-    //
-    //   expect(ac.newUser.body).toBe('test user');
+    
   });
 });

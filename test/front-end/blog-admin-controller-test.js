@@ -28,7 +28,7 @@ describe('Controller Tests', () => {
     });
 
     it('should allow an existing user to add an entry', () => {
-      $httpBackend.expectPOST('http://localhost:8080/blog')
+      $httpBackend.expectPOST('/blog')
         .respond(200, {body: 'test entry', title: 'test title', content: 'test content'});
 
       bac.newEntry = {body: 'test entry', title: 'test title', content: 'test content'};

@@ -45,12 +45,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	__webpack_require__(14);
-	__webpack_require__(15);
-	__webpack_require__(16);
-	__webpack_require__(13);
-	__webpack_require__(17);
-	__webpack_require__(24);
 	__webpack_require__(7);
 	__webpack_require__(8);
 	__webpack_require__(9);
@@ -63,7 +57,13 @@
 	__webpack_require__(20);
 	__webpack_require__(21);
 	__webpack_require__(18);
-	module.exports = __webpack_require__(23);
+	__webpack_require__(23);
+	__webpack_require__(14);
+	__webpack_require__(15);
+	__webpack_require__(16);
+	__webpack_require__(13);
+	__webpack_require__(17);
+	module.exports = __webpack_require__(24);
 
 
 /***/ },
@@ -32714,12 +32714,14 @@
 	    this.signUp = function(user) {
 	      AuthService.signUp(user)
 	      .then(() => {
+	        $location.url('/blog');
 	      }, ErrorService.logError('Error on Sign Up'));
 	    };
 
 	    this.logIn = function(user) {
 	      AuthService.logIn(user)
 	      .then(() => {
+	        $location.url('/blog');
 	      }, ErrorService.logError('Error on Sign Up')
 	    );
 	    }.bind(this);
@@ -32734,7 +32736,7 @@
 	'use strict';
 
 	module.exports = function(app) {
-	  app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
+	  app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', function($http, $location, AuthService, EntryService) {
 	    this.entries = [];
 	    this.$http = $http;
 	    this.$location = $location;
@@ -32756,7 +32758,7 @@
 	        headers: {
 	          token: AuthService.getToken()
 	        },
-	        url: '/blog/'
+	        url: '/blog'
 	      })
 	      .then(EntryService.pushEntry(() => {
 	        this.entries = EntryService.entries;
@@ -32784,6 +32786,8 @@
 	    this.editing = false;
 	    this.$http = $http;
 	    this.$location = $location;
+	    this.list = true;
+
 
 	    this.populate = function() {
 	      EntryService.getEntries(() => {
@@ -32814,7 +32818,7 @@
 	        headers: {
 	          token: AuthService.getToken()
 	        },
-	        url: 'blog'
+	        url: '/blog'
 	      })
 	        .then(() => {
 	          this.entries = this.entries.map ((e) => {
@@ -32874,19 +32878,27 @@
 	'use strict';
 
 	module.exports = function(app) {
-	  app.controller('ProfileController', ['$http', '$location', 'ProfileService', 'ErrorService', function($http, $location, ProfileService, ErrorService) {
+
+	  app.controller('ProfileController', ['$http', '$location', '$window', 'ProfileService', 'ErrorService', function($http, $location, $window, ProfileService, ErrorService) {
+
 	    this.$http = $http;
 	    this.$location = $location;
+	    this.login = $window.localStorage.token;
+	    this.loggedInUser = $window.localStorage.username;
 
 	    this.profile = {};
+
+	    this.getUserProfile = function() {
+	      ProfileService.getProfile(this.loggedInUser, () => {
+	        this.profile = ProfileService.profile
+	      });
+	    };
 
 	    this.getProfile = function(url) {
 	      ProfileService.getProfile(url, () => {
 	        this.profile = ProfileService.profile;
-	        console.log(this.profile, 'this.profile');
 	      });
 	    };
-
 	  }]);
 	};
 
@@ -33011,7 +33023,6 @@
 	module.exports = function(app) {
 	  app.factory('AuthService', function($http, $window, $location) {
 	    let token = $window.localStorage.token;
-	    let username = $window.localStorage.username;
 	    const service = {};
 
 
@@ -33044,8 +33055,8 @@
 	    };
 
 	    service.signOut = function() {
-	      token = $window.localStorage.token = null;
-	      username = $window.localStorage.username = null;
+	      token = $window.localStorage.token = '';
+	      $window.localStorage.username = '';
 	      $location.url('/');
 	    };
 
@@ -33072,7 +33083,7 @@
 	    service.getEntries = function(cb) {
 	      return $http.get('/blog')
 	      .then((res) => {
-	        service.entries = res.data;
+	        service.entries = res.data.reverse();
 	        cb();
 	      }, ErrorService.logError('Error on Sign Up'));
 	    };
@@ -33080,7 +33091,7 @@
 	    service.pushEntry = function(cb) {
 	      return function(res) {
 	        let entry = res.data;
-	        service.entries.push(entry);
+	        service.entries.unshift(entry);
 	        cb();
 	      };
 	    };

@@ -9,7 +9,6 @@ const findUser = require('../lib/find-user');
 const adminRouter = express.Router();
 
 adminRouter.get('/', bodyParser, (req,res,next) => {
-  console.log('req.headers', req.headers);
   User.findOne({username:req.headers.admin}, (err, user) => {
     if(err) return next(err);
     res.json(user)

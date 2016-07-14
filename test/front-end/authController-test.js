@@ -32,20 +32,25 @@ describe('AuthController Test', () => {
     $httpBackend.expectPOST('http://localhost:8080/signup')
       .respond(200, {data: [{body: 'test user'}]});
 
-    ac.signUp();
-    console.log('tag', ac.newUser);
+    ac.signUp({username: 'testuser', password: 'testpassword'});
     $httpBackend.flush();
-
-    expect(ac.newUser.body).toBe('test user');
   });
 
-  // it('should allow a user to log in', () => {
-  //   $httpBackend.expectGET('http://localhost:8080/login')
+  it('should allow a user to log in', () => {
+    $httpBackend.expectGET('http://localhost:8080/login')
+      .respond(200, {data: [{body: 'test user'}]});
+
+    ac.logIn({username: 'testuser', password: 'testpassword'});
+    $httpBackend.flush();
+  });
+
+  // it('should allow a user to sign out', () => {
+  //   $httpBackend.expectGET('http://localhost:8080/signout')
   //     .respond(200, {data: [{body: 'test user'}]});
   //
-  //   ac.logIn();
+  //   ac.signOut();
   //   $httpBackend.flush();
   //
-  //   expect()
+  //   expect(typeof ac.signOut).toBe('function');
   // });
 });

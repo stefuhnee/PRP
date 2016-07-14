@@ -4,7 +4,6 @@ const express = require('express');
 const bodyParser = require('body-parser').json();
 const User = require('../models/user.js');
 const basicHttp = require('../lib/basic-http.js');
-const findUser = ('../lib/find-user.js');
 
 const authRouter = express.Router();
 

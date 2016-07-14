@@ -1,17 +1,14 @@
 'use strict';
 
 module.exports = function(app) {
-
-  // const URL = process.env.URL || 'http://localhost:8080';
-
-  app.factory('AuthService', function($http, $window) {
+  app.factory('AuthService', function($http, $window, $location) {
     let token = $window.localStorage.token;
     let username = $window.localStorage.username;
     const service = {};
 
 
     service.signUp = function(user) {
-      return $http.post(`${URL}/signup`, user)
+      return $http.post('/signup', user)
       .then((res)=> {
         token = res.data.token;
         $window.localStorage.token = token;
@@ -41,6 +38,7 @@ module.exports = function(app) {
     service.signOut = function() {
       token = $window.localStorage.token = null;
       username = $window.localStorage.username = null;
+      $location.url('/');
     };
 
     service.getToken = function() {

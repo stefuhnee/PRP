@@ -81,7 +81,9 @@
 	app.config(function($routeProvider){
 	  $routeProvider
 	  .when('/', {
-	    templateUrl: './views/partials/home.html'
+	    templateUrl: './views/partials/home.html',
+	    controller: 'AuthController',
+	    controllerAs: 'ac'
 	  })
 	  .when('/blog',{
 	    templateUrl: './views/partials/blog.html',
@@ -93,11 +95,6 @@
 	    controller: 'BlogAdminController',
 	    controllerAs: 'bac'
 	  })
-	  .when('/login', {
-	    templateUrl: './views/partials/login.html',
-	    controller: 'AuthController',
-	    controllerAs: 'ac'
-	  })
 	  .when('/profile-admin', {
 	    templateUrl: './views/partials/profile-admin.html',
 	    controller: 'ProfileAdminController',
@@ -107,11 +104,6 @@
 	    templateUrl: './views/partials/profile.html',
 	    controller: 'ProfileController',
 	    controllerAs: 'pc'
-	  })
-	  .when('/signup', {
-	    templateUrl: './views/partials/signup.html',
-	    controller: 'AuthController',
-	    controllerAs: 'ac'
 	  });
 	});
 
@@ -32713,28 +32705,23 @@
 
 	    this.signOut = function() {
 	      AuthService.signOut()
-	      .then((res) => {
-	        console.log(res);
+	      .then(() => {
 	        $location.url('/');
 	      }, ErrorService.logError('Error on Sign Out'));
 	    };
 
 	    this.signUp = function(user) {
 	      AuthService.signUp(user)
-	      .then((res) => {
-	        console.log(res);
+	      .then(() => {
 	      }, ErrorService.logError('Error on Sign Up'));
 	    };
 
 	    this.logIn = function(user) {
 	      AuthService.logIn(user)
-	      .then((res) => {
-	        console.log(res, 'Sign in res');
-	      }, (err) => {
-	        console.log(err);
-	        $location.url('/signup');
-	      });
-	    };
+	      .then(() => {
+	      }, ErrorService.logError('Error on Sign Up')
+	    );
+	    }.bind(this);
 	  }]);
 	};
 
@@ -32746,9 +32733,6 @@
 	'use strict';
 
 	module.exports = function(app) {
-
-	  // const URL = process.env.URL || 'http://localhost:8080';
-
 	  app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
 	    this.entries = [];
 	    this.$http = $http;
@@ -32792,9 +32776,6 @@
 	'use strict';
 
 	module.exports = function(app) {
-
-	  // const URL = process.env.URL || 'http://localhost:8080';
-
 	  app.controller('BlogController', ['$http', '$location', 'AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
 	    this.entries = [];
 	    this.editing = false;
@@ -32819,14 +32800,11 @@
 	        this.entries = this.entries.filter((e) => {
 	          return e._id !== entry._id;
 	        });
-	      }, ErrorService.logError('Error on Sign Up', () => {
-	        $location.url('/login');
-	      }));
+	      }, ErrorService.logError('Error on Sign Up')
+	    );
 	    }.bind(this);
 
 	    this.updateEntry = function(entry) {
-	      console.log('updating');
-	      console.log('editing: ', this.editing);
 	      $http({
 	        method: 'PUT',
 	        data: entry,
@@ -32839,9 +32817,8 @@
 	          this.entries = this.entries.map ((e) => {
 	            return e._id === entry._id ? entry : e;
 	          });
-	        }, ErrorService.logError('Error on Sign Up', () => {
-	          $location.url('/signup');
-	        }));
+	        }, ErrorService.logError('Error on Sign Up')
+	      );
 	    }.bind(this);
 	  }]);
 	};
@@ -32855,9 +32832,6 @@
 
 
 	module.exports = function(app) {
-
-	  // const URL = process.env.URL || 'http://localhost:8080';
-
 	  app.controller('ProfileAdminController', ['$http', '$location', '$window', 'AuthService', 'AdminService', 'ErrorService', function($http, $location, $window, AuthService, AdminService, ErrorService) {
 	    this.$http = $http;
 	    this.$location = $location;
@@ -33021,17 +32995,14 @@
 	'use strict';
 
 	module.exports = function(app) {
-
-	  // const URL = process.env.URL || 'http://localhost:8080';
-
-	  app.factory('AuthService', function($http, $window) {
+	  app.factory('AuthService', function($http, $window, $location) {
 	    let token = $window.localStorage.token;
 	    let username = $window.localStorage.username;
 	    const service = {};
 
 
 	    service.signUp = function(user) {
-	      return $http.post(`${URL}/signup`, user)
+	      return $http.post('/signup', user)
 	      .then((res)=> {
 	        token = res.data.token;
 	        $window.localStorage.token = token;
@@ -33061,6 +33032,7 @@
 	    service.signOut = function() {
 	      token = $window.localStorage.token = null;
 	      username = $window.localStorage.username = null;
+	      $location.url('/');
 	    };
 
 	    service.getToken = function() {
@@ -33079,9 +33051,6 @@
 	'use strict';
 
 	module.exports = function(app) {
-
-	  // const URL = process.env.URL || 'http://localhost:8080';
-
 	  app.factory('EntryService', function($http, ErrorService) {
 	    const service = {};
 	    service.entries = [];
@@ -33114,7 +33083,7 @@
 	'use strict';
 
 	module.exports = function(app) {
-	  app.factory('ErrorService', function($location) {
+	  app.factory('ErrorService', function($location, $window) {
 	    const service = {};
 	    const errors = [];
 
@@ -33122,7 +33091,8 @@
 	      return function(err) {
 	        errors.push(message);
 	        console.log(err);
-	        $location.url('/login');
+	        $location.url('/');
+	        $window.alert('Please log in to continue');
 	      };
 	    };
 
@@ -33142,9 +33112,6 @@
 	'use strict';
 
 	module.exports = function(app) {
-
-	  // const URL = process.env.URL || 'http://localhost:8080';
-
 	  app.factory('AdminService', function($http, $window, AuthService, ErrorService) {
 	    const service = {};
 	    service.admin = {};
@@ -33160,7 +33127,6 @@
 	      })
 	      .then((res) => {
 	        service.admin = res.data;
-	        console.log(service.admin, 'admin in service');
 	        cb();
 	      }, ErrorService.logError('Error on admin'));
 	    };

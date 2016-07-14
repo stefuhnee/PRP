@@ -30,6 +30,7 @@ module.exports = function(app) {
       })
       .then(EntryService.pushEntry(() => {
         this.entries = EntryService.entries;
+        $location.url('/blog');
       })
     ), ErrorService.logError('Error on Sign Up', () => {
       $location.url('/login');

@@ -32775,6 +32775,7 @@
 	      })
 	      .then(EntryService.pushEntry(() => {
 	        this.entries = EntryService.entries;
+	        $location.url('/blog');
 	      })
 	    ), ErrorService.logError('Error on Sign Up', () => {
 	      $location.url('/login');
@@ -33071,7 +33072,7 @@
 	        entry: '='
 	      },
 	      templateUrl: './views/templates/blog-full-view-template.html',
-	      require: '^^ngController',
+	      require: '^ngController',
 	      link: function($scope, elem, attr, controller) {
 	        $scope.delete = controller.deleteEntry;
 	        $scope.update = controller.updateEntry;

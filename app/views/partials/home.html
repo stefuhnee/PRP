@@ -1,19 +1,21 @@
 <main class="home">
-  <img src="../img/panda.png" />
-  <h1>Red Panda</h1>
-  <div>
-    <p>
-      Everyone has a bucket list of things, places, or activities that they want to do before they kick the
-        bucket. Red Panda easily allows you to track, motivate and achieve any goal that you set out to do.
-        You can add anything to your list! Simply create a user account below, and start making your list. Red Panda's
-        easy to use template allows you to fluidly add new bucket list items with a timeline and any desired
-        cost. If your plans change you can update and delete any entry with a click of a button.
-    </p>
-  </div>
+  <div class="flex-container">
+    <div class="logo">
+      <img src="../img/panda.png" />
+      <h1>Red Panda</h1>
+    </div>
     <form>
       <input type="text" ng-model="user.username" placeholder="username"></input><br>
       <input type="password" ng-model="user.password" placeholder="password"></input><br>
       <button ng-click="ac.signUp(user)">Sign Up</button>
       <button ng-click="ac.logIn(user)">Log In</button>
     </form>
+  </div>
+  <p>
+    Everyone has a bucket list of things, places, or activities that they want to do before they kick the
+      bucket. Red Panda easily allows you to track, motivate and achieve any goal that you set out to do.
+      You can add anything to your list! Simply create a user account below, and start making your list. Red Panda's
+      easy to use template allows you to fluidly add new bucket list items with a timeline and any desired
+      cost. If your plans change you can update and delete any entry with a click of a button.
+  </p>
 </main>

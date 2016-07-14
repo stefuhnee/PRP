@@ -32994,7 +32994,7 @@
 	'use strict';
 
 	module.exports = function(app) {
-	  app.factory('AuthService', function($http, $window) {
+	  app.factory('AuthService', function($http, $window, $location) {
 	    let token = $window.localStorage.token;
 	    let username = $window.localStorage.username;
 	    const service = {};
@@ -33031,6 +33031,7 @@
 	    service.signOut = function() {
 	      token = $window.localStorage.token = null;
 	      username = $window.localStorage.username = null;
+	      $location.url('/');
 	    };
 
 	    service.getToken = function() {

@@ -45,6 +45,12 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
+	__webpack_require__(22);
+	__webpack_require__(19);
+	__webpack_require__(20);
+	__webpack_require__(21);
+	__webpack_require__(18);
+	__webpack_require__(23);
 	__webpack_require__(7);
 	__webpack_require__(8);
 	__webpack_require__(9);
@@ -57,13 +63,7 @@
 	__webpack_require__(16);
 	__webpack_require__(13);
 	__webpack_require__(17);
-	__webpack_require__(24);
-	__webpack_require__(22);
-	__webpack_require__(19);
-	__webpack_require__(20);
-	__webpack_require__(21);
-	__webpack_require__(18);
-	module.exports = __webpack_require__(23);
+	module.exports = __webpack_require__(24);
 
 
 /***/ },

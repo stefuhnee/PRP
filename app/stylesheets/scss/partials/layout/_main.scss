@@ -22,7 +22,7 @@ main.home {
     display: table-cell;
     color: #640D14;
     font-weight: bold;
-    font-size: 7rem;
+    font-size: 7vh;
     vertical-align: middle;
   }
 
@@ -51,7 +51,7 @@ main.admin {
 
 main.blog {
   height: 200vh;
-  
+
   article {
     border: 1px solid black;
   }

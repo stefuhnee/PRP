@@ -8,7 +8,8 @@ require('./directives')(app);
 require('./services')(app);
 
 app.config(function($routeProvider){
-  $routeProvider  .when('/', {
+  $routeProvider
+  .when('/', {
     templateUrl: './views/partials/home.html'
   })
   .when('/blog',{

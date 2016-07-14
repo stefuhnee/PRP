@@ -1,11 +1,27 @@
-nav {
-  display: table-cell;
-  vertical-align: middle;
+nav.full-nav {
+  display: none;
 
-  li {
-    display: inline;
-    button {
-      background-color: #FF6600;
+  ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    align-items: center;
+
+    li {
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 0;
+      padding: 2vh;
+
+      button {
+        background-color: #FF6600;
+      }
     }
   }
+}
+
+nav.mobile-nav {
+  font-size: 5vh;
 }

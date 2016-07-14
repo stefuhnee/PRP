@@ -10,7 +10,7 @@
   </head>
   <body ng-app="BucketListApp">
     <header ng-controller="AuthController as ac">
-      <nav>
+      <nav class="full-nav">
         <ul>
           <li><a href="#/"><button type="submit">Home</button></a></li>
           <li><a href="#/blog"><button type="submit">Blog</button></a></li>
@@ -20,6 +20,9 @@
           <li><button type="submit" ng-click="ac.signOut()">Log Out</button></li>
           <li><a href="#/blog-admin"><button type="submit" ng-click="">Admin</button></a></li>
         </ul>
+      </nav>
+      <nav class="mobile-nav">
+        <a href="" class="icon-menu"></a>
       </nav>
     </header>
     <ng-view></ng-view>

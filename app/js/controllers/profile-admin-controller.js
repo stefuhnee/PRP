@@ -2,9 +2,6 @@
 
 
 module.exports = function(app) {
-
-  // const URL = process.env.URL || 'http://localhost:8080';
-
   app.controller('ProfileAdminController', ['$http', 'AuthService', 'AdminService', 'ErrorService', function($http, AuthService, AdminService, ErrorService) {
     this.$http = $http;
 

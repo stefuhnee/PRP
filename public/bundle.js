@@ -47,21 +47,21 @@
 	__webpack_require__(1);
 	__webpack_require__(7);
 	__webpack_require__(8);
-	__webpack_require__(9);
-	__webpack_require__(12);
-	__webpack_require__(6);
 	__webpack_require__(10);
+	__webpack_require__(13);
+	__webpack_require__(6);
 	__webpack_require__(11);
-	__webpack_require__(14);
+	__webpack_require__(12);
 	__webpack_require__(15);
 	__webpack_require__(16);
-	__webpack_require__(13);
+	__webpack_require__(17);
+	__webpack_require__(14);
+	__webpack_require__(23);
 	__webpack_require__(22);
-	__webpack_require__(21);
-	__webpack_require__(18);
 	__webpack_require__(19);
 	__webpack_require__(20);
-	module.exports = __webpack_require__(17);
+	__webpack_require__(21);
+	module.exports = __webpack_require__(18);
 
 
 /***/ },
@@ -74,8 +74,8 @@
 	const app = angular.module('BucketListApp', [ngRoute]);
 
 	__webpack_require__(6)(app);
-	__webpack_require__(13)(app);
-	__webpack_require__(17)(app);
+	__webpack_require__(14)(app);
+	__webpack_require__(18)(app);
 
 	app.config(function($routeProvider){
 	  $routeProvider
@@ -32689,10 +32689,10 @@
 	module.exports = function(app) {
 	  __webpack_require__(7)(app);
 	  __webpack_require__(8)(app);
-	  __webpack_require__(9)(app);
 	  __webpack_require__(10)(app);
 	  __webpack_require__(11)(app);
 	  __webpack_require__(12)(app);
+	  __webpack_require__(13)(app);
 	};
 
 
@@ -32740,11 +32740,14 @@
 
 /***/ },
 /* 8 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
 	module.exports = function(app) {
+
+	  const URL = process.env.URL || 'http://localhost:8080';
+
 	  app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
 	    this.entries = [];
 	    this.$http = $http;
@@ -32767,7 +32770,7 @@
 	        headers: {
 	          token: AuthService.getToken()
 	        },
-	        url: 'http://localhost:8080/blog/'
+	        url: `${URL}/blog/`
 	      })
 	      .then(EntryService.pushEntry(() => {
 	        this.entries = EntryService.entries;
@@ -32779,14 +32782,143 @@
 	  }]);
 	};
 
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
 /* 9 */
 /***/ function(module, exports) {
 
-	'use strict';
+	// shim for using process in browser
+
+	var process = module.exports = {};
+
+	// cached from whatever global is present so that test runners that stub it
+	// don't break things.  But we need to wrap it in a try catch in case it is
+	// wrapped in strict mode code which doesn't define any globals.  It's inside a
+	// function because try/catches deoptimize in certain engines.
+
+	var cachedSetTimeout;
+	var cachedClearTimeout;
+
+	(function () {
+	  try {
+	    cachedSetTimeout = setTimeout;
+	  } catch (e) {
+	    cachedSetTimeout = function () {
+	      throw new Error('setTimeout is not defined');
+	    }
+	  }
+	  try {
+	    cachedClearTimeout = clearTimeout;
+	  } catch (e) {
+	    cachedClearTimeout = function () {
+	      throw new Error('clearTimeout is not defined');
+	    }
+	  }
+	} ())
+	var queue = [];
+	var draining = false;
+	var currentQueue;
+	var queueIndex = -1;
+
+	function cleanUpNextTick() {
+	    if (!draining || !currentQueue) {
+	        return;
+	    }
+	    draining = false;
+	    if (currentQueue.length) {
+	        queue = currentQueue.concat(queue);
+	    } else {
+	        queueIndex = -1;
+	    }
+	    if (queue.length) {
+	        drainQueue();
+	    }
+	}
+
+	function drainQueue() {
+	    if (draining) {
+	        return;
+	    }
+	    var timeout = cachedSetTimeout(cleanUpNextTick);
+	    draining = true;
+
+	    var len = queue.length;
+	    while(len) {
+	        currentQueue = queue;
+	        queue = [];
+	        while (++queueIndex < len) {
+	            if (currentQueue) {
+	                currentQueue[queueIndex].run();
+	            }
+	        }
+	        queueIndex = -1;
+	        len = queue.length;
+	    }
+	    currentQueue = null;
+	    draining = false;
+	    cachedClearTimeout(timeout);
+	}
+
+	process.nextTick = function (fun) {
+	    var args = new Array(arguments.length - 1);
+	    if (arguments.length > 1) {
+	        for (var i = 1; i < arguments.length; i++) {
+	            args[i - 1] = arguments[i];
+	        }
+	    }
+	    queue.push(new Item(fun, args));
+	    if (queue.length === 1 && !draining) {
+	        cachedSetTimeout(drainQueue, 0);
+	    }
+	};
+
+	// v8 likes predictible objects
+	function Item(fun, array) {
+	    this.fun = fun;
+	    this.array = array;
+	}
+	Item.prototype.run = function () {
+	    this.fun.apply(null, this.array);
+	};
+	process.title = 'browser';
+	process.browser = true;
+	process.env = {};
+	process.argv = [];
+	process.version = ''; // empty string to avoid regexp issues
+	process.versions = {};
+
+	function noop() {}
+
+	process.on = noop;
+	process.addListener = noop;
+	process.once = noop;
+	process.off = noop;
+	process.removeListener = noop;
+	process.removeAllListeners = noop;
+	process.emit = noop;
+
+	process.binding = function (name) {
+	    throw new Error('process.binding is not supported');
+	};
+
+	process.cwd = function () { return '/' };
+	process.chdir = function (dir) {
+	    throw new Error('process.chdir is not supported');
+	};
+	process.umask = function() { return 0; };
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
 	module.exports = function(app) {
+
+	  const URL = process.env.URL || 'http://localhost:8080';
+
 	  app.controller('BlogController', ['$http', '$location', 'AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
 	    this.entries = [];
 	    this.editing = false;
@@ -32805,7 +32937,7 @@
 	        headers: {
 	          token: AuthService.getToken()
 	        },
-	        url: `http://localhost:8080/blog/${entry._id}`
+	        url: `${URL}/blog/${entry._id}`
 	      })
 	      .then(() => {
 	        this.entries = this.entries.filter((e) => {
@@ -32825,7 +32957,7 @@
 	        headers: {
 	          token: AuthService.getToken()
 	        },
-	        url: 'http://localhost:8080/blog'
+	        url: `${URL}/blog`
 	      })
 	        .then(() => {
 	          this.entries = this.entries.map ((e) => {
@@ -32838,15 +32970,19 @@
 	  }]);
 	};
 
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 10 */
-/***/ function(module, exports) {
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
 
 	module.exports = function(app) {
+
+	  const URL = process.env.URL || 'http://localhost:8080';
+
 	  app.controller('ProfileAdminController', ['$http', '$location', '$window', 'AuthService', 'AdminService', 'ErrorService', function($http, $location, $window, AuthService, AdminService, ErrorService) {
 	    this.$http = $http;
 	    this.$location = $location;
@@ -32867,7 +33003,7 @@
 	        headers: {
 	          token: AuthService.getToken()
 	        },
-	        url: 'http://localhost:8080/admin'
+	        url: `${URL}/admin`
 	      })
 	      .then(() => {
 	        console.log('got here');
@@ -32877,9 +33013,10 @@
 	  }]);
 	};
 
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -32892,7 +33029,7 @@
 
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -32905,20 +33042,20 @@
 
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function(app) {
-	  __webpack_require__(14)(app);
 	  __webpack_require__(15)(app);
 	  __webpack_require__(16)(app);
+	  __webpack_require__(17)(app);
 	};
 
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -32941,7 +33078,7 @@
 
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -32959,7 +33096,7 @@
 
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -32974,26 +33111,28 @@
 
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function(app) {
-	  __webpack_require__(18)(app);
 	  __webpack_require__(19)(app);
 	  __webpack_require__(20)(app);
 	  __webpack_require__(21)(app);
+	  __webpack_require__(22)(app);
 	};
 
 
 /***/ },
-/* 18 */
-/***/ function(module, exports) {
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
 	module.exports = function(app) {
+
+	  const URL = process.env.URL || 'http://localhost:8080';
 
 	  app.factory('AuthService', function($http, $window) {
 	    let token = $window.localStorage.token;
@@ -33002,7 +33141,7 @@
 
 
 	    service.signUp = function(user) {
-	      return $http.post('http://localhost:8080/signup', user)
+	      return $http.post(`${URL}/signup`, user)
 	      .then((res)=> {
 	        token = res.data.token;
 	        $window.localStorage.token = token;
@@ -33015,7 +33154,7 @@
 	      let authString = 'Basic ' + base64Auth;
 
 	      return $http({
-	        url: 'http://localhost:8080/login',
+	        url: `${URL}/login`,
 	        method: 'GET',
 	        headers: {
 	          authorization: authString
@@ -33031,7 +33170,7 @@
 
 	    service.signOut = function() {
 	      token = $window.localStorage.token = null;
-	      user = $window.localStorage.username = null;
+	      username = $window.localStorage.username = null;
 	    };
 
 	    service.getToken = function() {
@@ -33042,21 +33181,24 @@
 	  });
 	};
 
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 19 */
-/***/ function(module, exports) {
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
 	module.exports = function(app) {
+
+	  const URL = process.env.URL || 'http://localhost:8080';
 
 	  app.factory('EntryService', function($http, ErrorService) {
 	    const service = {};
 	    service.entries = [];
 
 	    service.getEntries = function(cb) {
-	      return $http.get('http://localhost:8080/blog')
+	      return $http.get(`${URL}/blog`)
 	      .then((res) => {
 	        service.entries = res.data;
 	        cb();
@@ -33075,9 +33217,10 @@
 	  });
 	};
 
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33105,12 +33248,14 @@
 
 
 /***/ },
-/* 21 */
-/***/ function(module, exports) {
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
 	module.exports = function(app) {
+
+	  const URL = process.env.URL || 'http://localhost:8080';
 
 	  app.factory('AdminService', function($http, $window, AuthService, ErrorService) {
 	    const service = {};
@@ -33123,7 +33268,7 @@
 	          admin: $window.localStorage.username,
 	          token: AuthService.getToken()
 	        },
-	        url: 'http://localhost:8080/admin'
+	        url: `${URL}/admin`
 	      })
 	      .then((res) => {
 	        service.admin = res.data;
@@ -33135,9 +33280,10 @@
 	  });
 	};
 
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33149,8 +33295,8 @@
 	        user: '='
 	      },
 	      templateUrl: './views/'
-	    }
-	  })
+	    };
+	  });
 	};
 
 

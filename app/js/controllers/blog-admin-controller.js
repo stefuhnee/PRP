@@ -1,6 +1,9 @@
 'use strict';
 
 module.exports = function(app) {
+
+  const URL = process.env.URL || 'http://localhost:8080';
+
   app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
     this.entries = [];
     this.$http = $http;
@@ -23,7 +26,7 @@ module.exports = function(app) {
         headers: {
           token: AuthService.getToken()
         },
-        url: 'http://localhost:8080/blog/'
+        url: `${URL}/blog/`
       })
       .then(EntryService.pushEntry(() => {
         this.entries = EntryService.entries;

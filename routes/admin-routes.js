@@ -4,7 +4,6 @@ const express = require('express');
 const User = require('../models/user');
 const bodyParser = require('body-parser').json();
 const jwt = require('../lib/auth-middleware');
-const findUser = require('../lib/find-user');
 
 const adminRouter = express.Router();
 

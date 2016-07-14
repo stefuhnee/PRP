@@ -10,7 +10,9 @@ require('./services')(app);
 app.config(function($routeProvider){
   $routeProvider
   .when('/', {
-    templateUrl: './views/partials/home.html'
+    templateUrl: './views/partials/home.html',
+    controller: 'AuthController',
+    controllerAs: 'ac'
   })
   .when('/blog',{
     templateUrl: './views/partials/blog.html',
@@ -22,11 +24,6 @@ app.config(function($routeProvider){
     controller: 'BlogAdminController',
     controllerAs: 'bac'
   })
-  .when('/login', {
-    templateUrl: './views/partials/login.html',
-    controller: 'AuthController',
-    controllerAs: 'ac'
-  })
   .when('/profile-admin', {
     templateUrl: './views/partials/profile-admin.html',
     controller: 'ProfileAdminController',
@@ -36,10 +33,5 @@ app.config(function($routeProvider){
     templateUrl: './views/partials/profile.html',
     controller: 'ProfileController',
     controllerAs: 'pc'
-  })
-  .when('/signup', {
-    templateUrl: './views/partials/signup.html',
-    controller: 'AuthController',
-    controllerAs: 'ac'
   });
 });

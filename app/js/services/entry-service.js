@@ -1,15 +1,12 @@
 'use strict';
 
 module.exports = function(app) {
-
-  const URL = process.env.URL || 'http://localhost:8080';
-
   app.factory('EntryService', function($http, ErrorService) {
     const service = {};
     service.entries = [];
 
     service.getEntries = function(cb) {
-      return $http.get(`${URL}/blog`)
+      return $http.get('/blog')
       .then((res) => {
         service.entries = res.data;
         cb();

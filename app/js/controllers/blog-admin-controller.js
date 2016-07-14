@@ -1,9 +1,6 @@
 'use strict';
 
 module.exports = function(app) {
-
-  const URL = process.env.URL || 'http://localhost:8080';
-
   app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
     this.entries = [];
     this.$http = $http;
@@ -26,13 +23,16 @@ module.exports = function(app) {
         headers: {
           token: AuthService.getToken()
         },
-        url: `${URL}/blog/`
+        url: '/blog/'
       })
       .then(EntryService.pushEntry(() => {
         this.entries = EntryService.entries;
+        $location.url('/blog');
       })
-    ), ErrorService.logError('Error on Sign Up', () => {
-      $location.url('/login');
+    ).catch((err) => {
+      console.log('Not a valid user',err);
+      alert('You must be signed in as a user to add an Entry');
+      $location.url('/');
     });
     };
   }]);

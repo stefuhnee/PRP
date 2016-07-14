@@ -5,8 +5,8 @@
     <h2>{{entry.dateCreated}}</h2>
     <p>{{entry.content}}</p>
   </div>
-  <h2 ng-if="entry.cost">Projected Cost: {{entry.cost}}</h2>
-  <h2 ng-if="entry.timeline">Completion Goal Date: {{entry.timeline}}</h2>
+  <h2 ng-if="entry.cost"><strong>Projected Cost:</strong> {{entry.cost}}</h2>
+  <h2 ng-if="entry.timeline"><strong>Completion Goal Date:</strong> {{entry.timeline}}</h2>
   <button ng-click="bc.editing = !bc.editing">Edit</button>
   <button ng-click="delete(entry)">Delete</button>
 </article>

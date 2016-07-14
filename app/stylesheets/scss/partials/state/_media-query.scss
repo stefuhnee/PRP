@@ -1,5 +1,9 @@
 @media only screen and (min-width: 640px) {
 
+  main.home .flex-container form input {
+      width: 66%;
+    }
+
   blog-list-directive {
     display: none;
   }

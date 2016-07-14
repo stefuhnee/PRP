@@ -45,24 +45,25 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
+	__webpack_require__(14);
 	__webpack_require__(15);
 	__webpack_require__(16);
+	__webpack_require__(13);
 	__webpack_require__(17);
-	__webpack_require__(14);
-	__webpack_require__(18);
 	__webpack_require__(24);
 	__webpack_require__(7);
 	__webpack_require__(8);
-	__webpack_require__(10);
-	__webpack_require__(13);
-	__webpack_require__(6);
-	__webpack_require__(11);
+	__webpack_require__(9);
 	__webpack_require__(12);
-	__webpack_require__(23);
+	__webpack_require__(6);
+	__webpack_require__(10);
+	__webpack_require__(11);
+	__webpack_require__(22);
+	__webpack_require__(19);
 	__webpack_require__(20);
 	__webpack_require__(21);
-	__webpack_require__(22);
-	module.exports = __webpack_require__(19);
+	__webpack_require__(18);
+	module.exports = __webpack_require__(23);
 
 
 /***/ },
@@ -75,13 +76,15 @@
 	const app = angular.module('BucketListApp', [ngRoute]);
 
 	__webpack_require__(6)(app);
-	__webpack_require__(14)(app);
-	__webpack_require__(19)(app);
+	__webpack_require__(13)(app);
+	__webpack_require__(18)(app);
 
 	app.config(function($routeProvider){
 	  $routeProvider
 	  .when('/', {
-	    templateUrl: './views/partials/home.html'
+	    templateUrl: './views/partials/home.html',
+	    controller: 'AuthController',
+	    controllerAs: 'ac'
 	  })
 	  .when('/blog',{
 	    templateUrl: './views/partials/blog.html',
@@ -93,11 +96,6 @@
 	    controller: 'BlogAdminController',
 	    controllerAs: 'bac'
 	  })
-	  .when('/login', {
-	    templateUrl: './views/partials/login.html',
-	    controller: 'AuthController',
-	    controllerAs: 'ac'
-	  })
 	  .when('/profile-admin', {
 	    templateUrl: './views/partials/profile-admin.html',
 	    controller: 'ProfileAdminController',
@@ -107,11 +105,6 @@
 	    templateUrl: './views/partials/profile.html',
 	    controller: 'ProfileController',
 	    controllerAs: 'pc'
-	  })
-	  .when('/signup', {
-	    templateUrl: './views/partials/signup.html',
-	    controller: 'AuthController',
-	    controllerAs: 'ac'
 	  });
 	});
 
@@ -32690,10 +32683,10 @@
 	module.exports = function(app) {
 	  __webpack_require__(7)(app);
 	  __webpack_require__(8)(app);
+	  __webpack_require__(9)(app);
 	  __webpack_require__(10)(app);
 	  __webpack_require__(11)(app);
 	  __webpack_require__(12)(app);
-	  __webpack_require__(13)(app);
 	};
 
 
@@ -32713,42 +32706,34 @@
 
 	    this.signOut = function() {
 	      AuthService.signOut()
-	      .then((res) => {
-	        console.log(res);
+	      .then(() => {
 	        $location.url('/');
 	      }, ErrorService.logError('Error on Sign Out'));
 	    };
 
 	    this.signUp = function(user) {
 	      AuthService.signUp(user)
-	      .then((res) => {
-	        console.log(res);
+	      .then(() => {
 	      }, ErrorService.logError('Error on Sign Up'));
 	    };
 
 	    this.logIn = function(user) {
 	      AuthService.logIn(user)
-	      .then((res) => {
-	        console.log(res, 'Sign in res');
-	      }, (err) => {
-	        console.log(err);
-	        $location.url('/signup');
-	      });
-	    };
+	      .then(() => {
+	      }, ErrorService.logError('Error on Sign Up')
+	    );
+	    }.bind(this);
 	  }]);
 	};
 
 
 /***/ },
 /* 8 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	'use strict';
 
 	module.exports = function(app) {
-
-	  const URL = process.env.URL || 'http://localhost:8080';
-
 	  app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
 	    this.entries = [];
 	    this.$http = $http;
@@ -32771,155 +32756,29 @@
 	        headers: {
 	          token: AuthService.getToken()
 	        },
-	        url: `${URL}/blog/`
+	        url: '/blog/'
 	      })
 	      .then(EntryService.pushEntry(() => {
 	        this.entries = EntryService.entries;
+	        $location.url('/blog');
 	      })
-	    ), ErrorService.logError('Error on Sign Up', () => {
-	      $location.url('/login');
+	    ).catch((err) => {
+	      console.log('Not a valid user',err);
+	      alert('You must be signed in as a user to add an Entry');
+	      $location.url('/');
 	    });
 	    };
 	  }]);
 	};
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
 /* 9 */
 /***/ function(module, exports) {
 
-	// shim for using process in browser
-
-	var process = module.exports = {};
-
-	// cached from whatever global is present so that test runners that stub it
-	// don't break things.  But we need to wrap it in a try catch in case it is
-	// wrapped in strict mode code which doesn't define any globals.  It's inside a
-	// function because try/catches deoptimize in certain engines.
-
-	var cachedSetTimeout;
-	var cachedClearTimeout;
-
-	(function () {
-	  try {
-	    cachedSetTimeout = setTimeout;
-	  } catch (e) {
-	    cachedSetTimeout = function () {
-	      throw new Error('setTimeout is not defined');
-	    }
-	  }
-	  try {
-	    cachedClearTimeout = clearTimeout;
-	  } catch (e) {
-	    cachedClearTimeout = function () {
-	      throw new Error('clearTimeout is not defined');
-	    }
-	  }
-	} ())
-	var queue = [];
-	var draining = false;
-	var currentQueue;
-	var queueIndex = -1;
-
-	function cleanUpNextTick() {
-	    if (!draining || !currentQueue) {
-	        return;
-	    }
-	    draining = false;
-	    if (currentQueue.length) {
-	        queue = currentQueue.concat(queue);
-	    } else {
-	        queueIndex = -1;
-	    }
-	    if (queue.length) {
-	        drainQueue();
-	    }
-	}
-
-	function drainQueue() {
-	    if (draining) {
-	        return;
-	    }
-	    var timeout = cachedSetTimeout(cleanUpNextTick);
-	    draining = true;
-
-	    var len = queue.length;
-	    while(len) {
-	        currentQueue = queue;
-	        queue = [];
-	        while (++queueIndex < len) {
-	            if (currentQueue) {
-	                currentQueue[queueIndex].run();
-	            }
-	        }
-	        queueIndex = -1;
-	        len = queue.length;
-	    }
-	    currentQueue = null;
-	    draining = false;
-	    cachedClearTimeout(timeout);
-	}
-
-	process.nextTick = function (fun) {
-	    var args = new Array(arguments.length - 1);
-	    if (arguments.length > 1) {
-	        for (var i = 1; i < arguments.length; i++) {
-	            args[i - 1] = arguments[i];
-	        }
-	    }
-	    queue.push(new Item(fun, args));
-	    if (queue.length === 1 && !draining) {
-	        cachedSetTimeout(drainQueue, 0);
-	    }
-	};
-
-	// v8 likes predictible objects
-	function Item(fun, array) {
-	    this.fun = fun;
-	    this.array = array;
-	}
-	Item.prototype.run = function () {
-	    this.fun.apply(null, this.array);
-	};
-	process.title = 'browser';
-	process.browser = true;
-	process.env = {};
-	process.argv = [];
-	process.version = ''; // empty string to avoid regexp issues
-	process.versions = {};
-
-	function noop() {}
-
-	process.on = noop;
-	process.addListener = noop;
-	process.once = noop;
-	process.off = noop;
-	process.removeListener = noop;
-	process.removeAllListeners = noop;
-	process.emit = noop;
-
-	process.binding = function (name) {
-	    throw new Error('process.binding is not supported');
-	};
-
-	process.cwd = function () { return '/' };
-	process.chdir = function (dir) {
-	    throw new Error('process.chdir is not supported');
-	};
-	process.umask = function() { return 0; };
-
-
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	'use strict';
 
 	module.exports = function(app) {
-
-	  const URL = process.env.URL || 'http://localhost:8080';
-
 	  app.controller('BlogController', ['$http', '$location', 'AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
 	    this.entries = [];
 	    this.editing = false;
@@ -32938,99 +32797,102 @@
 	        headers: {
 	          token: AuthService.getToken()
 	        },
-	        url: `${URL}/blog/${entry._id}`
+	        url: `/blog/${entry._id}`
 	      })
 	      .then(() => {
 	        this.entries = this.entries.filter((e) => {
 	          return e._id !== entry._id;
 	        });
-	      }, ErrorService.logError('Error on Sign Up', () => {
-	        $location.url('/login');
-	      }));
+	      }, ErrorService.logError('Error on Sign Up')
+	    );
 	    }.bind(this);
 
 	    this.updateEntry = function(entry) {
-	      console.log('updating');
-	      console.log('editing: ', this.editing);
 	      $http({
 	        method: 'PUT',
 	        data: entry,
 	        headers: {
 	          token: AuthService.getToken()
 	        },
-	        url: `${URL}/blog`
+	        url: 'blog'
 	      })
 	        .then(() => {
 	          this.entries = this.entries.map ((e) => {
 	            return e._id === entry._id ? entry : e;
 	          });
-	        }, ErrorService.logError('Error on Sign Up', () => {
-	          $location.url('/signup');
-	        }));
+	        }, ErrorService.logError('Error on Sign Up')
+	      );
 	    }.bind(this);
 	  }]);
 	};
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
+/* 10 */
+/***/ function(module, exports) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	'use strict';
 
 
 	module.exports = function(app) {
-
-	  const URL = process.env.URL || 'http://localhost:8080';
-
-	  app.controller('ProfileAdminController', ['$http', '$location', '$window', 'AuthService', 'AdminService', 'ErrorService', function($http, $location, $window, AuthService, AdminService, ErrorService) {
+	  app.controller('ProfileAdminController', ['$http', 'AuthService', 'AdminService', 'ErrorService', function($http, AuthService, AdminService, ErrorService) {
 	    this.$http = $http;
-	    this.$location = $location;
 
 	    this.admin = {};
 
-	    this.getAdmin = function(admin) {
+	    this.getAdmin = function() {
 	      AdminService.getAdmin(() => {
 	        this.admin = AdminService.admin;
-	        console.log('controller admin', this.admin);
 	      });
 	    };
 
-	    this.updateProfile = function(user) {
+	    this.updateProfile = function(updatedAdmin) {
 	      return $http({
 	        method: 'PUT',
-	        data: user,
+	        data: updatedAdmin,
 	        headers: {
+	          _id: this.admin._id,
 	          token: AuthService.getToken()
 	        },
-	        url: `${URL}/admin`
+	        url: '/admin'
 	      })
 	      .then(() => {
-	        console.log('got here');
+	        this.admin.avatar = updatedAdmin.avatar;
+	        this.admin.name = updatedAdmin.name;
+	        this.admin.description = updatedAdmin.description;
 	      }),
 	        ErrorService.logError('Error in updating profile');
-	    };
+	    }.bind(this);
 	  }]);
 	};
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports) {
 
 	'use strict';
 
 	module.exports = function(app) {
-	  app.controller('ProfileController', function() {
+	  app.controller('ProfileController', ['$http', '$location', 'ProfileService', 'ErrorService', function($http, $location, ProfileService, ErrorService) {
+	    this.$http = $http;
+	    this.$location = $location;
 
-	  });
+	    this.profile = {};
+
+	    this.getProfile = function(url) {
+	      ProfileService.getProfile(url, () => {
+	        this.profile = ProfileService.profile;
+	        console.log(this.profile, 'this.profile');
+	      });
+	    };
+
+	  }]);
 	};
 
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33043,21 +32905,21 @@
 
 
 /***/ },
-/* 14 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function(app) {
+	  __webpack_require__(14)(app);
 	  __webpack_require__(15)(app);
 	  __webpack_require__(16)(app);
 	  __webpack_require__(17)(app);
-	  __webpack_require__(18)(app);
 	};
 
 
 /***/ },
-/* 15 */
+/* 14 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33069,7 +32931,7 @@
 	        entry: '='
 	      },
 	      templateUrl: './views/templates/blog-full-view-template.html',
-	      require: '^^ngController',
+	      require: '^ngController',
 	      link: function($scope, elem, attr, controller) {
 	        $scope.delete = controller.deleteEntry;
 	        $scope.update = controller.updateEntry;
@@ -33080,7 +32942,7 @@
 
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33098,7 +32960,7 @@
 
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33113,7 +32975,7 @@
 
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports) {
 
 	module.exports = function(app) {
@@ -33126,12 +32988,13 @@
 
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = function(app) {
+	  __webpack_require__(19)(app);
 	  __webpack_require__(20)(app);
 	  __webpack_require__(21)(app);
 	  __webpack_require__(22)(app);
@@ -33140,23 +33003,20 @@
 
 
 /***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
+/* 19 */
+/***/ function(module, exports) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	'use strict';
 
 	module.exports = function(app) {
-
-	  const URL = process.env.URL || 'http://localhost:8080';
-
-	  app.factory('AuthService', function($http, $window) {
+	  app.factory('AuthService', function($http, $window, $location) {
 	    let token = $window.localStorage.token;
 	    let username = $window.localStorage.username;
 	    const service = {};
 
 
 	    service.signUp = function(user) {
-	      return $http.post(`${URL}/signup`, user)
+	      return $http.post('/signup', user)
 	      .then((res)=> {
 	        token = res.data.token;
 	        $window.localStorage.token = token;
@@ -33169,7 +33029,7 @@
 	      let authString = 'Basic ' + base64Auth;
 
 	      return $http({
-	        url: `${URL}/login`,
+	        url: '/login',
 	        method: 'GET',
 	        headers: {
 	          authorization: authString
@@ -33186,6 +33046,7 @@
 	    service.signOut = function() {
 	      token = $window.localStorage.token = null;
 	      username = $window.localStorage.username = null;
+	      $location.url('/');
 	    };
 
 	    service.getToken = function() {
@@ -33196,24 +33057,20 @@
 	  });
 	};
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
+/* 20 */
+/***/ function(module, exports) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	'use strict';
 
 	module.exports = function(app) {
-
-	  const URL = process.env.URL || 'http://localhost:8080';
-
 	  app.factory('EntryService', function($http, ErrorService) {
 	    const service = {};
 	    service.entries = [];
 
 	    service.getEntries = function(cb) {
-	      return $http.get(`${URL}/blog`)
+	      return $http.get('/blog')
 	      .then((res) => {
 	        service.entries = res.data;
 	        cb();
@@ -33232,16 +33089,15 @@
 	  });
 	};
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 22 */
+/* 21 */
 /***/ function(module, exports) {
 
 	'use strict';
 
 	module.exports = function(app) {
-	  app.factory('ErrorService', function($location) {
+	  app.factory('ErrorService', function($location, $window) {
 	    const service = {};
 	    const errors = [];
 
@@ -33249,7 +33105,8 @@
 	      return function(err) {
 	        errors.push(message);
 	        console.log(err);
-	        $location.url('/login');
+	        $location.url('/');
+	        $window.alert('Please log in to continue');
 	      };
 	    };
 
@@ -33263,15 +33120,12 @@
 
 
 /***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
+/* 22 */
+/***/ function(module, exports) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	'use strict';
 
 	module.exports = function(app) {
-
-	  const URL = process.env.URL || 'http://localhost:8080';
-
 	  app.factory('AdminService', function($http, $window, AuthService, ErrorService) {
 	    const service = {};
 	    service.admin = {};
@@ -33283,11 +33137,10 @@
 	          admin: $window.localStorage.username,
 	          token: AuthService.getToken()
 	        },
-	        url: `${URL}/admin`
+	        url: '/admin'
 	      })
 	      .then((res) => {
 	        service.admin = res.data;
-	        console.log(service.admin, 'admin in service');
 	        cb();
 	      }, ErrorService.logError('Error on admin'));
 	    };
@@ -33295,7 +33148,38 @@
 	  });
 	};
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = function(app) {
+
+	  app.factory('ProfileService', function($http, ErrorService) {
+	    const service = {};
+	    service.profile = {};
+
+	    service.getProfile = function(profileUrl,cb) {
+	      return $http({
+	        method: 'GET',
+	        headers: {
+	          profile: profileUrl
+	        },
+	        url: '/profile'
+	      })
+	      .then((res) => {
+	        console.log(profileUrl, 'profileUrl');
+	        service.profile = res.data;
+	        console.log('profile in service', service.profile);
+	        cb();
+	      }, ErrorService.logError('Error on profile'));
+	    };
+	    return service;
+	  });
+	};
+
 
 /***/ },
 /* 24 */

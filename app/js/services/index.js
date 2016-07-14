@@ -5,4 +5,5 @@ module.exports = function(app) {
   require('./entry-service')(app);
   require('./error-service')(app);
   require('./admin-service')(app);
+  require('./profile-service')(app);
 };

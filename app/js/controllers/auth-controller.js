@@ -10,27 +10,22 @@ module.exports = function(app) {
 
     this.signOut = function() {
       AuthService.signOut()
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         $location.url('/');
       }, ErrorService.logError('Error on Sign Out'));
     };
 
     this.signUp = function(user) {
       AuthService.signUp(user)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
       }, ErrorService.logError('Error on Sign Up'));
     };
 
     this.logIn = function(user) {
       AuthService.logIn(user)
-      .then((res) => {
-        console.log(res, 'Sign in res');
-      }, (err) => {
-        console.log(err);
-        $location.url('/signup');
-      });
-    };
+      .then(() => {
+      }, ErrorService.logError('Error on Sign Up')
+    );
+    }.bind(this);
   }]);
 };

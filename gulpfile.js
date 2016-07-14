@@ -83,6 +83,12 @@ gulp.task('bundle:test', () => {
     .pipe(webpack({
       output: {
         filename: 'test-bundle.js'
+      },
+      module: {
+        loaders: [{
+          test: /\.html$/,
+          loader: 'html'
+        }]
       }
     }))
     .pipe(gulp.dest(__dirname + '/test/front-end'));

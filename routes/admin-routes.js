@@ -9,7 +9,6 @@ const findUser = require('../lib/find-user');
 const adminRouter = express.Router();
 
 adminRouter.get('/', bodyParser, (req,res,next) => {
-  console.log('req.headers', req.headers);
   User.findOne({username:req.headers.admin}, (err, user) => {
     if(err) return next(err);
     res.json(user);
@@ -17,9 +16,12 @@ adminRouter.get('/', bodyParser, (req,res,next) => {
 });
 
 adminRouter.put('/', bodyParser, jwt, (req, res, next) => {
-  let _id = req.body._id;
+  let _id = req.headers._id;
+  let avatar = req.body.avatar;
+  let name = req.body.name;
+  let description = req.body.description;
 
-  User.findOneAndUpdate({_id}, req.body, (err, user) => {
+  User.findOneAndUpdate({_id}, {$set: {avatar, name, description}}, (err, user) => {
     if (err) return next(err);
     res.json({message: 'successfully updated', data: user});
   });

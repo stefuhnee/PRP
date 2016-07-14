@@ -12,7 +12,6 @@ module.exports = function(app) {
     this.profile = {};
 
     this.getUserProfile = function() {
-      console.log(this.loggedInUser, 'logged in user');
       ProfileService.getProfile(this.loggedInUser, () => {
         this.profile = ProfileService.profile
       });

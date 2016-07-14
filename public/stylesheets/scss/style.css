@@ -117,6 +117,17 @@ header {
 .blog-form h3 {
   margin-bottom: 0; }
 
+footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
+  background-color: #FF6600;
+  color: black;
+  border: 1px solid black; }
+
 nav.full-nav {
   display: none; }
   nav.full-nav ul {

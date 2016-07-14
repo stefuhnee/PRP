@@ -9,22 +9,24 @@
     <title>Red Panda</title>
   </head>
   <body ng-app="BucketListApp">
-    <header ng-controller="AuthController as ac">
-      <nav class="full-nav">
-        <ul>
-          <li><a href="#/"><button type="submit">Home</button></a></li>
-          <li><a href="#/blog"><button type="submit">Blog</button></a></li>
-          <li><a href="#/profile"><button type="submit">Profile</button></a></li>
-          <li><button type="submit" ng-click="ac.signOut()">Log Out</button></li>
-          <li><a href="#/blog-admin"><button type="submit">Add Post</button></a></li>
-        </ul>
-      </nav>
-      <nav-directive class="mobile-nav"></nav-directive>
-    </header>
-    <ng-view></ng-view>
-    <footer>
-      &copy;Project Red Panda | 2016 | Code Fellows
-    </footer>
-    <script src="./bundle.js"></script>
+    <div class="content">
+      <header ng-controller="AuthController as ac">
+        <nav class="full-nav">
+          <ul>
+            <li><a href="#/"><button type="submit">Home</button></a></li>
+            <li><a href="#/blog"><button type="submit">Blog</button></a></li>
+            <li><a href="#/profile"><button type="submit">Profile</button></a></li>
+            <li><button type="submit" ng-click="ac.signOut()">Log Out</button></li>
+            <li><a href="#/blog-admin"><button type="submit">Add Post</button></a></li>
+          </ul>
+        </nav>
+        <nav-directive class="mobile-nav"></nav-directive>
+      </header>
+      <ng-view></ng-view>
+      <footer>
+        &copy;Project Red Panda | 2016 | Code Fellows
+      </footer>
+      <script src="./bundle.js"></script>
+    </content>
   </body>
 </html>

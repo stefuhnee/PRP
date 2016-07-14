@@ -16,7 +16,10 @@ a {
   color: #fbfffe; }
 
 body {
-  background-color: #fbfffe; }
+  background-color: #fbfffe;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column; }
 
 @font-face {
   font-family: 'icomoon';
@@ -54,6 +57,9 @@ main {
   padding: 2%;
   font-family: 'Fira Sans'; }
 
+main.profile {
+  text-align: center; }
+
 main.home {
   text-align: center; }
   main.home .flex-container {
@@ -76,14 +82,22 @@ main.home {
       padding: 2vh; }
       main.home .flex-container form input {
         width: 100%; }
+      main.home .flex-container form button {
+        color: #fbfffe;
+        background-color: #640D14; }
   main.home img {
     width: 30vh;
     margin: 0 auto; }
-  main.home h1 {
+  main.home .title {
     font-family: 'Caveat';
     color: #640D14;
     font-weight: bold;
-    font-size: 10vh; }
+    font-size: 60px; }
+  main.home h1 {
+    font-size: 5vh;
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold; }
   main.home p {
     width: 100%;
     margin: 0 auto; }
@@ -93,9 +107,22 @@ main.profile ul {
 
 main.admin {
   text-align: center; }
+  main.admin h1 {
+    font-weight: bold; }
 
 main.blog {
   height: 200vh; }
+  main.blog h1 {
+    font-weight: bold;
+    color: #640D14; }
+  main.blog h2 {
+    font-size: 24px; }
+  main.blog p {
+    font-size: 32px; }
+  main.blog button {
+    background-color: #ff6600;
+    color: #fbfffe;
+    font-weight: bold; }
   main.blog article {
     border: 1px solid black;
     padding: 2vh;
@@ -103,13 +130,11 @@ main.blog {
     margin-bottom: 2vh; }
 
 header {
-  position: relative;
   background-color: #6d676e;
   height: 10vh;
-  padding: 0 2%;
-  margin-bottom: 5vh;
   display: table;
-  width: 100%; }
+  width: 100%;
+  border: 1px solid black; }
   header ul {
     margin-bottom: 0;
     text-align: center; }
@@ -118,14 +143,14 @@ header {
   margin-bottom: 0; }
 
 footer {
-  position: absolute;
-  right: 0;
+  position: fixed;
   bottom: 0;
-  left: 0;
-  padding: 1rem;
+  width: 100%;
+  height: 3vh;
+  padding: 2vh;
   text-align: center;
-  background-color: #FF6600;
-  color: black;
+  background-color: #6d676e;
+  color: #fbfffe;
   border: 1px solid black; }
 
 nav.full-nav {
@@ -142,9 +167,13 @@ nav.full-nav {
       flex-grow: 0;
       flex-shrink: 0;
       flex-basis: 0;
-      padding: 2vh; }
+      padding: 2vh;
+      margin: 0; }
       nav.full-nav ul li button {
-        background-color: #ff6600; }
+        background-color: #ff6600;
+        color: #fbfffe;
+        font-weight: bold;
+        margin: 0; }
 
 .mobile-nav {
   font-size: 5vh;

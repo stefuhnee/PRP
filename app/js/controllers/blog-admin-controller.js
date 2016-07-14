@@ -29,8 +29,10 @@ module.exports = function(app) {
         this.entries = EntryService.entries;
         $location.url('/blog');
       })
-    ), ErrorService.logError('Error on Sign Up', () => {
-      $location.url('/login');
+    ).catch((err) => {
+      console.log('Not a valid user',err);
+      alert('You must be signed in as a user to add an Entry');
+      $location.url('/');
     });
     };
   }]);

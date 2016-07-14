@@ -7,6 +7,6 @@ module.exports = function(app) {
         user: '='
       },
       templateUrl: './views/'
-    }
-  })
+    };
+  });
 };

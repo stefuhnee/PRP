@@ -112,8 +112,26 @@ nav.full-nav {
       nav.full-nav ul li button {
         background-color: #FF6600; }
 
-nav.mobile-nav {
-  font-size: 5vh; }
+.mobile-nav {
+  font-size: 5vh;
+  display: table-cell;
+  vertical-align: middle; }
+  .mobile-nav ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    align-items: center;
+    list-style: none;
+    font-size: 3vh; }
+    .mobile-nav ul li {
+      display: inline-block;
+      flex-grow: 0;
+      flex-shrink: 0;
+      padding: 0 2vh 2vh 2vh;
+      margin: 0;
+      line-height: 1; }
 
 blog-list-directive {
   display: block; }
@@ -131,5 +149,5 @@ a:hover {
     display: block; }
   nav.full-nav {
     display: block; }
-  nav.mobile-nav {
+  .mobile-nav {
     display: none; } }

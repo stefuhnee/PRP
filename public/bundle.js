@@ -32866,24 +32866,26 @@
 	    this.getAdmin = function() {
 	      AdminService.getAdmin(() => {
 	        this.admin = AdminService.admin;
-	        console.log('controller admin', this.admin);
 	      });
 	    };
 
-	    this.updateProfile = function(user) {
+	    this.updateProfile = function(updatedAdmin) {
 	      return $http({
 	        method: 'PUT',
-	        data: user,
+	        data: updatedAdmin,
 	        headers: {
+	          _id: this.admin._id,
 	          token: AuthService.getToken()
 	        },
 	        url: '/admin'
 	      })
 	      .then(() => {
-	        console.log('got here');
+	        this.admin.avatar = updatedAdmin.avatar;
+	        this.admin.name = updatedAdmin.name;
+	        this.admin.description = updatedAdmin.description;
 	      }),
 	        ErrorService.logError('Error in updating profile');
-	    };
+	    }.bind(this);
 	  }]);
 	};
 

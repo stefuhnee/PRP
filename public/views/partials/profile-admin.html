@@ -1,14 +1,30 @@
   <main ng-init="pac.getAdmin()">
     <h1>Edit Profile</h1>
-    <p>
-      Username
-      {{pac.admin}}
-    </p>
+    <h2>Username</h2>
+    <p>{{pac.admin.username}}</p>
 
-    <form ng-submit="pac.updateProfile(user)">
-      <input type="text" ng-model="user.avatar" placeholder="Avatar"/>
-      <input type="text" ng-model="user.name" placeholder="Name"/>
-      <input type="text" ng-model="user.description" placeholder="Description"/>
+    <h2>Avatar</h2>
+    <img src="{{pac.admin.avatar}}" alt="{{pac.admin.name}}" height="200" width="200" />
+
+    <h2>Name</h2>
+    <p>{{pac.admin.name}}</p>
+
+    <h2>Description</h2>
+    <p>{{pac.admin.description}}</p>
+
+    <form ng-submit="pac.updateProfile(updatedAdmin)">
+      <label>
+        Avatar
+        <input type="text" ng-model="updatedAdmin.avatar" placeholder="Avatar"/>
+      </label>
+      <label>
+        Name
+        <input type="text" ng-model="updatedAdmin.name" placeholder="Name"/>
+      </label>
+      <label>
+        Description
+        <input type="text" ng-model="updatedAdmin.description" placeholder="Description"/>
+      </label>
       <button type="submit">Edit</button>
     </form>
   </main>

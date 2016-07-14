@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.factory('ErrorService', function($location) {
+  app.factory('ErrorService', function($location, $window) {
     const service = {};
     const errors = [];
 
@@ -10,6 +10,7 @@ module.exports = function(app) {
         errors.push(message);
         console.log(err);
         $location.url('/');
+        $window.alert('Please log in to continue');
       };
     };
 

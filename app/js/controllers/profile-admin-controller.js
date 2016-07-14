@@ -2,9 +2,8 @@
 
 
 module.exports = function(app) {
-  app.controller('ProfileAdminController', ['$http', '$location', '$window', 'AuthService', 'AdminService', 'ErrorService', function($http, $location, $window, AuthService, AdminService, ErrorService) {
+  app.controller('ProfileAdminController', ['$http', 'AuthService', 'AdminService', 'ErrorService', function($http, AuthService, AdminService, ErrorService) {
     this.$http = $http;
-    this.$location = $location;
 
     this.admin = {};
 

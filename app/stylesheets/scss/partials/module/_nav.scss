@@ -2,6 +2,7 @@ nav.full-nav {
   display: none;
 
   ul {
+    list-style: none;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -16,7 +17,7 @@ nav.full-nav {
       padding: 2vh;
 
       button {
-        background-color: #FF6600;
+        background-color: $orange;
       }
     }
   }

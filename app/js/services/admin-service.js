@@ -1,9 +1,6 @@
 'use strict';
 
 module.exports = function(app) {
-
-  // const URL = process.env.URL || 'http://localhost:8080';
-
   app.factory('AdminService', function($http, $window, AuthService, ErrorService) {
     const service = {};
     service.admin = {};

@@ -1,9 +1,6 @@
 'use strict';
 
 module.exports = function(app) {
-
-  // const URL = process.env.URL || 'http://localhost:8080';
-
   app.controller('BlogController', ['$http', '$location', 'AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
     this.entries = [];
     this.editing = false;
@@ -28,14 +25,11 @@ module.exports = function(app) {
         this.entries = this.entries.filter((e) => {
           return e._id !== entry._id;
         });
-      }, ErrorService.logError('Error on Sign Up', () => {
-        $location.url('/login');
-      }));
+      }, ErrorService.logError('Error on Sign Up')
+    );
     }.bind(this);
 
     this.updateEntry = function(entry) {
-      console.log('updating');
-      console.log('editing: ', this.editing);
       $http({
         method: 'PUT',
         data: entry,
@@ -48,9 +42,8 @@ module.exports = function(app) {
           this.entries = this.entries.map ((e) => {
             return e._id === entry._id ? entry : e;
           });
-        }, ErrorService.logError('Error on Sign Up', () => {
-          $location.url('/signup');
-        }));
+        }, ErrorService.logError('Error on Sign Up')
+      );
     }.bind(this);
   }]);
 };

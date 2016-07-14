@@ -2,7 +2,7 @@
 
 module.exports = function(app) {
 
-  const URL = process.env.URL || 'http://localhost:8080';
+  // const URL = process.env.URL || 'http://localhost:8080';
 
   app.controller('BlogController', ['$http', '$location', 'AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
     this.entries = [];
@@ -22,7 +22,7 @@ module.exports = function(app) {
         headers: {
           token: AuthService.getToken()
         },
-        url: `${URL}/blog/${entry._id}`
+        url: `/blog/${entry._id}`
       })
       .then(() => {
         this.entries = this.entries.filter((e) => {
@@ -42,7 +42,7 @@ module.exports = function(app) {
         headers: {
           token: AuthService.getToken()
         },
-        url: `${URL}/blog`
+        url: 'blog'
       })
         .then(() => {
           this.entries = this.entries.map ((e) => {

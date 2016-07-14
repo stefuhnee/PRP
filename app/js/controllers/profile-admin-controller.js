@@ -3,7 +3,7 @@
 
 module.exports = function(app) {
 
-  const URL = process.env.URL || 'http://localhost:8080';
+  // const URL = process.env.URL || 'http://localhost:8080';
 
   app.controller('ProfileAdminController', ['$http', '$location', '$window', 'AuthService', 'AdminService', 'ErrorService', function($http, $location, $window, AuthService, AdminService, ErrorService) {
     this.$http = $http;
@@ -11,7 +11,7 @@ module.exports = function(app) {
 
     this.admin = {};
 
-    this.getAdmin = function(admin) {
+    this.getAdmin = function() {
       AdminService.getAdmin(() => {
         this.admin = AdminService.admin;
       });
@@ -25,7 +25,7 @@ module.exports = function(app) {
           _id: this.admin._id,
           token: AuthService.getToken()
         },
-        url: `${URL}/admin`
+        url: '/admin'
       })
       .then(() => {
         this.admin.avatar = updatedAdmin.avatar;

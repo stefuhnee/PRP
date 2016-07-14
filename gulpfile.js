@@ -6,6 +6,7 @@ const webpack = require('webpack-stream');
 const lint = require('gulp-eslint');
 const del = require('del');
 const sass = require('gulp-sass');
+const wp = require('webpack');
 
 const paths = {
   js: __dirname + '/app/**/*.js',
@@ -31,7 +32,7 @@ gulp.task('clean', () => {
   return del('./public/**/*');
 });
 
-gulp.task('clean-css', ['clean'], () => {
+gulp.task('clean-css', () => {
   return del('./app/stylesheets/*.css');
 });
 
@@ -62,10 +63,10 @@ gulp.task('sass', ['clean-css', 'clean'], () => {
 });
 
 gulp.task('sass:watch', ['clean-css'], () => {
+  gulp.watch('./app/stylesheets/**/*.scss');
   gulp.src('./app/**/*/style.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./public'));
-  gulp.watch('./app/stylesheets/**/*.scss');
 });
 
 gulp.task('bundle', ['clean'], () => {
@@ -73,7 +74,12 @@ gulp.task('bundle', ['clean'], () => {
     .pipe(webpack({
       output: {
         filename: 'bundle.js'
-      }
+      },
+      plugins: [new wp.DefinePlugin({
+        'process.env': {
+          'URL': JSON.stringify(process.env.URL)
+        }
+      })]
     }))
     .pipe(gulp.dest('./public'));
 });
@@ -83,6 +89,12 @@ gulp.task('bundle:test', () => {
     .pipe(webpack({
       output: {
         filename: 'test-bundle.js'
+      },
+      module: {
+        loaders: [{
+          test: /\.html$/,
+          loader: 'html'
+        }]
       }
     }))
     .pipe(gulp.dest(__dirname + '/test/front-end'));

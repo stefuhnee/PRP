@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('ProfileController', ['$http', '$location', 'ProfileService', 'ErrorService', function($http, $location, ProfileService, ErrorService) {
+  app.controller('ProfileController', ['$http', '$location', 'ProfileService', function($http, $location, ProfileService) {
     this.$http = $http;
     this.$location = $location;
 
@@ -10,7 +10,6 @@ module.exports = function(app) {
     this.getProfile = function(url) {
       ProfileService.getProfile(url, () => {
         this.profile = ProfileService.profile;
-        console.log(this.profile, 'this.profile');
       });
     };
 

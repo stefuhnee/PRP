@@ -11,23 +11,28 @@ module.exports = function(app) {
     this.getAdmin = function(admin) {
       AdminService.getAdmin(() => {
         this.admin = AdminService.admin;
-        console.log('controller admin', this.admin);
+        console.log('admin on load', this.admin);
       });
     };
 
-    this.updateProfile = function(user) {
+    this.updateProfile = function(updatedAdmin) {
+      console.log('admin',updatedAdmin);
       return $http({
         method: 'PUT',
-        data: user,
+        data: updatedAdmin,
         headers: {
+          _id: this.admin._id,
           token: AuthService.getToken()
         },
         url: 'http://localhost:8080/admin'
       })
       .then(() => {
-        console.log('got here');
+        console.log('got here', updatedAdmin);
+        this.admin.avatar = updatedAdmin.avatar;
+        this.admin.name = updatedAdmin.name;
+        this.admin.description = updatedAdmin.description;
       }),
         ErrorService.logError('Error in updating profile');
-    };
+    }.bind(this);
   }]);
 };

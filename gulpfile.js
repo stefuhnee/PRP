@@ -55,7 +55,7 @@ gulp.task('copy-fonts', ['clean'], () => {
     .pipe(gulp.dest('./public'));
 });
 
-gulp.task('sass', ['clean-css', 'clean'], () => {
+gulp.task('sass', ['clean-css'], () => {
   return gulp.src('./app/**/*/style.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./public'));

@@ -1,13 +1,5 @@
 body {
-  background-color: #fffffc; }
-
-footer {
-  text-align: center;
-  background-color: #E24301;
-  color: black;
-  border: solid;
-  border-width: thin;
-  border-color: black; }
+  background-color: #fbfffe; }
 
 @font-face {
   font-family: 'Bariol';
@@ -85,9 +77,3 @@ blog-full-view-directive {
     display: none; }
   blog-full-view-directive {
     display: block; } }
-
-@media only screen and (max-width: 640px) {
-  blog-list-directive {
-    display: block; }
-  blog-full-view-directive {
-    display: none; } }

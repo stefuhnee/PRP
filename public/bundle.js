@@ -78,7 +78,8 @@
 	__webpack_require__(17)(app);
 
 	app.config(function($routeProvider){
-	  $routeProvider  .when('/', {
+	  $routeProvider
+	  .when('/', {
 	    templateUrl: './views/partials/home.html'
 	  })
 	  .when('/blog',{
@@ -32703,6 +32704,8 @@
 
 	module.exports = function(app) {
 	  app.controller('AuthController', ['$location','AuthService','ErrorService', function($location, AuthService, ErrorService) {
+	    this.$location = $location;
+
 	    this.goHome = function() {
 	      $location.url('/');
 	    };

@@ -1,3 +1,6 @@
+// Modules
+@import "partials/variables.scss";
+
 // Partials
 @import "partials/base/body.scss";
 @import "partials/base/fonts.scss";
@@ -7,6 +10,3 @@
 @import "partials/module/nav.scss";
 @import "partials/module/directive.scss";
 @import "partials/state/media-query.scss";
-
-// Modules
-@import "partials/variables.scss";

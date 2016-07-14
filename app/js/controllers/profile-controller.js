@@ -7,8 +7,16 @@ module.exports = function(app) {
     this.$http = $http;
     this.$location = $location;
     this.login = $window.localStorage.token;
+    this.loggedInUser = $window.localStorage.username;
 
     this.profile = {};
+
+    this.getUserProfile = function() {
+      console.log(this.loggedInUser, 'logged in user');
+      ProfileService.getProfile(this.loggedInUser, () => {
+        this.profile = ProfileService.profile
+      });
+    };
 
     this.getProfile = function(url) {
       ProfileService.getProfile(url, () => {

@@ -35,8 +35,8 @@ module.exports = function(app) {
     };
 
     service.signOut = function() {
-      token = $window.localStorage.token = null;
-      $window.localStorage.username = null;
+      token = $window.localStorage.token = '';
+      $window.localStorage.username = '';
       $location.url('/');
     };
 

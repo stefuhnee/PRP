@@ -45,6 +45,12 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
+	__webpack_require__(14);
+	__webpack_require__(15);
+	__webpack_require__(16);
+	__webpack_require__(13);
+	__webpack_require__(17);
+	__webpack_require__(24);
 	__webpack_require__(7);
 	__webpack_require__(8);
 	__webpack_require__(9);
@@ -52,12 +58,6 @@
 	__webpack_require__(6);
 	__webpack_require__(10);
 	__webpack_require__(11);
-	__webpack_require__(14);
-	__webpack_require__(15);
-	__webpack_require__(16);
-	__webpack_require__(13);
-	__webpack_require__(17);
-	__webpack_require__(24);
 	__webpack_require__(22);
 	__webpack_require__(19);
 	__webpack_require__(20);
@@ -32714,12 +32714,14 @@
 	    this.signUp = function(user) {
 	      AuthService.signUp(user)
 	      .then(() => {
+	        $location.url('/blog');
 	      }, ErrorService.logError('Error on Sign Up'));
 	    };
 
 	    this.logIn = function(user) {
 	      AuthService.logIn(user)
 	      .then(() => {
+	        $location.url('/blog');
 	      }, ErrorService.logError('Error on Sign Up')
 	    );
 	    }.bind(this);
@@ -32874,9 +32876,12 @@
 	'use strict';
 
 	module.exports = function(app) {
-	  app.controller('ProfileController', ['$http', '$location', 'ProfileService', function($http, $location, ProfileService) {
+
+	  app.controller('ProfileController', ['$http', '$location', '$window', 'ProfileService', 'ErrorService', function($http, $location, $window, ProfileService, ErrorService) {
+
 	    this.$http = $http;
 	    this.$location = $location;
+	    this.login = $window.localStorage.token;
 
 	    this.profile = {};
 
@@ -32885,7 +32890,6 @@
 	        this.profile = ProfileService.profile;
 	      });
 	    };
-
 	  }]);
 	};
 
@@ -33042,8 +33046,8 @@
 	    };
 
 	    service.signOut = function() {
-	      token = $window.localStorage.token = null;
-	      $window.localStorage.username = null;
+	      token = $window.localStorage.token = '';
+	      $window.localStorage.username = '';
 	      $location.url('/');
 	    };
 

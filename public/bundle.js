@@ -56,12 +56,13 @@
 	__webpack_require__(15);
 	__webpack_require__(16);
 	__webpack_require__(13);
+	__webpack_require__(17);
+	__webpack_require__(23);
 	__webpack_require__(22);
-	__webpack_require__(21);
-	__webpack_require__(18);
 	__webpack_require__(19);
 	__webpack_require__(20);
-	module.exports = __webpack_require__(17);
+	__webpack_require__(21);
+	module.exports = __webpack_require__(18);
 
 
 /***/ },
@@ -75,7 +76,7 @@
 
 	__webpack_require__(6)(app);
 	__webpack_require__(13)(app);
-	__webpack_require__(17)(app);
+	__webpack_require__(18)(app);
 
 	app.config(function($routeProvider){
 	  $routeProvider
@@ -32914,6 +32915,7 @@
 	  __webpack_require__(14)(app);
 	  __webpack_require__(15)(app);
 	  __webpack_require__(16)(app);
+	  __webpack_require__(17)(app);
 	};
 
 
@@ -32975,20 +32977,33 @@
 
 /***/ },
 /* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
+/***/ function(module, exports) {
 
 	module.exports = function(app) {
-	  __webpack_require__(18)(app);
-	  __webpack_require__(19)(app);
-	  __webpack_require__(20)(app);
-	  __webpack_require__(21)(app);
+	  app.directive('navDirective', function() {
+	    return {
+	      templateUrl: './views/templates/nav-template.html'
+	    };
+	  });
 	};
 
 
 /***/ },
 /* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = function(app) {
+	  __webpack_require__(19)(app);
+	  __webpack_require__(20)(app);
+	  __webpack_require__(21)(app);
+	  __webpack_require__(22)(app);
+	};
+
+
+/***/ },
+/* 19 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33044,7 +33059,7 @@
 
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33077,7 +33092,7 @@
 
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33105,7 +33120,7 @@
 
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33137,7 +33152,7 @@
 
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33149,8 +33164,8 @@
 	        user: '='
 	      },
 	      templateUrl: './views/'
-	    }
-	  })
+	    };
+	  });
 	};
 
 

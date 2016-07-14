@@ -22,6 +22,28 @@ nav.full-nav {
   }
 }
 
-nav.mobile-nav {
+.mobile-nav {
   font-size: 5vh;
+  display: table-cell;
+  vertical-align: middle;
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    align-items: center;
+    list-style: none;
+    font-size: 3vh;
+
+    li {
+      display: inline-block;
+      flex-grow: 0;
+      flex-shrink: 0;
+      padding: 0 2vh 2vh 2vh;
+      margin: 0;
+      line-height: 1;
+    }
+  }
 }

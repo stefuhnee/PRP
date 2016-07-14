@@ -45,6 +45,12 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
+	__webpack_require__(15);
+	__webpack_require__(16);
+	__webpack_require__(17);
+	__webpack_require__(14);
+	__webpack_require__(18);
+	__webpack_require__(24);
 	__webpack_require__(7);
 	__webpack_require__(8);
 	__webpack_require__(10);
@@ -52,16 +58,11 @@
 	__webpack_require__(6);
 	__webpack_require__(11);
 	__webpack_require__(12);
-	__webpack_require__(15);
-	__webpack_require__(16);
-	__webpack_require__(17);
-	__webpack_require__(14);
 	__webpack_require__(23);
-	__webpack_require__(22);
-	__webpack_require__(19);
 	__webpack_require__(20);
 	__webpack_require__(21);
-	module.exports = __webpack_require__(18);
+	__webpack_require__(22);
+	module.exports = __webpack_require__(19);
 
 
 /***/ },
@@ -75,7 +76,7 @@
 
 	__webpack_require__(6)(app);
 	__webpack_require__(14)(app);
-	__webpack_require__(18)(app);
+	__webpack_require__(19)(app);
 
 	app.config(function($routeProvider){
 	  $routeProvider
@@ -33051,6 +33052,7 @@
 	  __webpack_require__(15)(app);
 	  __webpack_require__(16)(app);
 	  __webpack_require__(17)(app);
+	  __webpack_require__(18)(app);
 	};
 
 
@@ -33112,20 +33114,33 @@
 
 /***/ },
 /* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
+/***/ function(module, exports) {
 
 	module.exports = function(app) {
-	  __webpack_require__(19)(app);
-	  __webpack_require__(20)(app);
-	  __webpack_require__(21)(app);
-	  __webpack_require__(22)(app);
+	  app.directive('navDirective', function() {
+	    return {
+	      templateUrl: './views/templates/nav-template.html'
+	    };
+	  });
 	};
 
 
 /***/ },
 /* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = function(app) {
+	  __webpack_require__(20)(app);
+	  __webpack_require__(21)(app);
+	  __webpack_require__(22)(app);
+	  __webpack_require__(23)(app);
+	};
+
+
+/***/ },
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -33184,7 +33199,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -33220,7 +33235,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33248,7 +33263,7 @@
 
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -33283,7 +33298,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 	'use strict';

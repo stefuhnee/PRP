@@ -6,7 +6,7 @@ require('../../app/js/client.js');
 
 describe('Controller Tests', () => {
 
-  describe('blogController Test', () => {
+  describe('BlogController Test', () => {
     let bc;
     let $httpBackend;
 
@@ -32,11 +32,20 @@ describe('Controller Tests', () => {
     });
 
     it('should allow a user to update a blog entry', () => {
-      let testEntry = {body: 'test entry', title: 'test title', content: 'test content',}
+      let testEntry = {body: 'test entry', title: 'test title', content: 'test content', _id: 1};
+      let updatedEntry = {body: 'test entry2', title: 'test title', content: 'test content', _id: 1};
       $httpBackend.expectPUT('http://localhost:8080/blog')
-        .respond(200, {message})
-      expect()
-    })
+        .respond(200, {message: 'updated'});
+
+      bc.entries.push(testEntry);
+      bc.updateEntry(testEntry, updatedEntry);
+      $httpBackend.flush();
+
+      expect(bc.entries.length).toBe(1);
+      expect(bc.entries[0].body).toBe('test entry');
+      expect(bc.entries[0].title).toBe('test title');
+      expect(bc.entries[0].content).toBe('test content');
+    });
 
     it('should allow a user to delete a blog entry', () => {
       let testEntry = {body: 'test entry', title: 'test title', content: 'test content', _id: 1};
@@ -47,7 +56,7 @@ describe('Controller Tests', () => {
       bc.deleteEntry(testEntry);
       $httpBackend.flush();
 
-      expect(bc.entries.length).toBe(1);
+      expect(bc.entries.length).toBe(0);
     });
   });
 });

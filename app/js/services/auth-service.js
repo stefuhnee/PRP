@@ -2,6 +2,8 @@
 
 module.exports = function(app) {
 
+  const URL = process.env.URL || 'http://localhost:8080';
+
   app.factory('AuthService', function($http, $window) {
     let token = $window.localStorage.token;
     let username = $window.localStorage.username;
@@ -9,7 +11,7 @@ module.exports = function(app) {
 
 
     service.signUp = function(user) {
-      return $http.post('http://localhost:8080/signup', user)
+      return $http.post(`${URL}/signup`, user)
       .then((res)=> {
         token = res.data.token;
         $window.localStorage.token = token;
@@ -22,7 +24,7 @@ module.exports = function(app) {
       let authString = 'Basic ' + base64Auth;
 
       return $http({
-        url: 'http://localhost:8080/login',
+        url: `${URL}/login`,
         method: 'GET',
         headers: {
           authorization: authString
@@ -38,7 +40,7 @@ module.exports = function(app) {
 
     service.signOut = function() {
       token = $window.localStorage.token = null;
-      user = $window.localStorage.username = null;
+      username = $window.localStorage.username = null;
     };
 
     service.getToken = function() {

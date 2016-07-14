@@ -2,6 +2,8 @@
 
 module.exports = function(app) {
 
+  const URL = process.env.URL || 'http://localhost:8080';
+
   app.factory('AdminService', function($http, $window, AuthService, ErrorService) {
     const service = {};
     service.admin = {};
@@ -13,7 +15,7 @@ module.exports = function(app) {
           admin: $window.localStorage.username,
           token: AuthService.getToken()
         },
-        url: 'http://localhost:8080/admin'
+        url: `${URL}/admin`
       })
       .then((res) => {
         service.admin = res.data;

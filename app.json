@@ -15,6 +15,10 @@
     "SECRET": {
       "description": "For auth purposes",
       "generator": "redpanda"
+    },
+    "URL": {
+      "description": "For testing and deployment",
+      "generator": "https://projectredpanda.herokuapp.com"
     }
   }
 }

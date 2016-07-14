@@ -2,6 +2,9 @@
 
 
 module.exports = function(app) {
+
+  const URL = process.env.URL || 'http://localhost:8080';
+
   app.controller('ProfileAdminController', ['$http', '$location', '$window', 'AuthService', 'AdminService', 'ErrorService', function($http, $location, $window, AuthService, AdminService, ErrorService) {
     this.$http = $http;
     this.$location = $location;
@@ -22,7 +25,7 @@ module.exports = function(app) {
         headers: {
           token: AuthService.getToken()
         },
-        url: 'http://localhost:8080/admin'
+        url: `${URL}/admin`
       })
       .then(() => {
         console.log('got here');

@@ -1,6 +1,9 @@
 'use strict';
 
 module.exports = function(app) {
+
+  const URL = process.env.URL || 'http://localhost:8080';
+
   app.controller('BlogController', ['$http', '$location', 'AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
     this.entries = [];
     this.editing = false;
@@ -19,7 +22,7 @@ module.exports = function(app) {
         headers: {
           token: AuthService.getToken()
         },
-        url: `http://localhost:8080/blog/${entry._id}`
+        url: `${URL}/blog/${entry._id}`
       })
       .then(() => {
         this.entries = this.entries.filter((e) => {
@@ -39,7 +42,7 @@ module.exports = function(app) {
         headers: {
           token: AuthService.getToken()
         },
-        url: 'http://localhost:8080/blog'
+        url: `${URL}/blog`
       })
         .then(() => {
           this.entries = this.entries.map ((e) => {

@@ -32734,7 +32734,7 @@
 	'use strict';
 
 	module.exports = function(app) {
-	  app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', 'ErrorService', function($http, $location, AuthService, EntryService, ErrorService) {
+	  app.controller('BlogAdminController', ['$http', '$location','AuthService', 'EntryService', function($http, $location, AuthService, EntryService) {
 	    this.entries = [];
 	    this.$http = $http;
 	    this.$location = $location;
@@ -32874,7 +32874,7 @@
 	'use strict';
 
 	module.exports = function(app) {
-	  app.controller('ProfileController', ['$http', '$location', 'ProfileService', 'ErrorService', function($http, $location, ProfileService, ErrorService) {
+	  app.controller('ProfileController', ['$http', '$location', 'ProfileService', function($http, $location, ProfileService) {
 	    this.$http = $http;
 	    this.$location = $location;
 
@@ -32883,7 +32883,6 @@
 	    this.getProfile = function(url) {
 	      ProfileService.getProfile(url, () => {
 	        this.profile = ProfileService.profile;
-	        console.log(this.profile, 'this.profile');
 	      });
 	    };
 
@@ -33011,7 +33010,6 @@
 	module.exports = function(app) {
 	  app.factory('AuthService', function($http, $window, $location) {
 	    let token = $window.localStorage.token;
-	    let username = $window.localStorage.username;
 	    const service = {};
 
 
@@ -33045,7 +33043,7 @@
 
 	    service.signOut = function() {
 	      token = $window.localStorage.token = null;
-	      username = $window.localStorage.username = null;
+	      $window.localStorage.username = null;
 	      $location.url('/');
 	    };
 
@@ -33072,7 +33070,7 @@
 	    service.getEntries = function(cb) {
 	      return $http.get('/blog')
 	      .then((res) => {
-	        service.entries = res.data;
+	        service.entries = res.data.reverse();
 	        cb();
 	      }, ErrorService.logError('Error on Sign Up'));
 	    };
@@ -33080,7 +33078,7 @@
 	    service.pushEntry = function(cb) {
 	      return function(res) {
 	        let entry = res.data;
-	        service.entries.push(entry);
+	        service.entries.unshift(entry);
 	        cb();
 	      };
 	    };

@@ -1,14 +1,10 @@
-<main class="profile">
-  <img src="" alt="" /> <!--profile pic-->
+<main class="profile" ng-init="getUser()" >
+  <img src="{{user.avatar}}" alt="{{user.name}}" height="200" width="200"/>
 
-  <h1>Name</h1> <!--name-->
+  <h1>{{user.name}}</h1>
 
-  <p> <!--description-->
-    description
+  <p>
+    {{user.description}}
   </p>
-
-  <ul> <!--following-->
-    <li>following</li>
-  </ul>
 
 </main>

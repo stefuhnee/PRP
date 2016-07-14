@@ -5,9 +5,8 @@ module.exports = function(app) {
 
   const URL = process.env.URL || 'http://localhost:8080';
 
-  app.controller('ProfileAdminController', ['$http', '$location', '$window', 'AuthService', 'AdminService', 'ErrorService', function($http, $location, $window, AuthService, AdminService, ErrorService) {
+  app.controller('ProfileAdminController', ['$http', 'AuthService', 'AdminService', 'ErrorService', function($http, AuthService, AdminService, ErrorService) {
     this.$http = $http;
-    this.$location = $location;
 
     this.admin = {};
 

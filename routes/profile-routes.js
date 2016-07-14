@@ -6,11 +6,13 @@ const bodyParser = require('body-parser').json();
 
 const profileRouter = express.Router();
 
-profileRouter.get('/:username', bodyParser, (req,res,next) => {
-  let username = req.param.username;
+profileRouter.get('/', bodyParser, (req,res,next) => {
+  let username = req.headers.profile;
 
-  User.findOne({username}, (err, user) => {
+  User.findOne({username:username}, (err, profile) => {
     if(err) return next(err);
-    res.json(user);
+    res.json(profile);
   });
 });
+
+module.exports = profileRouter;

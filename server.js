@@ -7,6 +7,7 @@ const cors = require('cors');
 const blogRouter = require('./routes/api-routes');
 const authRouter = require('./routes/auth-routes');
 const adminRouter = require('./routes/admin-routes');
+const profileRouter = require('./routes/profile-routes');
 
 const dbPort = process.env.MONGODB_URI || 'mongodb://localhost/dev_db';
 mongoose.connect(dbPort);
@@ -22,6 +23,7 @@ app.use(cors());
 app.use('/blog', blogRouter);
 app.use('/', authRouter);
 app.use('/admin', adminRouter);
+app.use('/profile', profileRouter);
 
 app.use((err, req, res, next) =>{
   res.status(500).json({message: err.message});

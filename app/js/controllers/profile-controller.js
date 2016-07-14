@@ -1,16 +1,18 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('ProfileController', ['$http', '$location', 'AdminService', 'ErrorService', function($http, $location, AdminService, ErrorService) {
+  app.controller('ProfileController', ['$http', '$location', 'ProfileService', 'ErrorService', function($http, $location, ProfileService, ErrorService) {
     this.$http = $http;
     this.$location = $location;
 
-    this.user = {};
+    this.profile = {};
 
-    this.getUser = function(user) {
-      AdminService.getAdmin(() => {
-        this.user = AdminService.admin;
+    this.getProfile = function(url) {
+      ProfileService.getProfile(url, () => {
+        this.profile = ProfileService.profile;
+        console.log(this.profile, 'this.profile');
       });
     };
-  });
+
+  }]);
 };

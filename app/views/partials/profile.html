@@ -1,10 +1,18 @@
-<main class="profile" ng-init="getUser()" >
-  <img src="{{user.avatar}}" alt="{{user.name}}" height="200" width="200"/>
+<form ng-submit="pc.getProfile(username)">
+  <label>
+    Find User Profile:
+    <input type="text" ng-model="username" placeholder="username">
+  </label>
+  <button type="submit">Search</button>
+</form>
 
-  <h1>{{user.name}}</h1>
+<main class="profile">
+  <img src="{{pc.profile.avatar}}" alt="{{pc.profile.name}}" height="200" width="200"/>
+
+  <h2>{{pc.profile.name}}</h2>
 
   <p>
-    {{user.description}}
+    {{pc.profile.description}}
   </p>
 
 </main>

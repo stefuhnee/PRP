@@ -19,7 +19,6 @@ module.exports = function(app) {
       })
       .then((res) => {
         service.admin = res.data;
-        console.log(service.admin, 'admin in service');
         cb();
       }, ErrorService.logError('Error on admin'));
     };

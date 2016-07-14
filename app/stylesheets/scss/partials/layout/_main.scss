@@ -36,6 +36,11 @@ main.home {
       input {
         width: 100%;
       }
+
+      button {
+        color: $white;
+        background-color: $red;
+      }
     }
   }
 
@@ -84,6 +89,7 @@ main.blog {
 
   h1 {
     font-weight: bold;
+    color: $red;
   }
 
   h2 {
@@ -92,6 +98,12 @@ main.blog {
 
   p {
     font-size: 32px;
+  }
+
+  button {
+    background-color: $orange;
+    color: $white;
+    font-weight: bold;
   }
 
   article {

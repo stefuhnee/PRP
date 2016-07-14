@@ -82,6 +82,9 @@ main.home {
       padding: 2vh; }
       main.home .flex-container form input {
         width: 100%; }
+      main.home .flex-container form button {
+        color: #fbfffe;
+        background-color: #640D14; }
   main.home img {
     width: 30vh;
     margin: 0 auto; }
@@ -110,11 +113,16 @@ main.admin {
 main.blog {
   height: 200vh; }
   main.blog h1 {
-    font-weight: bold; }
+    font-weight: bold;
+    color: #640D14; }
   main.blog h2 {
     font-size: 24px; }
   main.blog p {
     font-size: 32px; }
+  main.blog button {
+    background-color: #ff6600;
+    color: #fbfffe;
+    font-weight: bold; }
   main.blog article {
     border: 1px solid black;
     padding: 2vh;
@@ -163,6 +171,8 @@ nav.full-nav {
       margin: 0; }
       nav.full-nav ul li button {
         background-color: #ff6600;
+        color: #fbfffe;
+        font-weight: bold;
         margin: 0; }
 
 .mobile-nav {

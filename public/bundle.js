@@ -45,6 +45,12 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
+	__webpack_require__(14);
+	__webpack_require__(15);
+	__webpack_require__(16);
+	__webpack_require__(13);
+	__webpack_require__(17);
+	__webpack_require__(24);
 	__webpack_require__(7);
 	__webpack_require__(8);
 	__webpack_require__(9);
@@ -52,12 +58,6 @@
 	__webpack_require__(6);
 	__webpack_require__(10);
 	__webpack_require__(11);
-	__webpack_require__(14);
-	__webpack_require__(15);
-	__webpack_require__(16);
-	__webpack_require__(13);
-	__webpack_require__(17);
-	__webpack_require__(24);
 	__webpack_require__(22);
 	__webpack_require__(19);
 	__webpack_require__(20);
@@ -32784,6 +32784,9 @@
 	    this.editing = false;
 	    this.$http = $http;
 	    this.$location = $location;
+	    this.currententry;
+	    this.list = 'true';
+
 
 	    this.populate = function() {
 	      EntryService.getEntries(() => {

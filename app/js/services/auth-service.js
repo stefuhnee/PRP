@@ -5,8 +5,6 @@ module.exports = function(app) {
     let token = $window.localStorage.token;
     const service = {};
 
-    // service.loggedIn = !!token;
-
     service.signUp = function(user) {
       return $http.post('/signup', user)
       .then((res)=> {

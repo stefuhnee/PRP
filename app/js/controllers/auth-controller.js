@@ -5,20 +5,12 @@ module.exports = function(app) {
     this.$location = $location;
     this.loggedIn = AuthService.getToken()
 
-    // $scope.$watch(function() {
-    //   return AuthService.loggedIn;
-    // }, function(newValue, oldValue) {
-    //   console.log('newValue',newValue);
-    //   console.log('oldValue', oldValue);
-    //   console.log(this);
-    // });
+    $scope.$watch(function() {
+      return !!AuthService.getToken();
+    }, function(newValue, oldValue) {
+      this.loggedIn = AuthService.getToken();
+    }.bind(this));
 
-    // $scope.$watch('AuthService.loggedIn', function(newValue, oldValue) {
-    //   this.loggedIn = AuthService.loggedIn;
-    // });
-    //
-    // $scope.$digest();
-    //
     this.goHome = function() {
       this.loggedIn;
       $location.url('/');

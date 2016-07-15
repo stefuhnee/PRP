@@ -5,23 +5,29 @@ module.exports = function(app) {
     this.$location = $location;
     this.loggedIn = AuthService.getToken()
 
-    $scope.$watch(function() {
-      return AuthService.loggedIn;
-    }, function(newValue, oldValue) {
-      console.log('newValue',newValue);
-      console.log('oldValue', oldValue);
-      console.log(this);
-    });
-    
+    // $scope.$watch(function() {
+    //   return AuthService.loggedIn;
+    // }, function(newValue, oldValue) {
+    //   console.log('newValue',newValue);
+    //   console.log('oldValue', oldValue);
+    //   console.log(this);
+    // });
+
+    // $scope.$watch('AuthService.loggedIn', function(newValue, oldValue) {
+    //   this.loggedIn = AuthService.loggedIn;
+    // });
+    //
+    // $scope.$digest();
+    //
     this.goHome = function() {
-      this.loggedIn();
+      this.loggedIn;
       $location.url('/');
     };
 
     this.signOut = function() {
       AuthService.signOut()
       .then(() => {
-        this.loggedIn();
+        this.loggedIn;
         $location.url('/');
       }, ErrorService.logError('Error on Sign Out'));
     };
@@ -29,7 +35,7 @@ module.exports = function(app) {
     this.signUp = function(user) {
       AuthService.signUp(user)
       .then(() => {
-        this.loggedIn();
+        this.loggedIn;
         $location.url('/blog');
       }, ErrorService.logError('Error on Sign Up'));
     };
@@ -37,7 +43,7 @@ module.exports = function(app) {
     this.logIn = function(user) {
       AuthService.logIn(user)
       .then(() => {
-        this.loggedIn();
+        this.loggedIn;
         $location.url('/blog');
       }, ErrorService.logError('Error on Sign Up')
     );

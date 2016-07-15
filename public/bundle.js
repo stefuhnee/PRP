@@ -45,6 +45,13 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
+	__webpack_require__(7);
+	__webpack_require__(8);
+	__webpack_require__(9);
+	__webpack_require__(12);
+	__webpack_require__(6);
+	__webpack_require__(10);
+	__webpack_require__(11);
 	__webpack_require__(14);
 	__webpack_require__(15);
 	__webpack_require__(16);
@@ -56,14 +63,7 @@
 	__webpack_require__(20);
 	__webpack_require__(21);
 	__webpack_require__(18);
-	__webpack_require__(23);
-	__webpack_require__(7);
-	__webpack_require__(8);
-	__webpack_require__(9);
-	__webpack_require__(12);
-	__webpack_require__(6);
-	__webpack_require__(10);
-	module.exports = __webpack_require__(11);
+	module.exports = __webpack_require__(23);
 
 
 /***/ },
@@ -32830,7 +32830,7 @@
 
 
 	module.exports = function(app) {
-	  app.controller('ProfileAdminController', ['$http', 'AuthService', 'AdminService', 'ErrorService', function($http, AuthService, AdminService, ErrorService) {
+	  app.controller('ProfileAdminController', ['$http','$location', 'AuthService', 'AdminService', 'ErrorService', function($http, $location, AuthService, AdminService, ErrorService) {
 	    this.$http = $http;
 
 	    this.admin = {};
@@ -32855,6 +32855,7 @@
 	        this.admin.avatar = updatedAdmin.avatar;
 	        this.admin.name = updatedAdmin.name;
 	        this.admin.description = updatedAdmin.description;
+	        $location.url('/profile');
 	      }),
 	        ErrorService.logError('Error in updating profile');
 	    }.bind(this);

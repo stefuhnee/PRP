@@ -9,9 +9,8 @@ const blogRouter = express.Router();
 
 blogRouter.get('/', jwt, (req, res, next) => {
   User.findById(req.user._id, function(err, user) {
+    if (err) return next(err);
     Entry.find({author: user.username}, (err, entry) => {
-      console.log('user', user);
-      console.log('entry', entry);
       if (err) return next(err);
       res.json(entry);
     });

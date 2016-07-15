@@ -13,24 +13,24 @@ describe('Router Tests', () => {
 
   it('should map routes to controllers', function() {
     angular.module('BucketListApp');
-    angular.mock.inject(function($routeProvider) {
+    angular.mock.inject(function($route) {
 
-      expect($routeProvider.routes['/'].controller).toBe('AuthController');
-      expect($routeProvider.routes['/'].templateUrl).toEqual('/views/partials/home.html');
+      expect($route.routes['/'].controller).toBe('AuthController');
+      expect($route.routes['/'].templateUrl).toEqual('./views/partials/home.html');
 
-      expect($routeProvider.routes['/blog'].controller).toBe('BlogController');
-      expect($routeProvider.routes['/blog'].templateUrl).toEqual('/views/partials/blog.html');
+      expect($route.routes['/blog'].controller).toBe('BlogController');
+      expect($route.routes['/blog'].templateUrl).toEqual('./views/partials/blog.html');
 
-      expect($routeProvider.routes['/blog-admin'].controller).toBe('BlogAdminController');
-      expect($routeProvider.routes['/blog-admin'].templateUrl).toEqual('/views/partials/blog-admin.html');
+      expect($route.routes['/blog-admin'].controller).toBe('BlogAdminController');
+      expect($route.routes['/blog-admin'].templateUrl).toEqual('./views/partials/blog-admin.html');
 
-      expect($routeProvider.routes['/profile'].controller).toBe('ProfileController');
-      expect($routeProvider.routes['/profile'].templateUrl).toEqual('/views/partials/profile.html');
+      expect($route.routes['/profile'].controller).toBe('ProfileController');
+      expect($route.routes['/profile'].templateUrl).toEqual('./views/partials/profile.html');
 
-      expect($routeProvider.routes['/profile-admin'].controller).toBe('ProfileAdminController');
-      expect($routeProvider.routes['/profile-admin'].templateUrl).toEqual('/views/partials/profile-admin.html');
+      expect($route.routes['/profile-admin'].controller).toBe('ProfileAdminController');
+      expect($route.routes['/profile-admin'].templateUrl).toEqual('./views/partials/profile-admin.html');
 
-      expect($routeProvider.routes[null].redirectTo).toEqual('/');
+      expect($route.routes[null].redirectTo).toEqual('/');
     });
   });
 });
